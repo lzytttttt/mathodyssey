@@ -35,6 +35,22 @@ const registry: Record<string, ExperimentComponentLoader> = {
     import('@/components/experiments/probability/PascalDiceLab').then(
       (m) => ({ default: m.default })
     ),
+  'archimedes-polygon-approximation': () =>
+    import('@/components/experiments/geometry/ArchimedesPolygonLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'china-chicken-rabbit-lab': () =>
+    import('@/components/experiments/algebra/ChickenRabbitLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'al-khwarizmi-area-completion': () =>
+    import('@/components/experiments/algebra/CompletingSquareLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'brahmagupta-number-line': () =>
+    import('@/components/experiments/number-line/NegativeNumberLineLab').then(
+      (m) => ({ default: m.default })
+    ),
 };
 
 /**

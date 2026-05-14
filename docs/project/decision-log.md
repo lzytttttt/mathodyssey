@@ -393,3 +393,96 @@ Phase 1 完成 4 个实验（丈量土地、毕达哥拉斯面积、进制转换
 - 图论实验推迟到 Phase 3（独立新范式）
 - 公理构建器推迟到 Phase 3（独立交互设计）
 - Phase 2 聚焦 5 个实验，不扩大范围
+
+---
+
+## DEC-014: 新建 algebra.ts 纯函数模块
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联决策：DEC-008
+
+### 背景
+
+Phase 2.2 鸡兔同笼实验需要纯函数模块。需要决定函数放在哪个文件。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 geometry.ts | 已有模块，无需新建 | 鸡兔同笼不是几何问题，语义不匹配 |
+| 放入 numberSystems.ts | 已有模块 | 已有模块语义是进制/数系，不匹配 |
+| 新建 algebra.ts | 语义准确，Phase 2 代数主线专用 | 多一个文件 |
+
+### 结果
+
+新建 `src/lib/math/algebra.ts`。理由：
+- 鸡兔同笼是代数问题（方程组），不是几何问题
+- Phase 2 叙事主线是"从几何到代数"，algebra.ts 是代数主线的纯函数模块
+- Phase 2.3 面积完成法也会往 algebra.ts 添加 `completingSquare` 函数
+- 遵循 DEC-008 的按语义分模块原则
+
+---
+
+## DEC-015: 面积完成法归类为 parameter-slider（非 geometry-drag）
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联决策：DEC-007、DEC-012
+
+### 背景
+
+Phase 2.3 面积完成法实验（al-khwarizmi-area-completion）的原始规划标注为 `geometry-drag` 类型，暗示使用 PythagorasProof 的 DraggablePoint 拖拽模式。需要确认实际交互范式。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| geometry-drag | 与 PythagorasProof 一致 | 本实验无拖拽交互，命名不准确 |
+| **parameter-slider** | **准确反映交互方式（b/c slider）** | **需要更新 JSON 和文档** |
+
+### 取舍
+
+本实验的核心交互是 b/c 两个 slider 控制参数，SVG 自动展示面积分解与补全的动画过渡。没有用户拖拽几何块的操作。`geometry-drag` 应保留给真正有拖拽交互的实验（如 PythagorasProof 拖拽 a/b 边）。
+
+将 type 改为 `parameter-slider` 与 Phase 2.1（Archimedes）、Phase 2.2（Chicken-Rabbit）的交互命名保持一致，三个实验都是 slider 驱动参数变化 → SVG 实时更新。
+
+### 结果
+
+- experiment.type 改为 `parameter-slider`
+- 不引入 geometry-drag 的误导性命名
+- Phase 2 三个已完成实验（2.1/2.2/2.3）统一为 parameter-slider 类型
+
+---
+
+## DEC-016: number-line 实验类型独立于 parameter-slider
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联决策：DEC-007、DEC-012
+
+### 背景
+
+Phase 2.4 数轴运算实验（brahmagupta-number-line）的交互控件是 slider（起点 + 操作数），与 parameter-slider 类似。需要决定是否将其归类为 parameter-slider。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 改为 parameter-slider | 与 Phase 2.1~2.3 一致 | 丢失"数轴"视觉范式语义 |
+| **保持 number-line** | **语义准确、Phase 2 规划一致** | **交互控件与 parameter-slider 重叠** |
+
+### 取舍
+
+虽然交互控件都是 slider，但用户心智模型不同：
+- parameter-slider：调整参数 → 观察图形变化
+- number-line：在数轴上移动 → 理解方向和距离
+
+number-line 的核心视觉是数轴上的位置与移动，强调方向感和距离感。Phase 2 规划将 number-line 列为新范式，应保持一致。后续的负数运算、不等式实验可复用 number-line 范式。
+
+### 结果
+
+- experiment.type 保持 `number-line`
+- 不合并到 parameter-slider
+- 新建 `src/lib/math/numberLine.ts` 纯函数模块
+- 新建 `src/components/experiments/number-line/` 组件目录

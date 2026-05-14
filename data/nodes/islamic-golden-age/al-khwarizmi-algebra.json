@@ -70,42 +70,54 @@
     {
       "id": "al-khwarizmi-area-completion",
       "title": "面积完成法",
-      "description": "拖拽几何块完成正方形，直观理解配方法",
-      "type": "geometry-drag",
+      "description": "调整参数观察 x² + bx 如何配成完全正方形",
+      "type": "parameter-slider",
       "scene": {
-        "description": "x^2 + bx 的几何表示，需要补成正方形",
-        "goal": "通过拖拽几何块完成正方形，理解配方法",
+        "description": "花拉子米在《代数学》中用几何面积解释二次方程。x² 是一个正方形，bx 可以拆成两个长方形，补上一个小正方形就得到完整的大正方形。",
+        "goal": "通过调整 b 和 c，观察面积分解与补全的过程，理解配方法的几何本质",
         "initialState": {
-          "x": 3,
-          "b": 4
+          "b": 6,
+          "c": 7
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "x-slider",
+            "id": "b-slider",
             "type": "slider",
-            "label": "调整 x 的值",
-            "initialValue": 3,
+            "label": "一次项系数 b",
+            "initialValue": 6,
             "min": 1,
-            "max": 8,
+            "max": 12,
+            "step": 1
+          },
+          {
+            "id": "c-slider",
+            "type": "slider",
+            "label": "面积目标 c",
+            "initialValue": 7,
+            "min": 1,
+            "max": 50,
             "step": 1
           }
         ]
       },
       "guidance": {
         "hints": [
-          "x^2 是一个正方形",
-          "bx 是一个矩形",
-          "把矩形分成两半，补到正方形旁边"
+          "x² 是一个蓝色正方形，bx 是两个橙色长方形",
+          "两个长方形各是 b/2 × x，拼在正方形旁边形成 L 形",
+          "L 形的右下角缺了一块——那就是 (b/2)²",
+          "两边同时加上同一个面积，等式仍然成立"
         ],
         "discoveries": [
-          "x^2 + bx 可以配成 (x + b/2)^2",
-          "配方法的几何意义是补全正方形"
+          "x² + bx 补上 (b/2)² 就变成 (x + b/2)²",
+          "配方法的几何意义是把不完整的正方形补完整",
+          "b 为奇数时，b/2 是分数，但几何逻辑不变",
+          "花拉子米用这种方法解二次方程，比符号推导早了 800 年"
         ],
-        "completionCriteria": "用户成功将 x^2 + bx 配成完全平方"
+        "completionCriteria": "用户理解 x² + bx = c 可以通过配成完全平方求解"
       },
-      "estimatedMinutes": 10
+      "estimatedMinutes": 12
     }
   ],
   "challenges": [

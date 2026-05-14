@@ -72,31 +72,54 @@
       "description": "在扩展数轴上拖拽正数和负数，理解加减法规则",
       "type": "number-line",
       "scene": {
-        "description": "一条从 -10 到 10 的数轴",
-        "goal": "通过操作理解正负数的加减法规则",
+        "description": "在数轴上，正数向右、负数向左。加法是继续移动，减法是反向移动。拖动滑块，观察起点如何通过移动到达终点。",
+        "goal": "通过数轴上的移动理解正负数的加减法规则、相反数和绝对值",
         "initialState": {
-          "position": 0,
-          "range": 10
+          "start": 0,
+          "delta": 5,
+          "operation": "add"
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "number-input",
-            "type": "input",
-            "label": "输入运算",
-            "initialValue": "3 + (-5)"
+            "id": "start",
+            "type": "slider",
+            "label": "起点",
+            "initialValue": 0,
+            "min": -10,
+            "max": 10,
+            "step": 1
+          },
+          {
+            "id": "delta",
+            "type": "slider",
+            "label": "操作数",
+            "initialValue": 5,
+            "min": -10,
+            "max": 10,
+            "step": 1
+          },
+          {
+            "id": "operation",
+            "type": "toggle",
+            "label": "操作",
+            "initialValue": "add"
           }
         ]
       },
       "guidance": {
         "hints": [
-          "正数向右移动，负数向左移动",
-          "加法就是沿数轴正方向移动"
+          "试试 3 + (-5)：从 3 出发，向左走 5 步，到达 -2",
+          "试试 0 - 6：减法就是加上相反数，0 + (-6) = -6",
+          "试试 -3 - (-5)：减去负数等于加上正数，-3 + 5 = 2",
+          "观察相反数：5 和 -5 关于 0 对称，到 0 的距离相同"
         ],
         "discoveries": [
-          "零是正数和负数的分界点",
-          "正数加负数等于相减"
+          "正数向右移动，负数向左移动",
+          "减去一个数等于加上它的相反数",
+          "相反数关于 0 对称，绝对值是到 0 的距离",
+          "零是正数和负数的分界点"
         ],
         "completionCriteria": "用户完成 5 个以上正负数运算"
       },

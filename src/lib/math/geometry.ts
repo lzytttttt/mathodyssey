@@ -121,3 +121,69 @@ export function squareOnEdgeAwayFromPoint(
     [p1[0] + nx, p1[1] + ny],
   ];
 }
+
+// --- Polygon approximation helpers (Archimedes) ---
+
+/**
+ * Compute vertices of a regular n-gon.
+ * @param n - number of sides
+ * @param radius - circumradius (vertex distance from center)
+ * @param center - center point [cx, cy]
+ * @param startAngle - starting angle in radians (default: -π/2, i.e. top)
+ */
+export function regularPolygonVertices(
+  n: number,
+  radius: number,
+  center: Point,
+  startAngle: number = -Math.PI / 2
+): Point[] {
+  const vertices: Point[] = [];
+  for (let i = 0; i < n; i++) {
+    const angle = startAngle + (2 * Math.PI * i) / n;
+    vertices.push([
+      center[0] + radius * Math.cos(angle),
+      center[1] + radius * Math.sin(angle),
+    ]);
+  }
+  return vertices;
+}
+
+/**
+ * Perimeter of a regular n-gon used to approximate a circle.
+ * @param n - number of sides
+ * @param radius - circle radius
+ * @param isInscribed - true for inscribed (lower bound), false for circumscribed (upper bound)
+ */
+export function regularPolygonPerimeter(
+  n: number,
+  radius: number,
+  isInscribed: boolean
+): number {
+  if (isInscribed) {
+    return 2 * n * radius * Math.sin(Math.PI / n);
+  }
+  return 2 * n * radius * Math.tan(Math.PI / n);
+}
+
+/**
+ * Archimedes' method: approximate π using inscribed and circumscribed regular n-gons.
+ * Inscribed:  π lower bound = n · sin(π/n)
+ * Circumscribed: π upper bound = n · tan(π/n)
+ */
+export function archimedesApproximation(n: number): {
+  lower: number;
+  upper: number;
+  inscribedPerimeter: number;
+  circumscribedPerimeter: number;
+  intervalWidth: number;
+} {
+  const lower = n * Math.sin(Math.PI / n);
+  const upper = n * Math.tan(Math.PI / n);
+  return {
+    lower,
+    upper,
+    inscribedPerimeter: lower,   // perimeter / diameter when r=0.5
+    circumscribedPerimeter: upper,
+    intervalWidth: upper - lower,
+  };
+}

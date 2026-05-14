@@ -49,13 +49,13 @@ Phase 1 讲述了数学的起源——人类用身体丈量土地、发现和谐
 
 ### Phase 2 选择：5 个实验
 
-| # | 实验 | 节点 | 类型 | 核心能力 | 优先级 |
-|---|------|------|------|----------|--------|
-| 1 | 鸡兔同笼假设法 | china-chicken-rabbit | parameter-slider | slider 可视化 + 假设推理 | P0 |
-| 2 | 面积完成法 | al-khwarizmi-algebra | geometry-drag | SVG 几何分解 + 配方发现 | P0 |
-| 3 | 多边形逼近 | archimedes-area | parameter-slider | slider + 极限直觉 | P0 |
-| 4 | 数轴上的运算 | brahmagupta-zero | number-line | **新范式** + 负数直觉 | P1 |
-| 5 | 坐标探索器 | descartes-coordinates | coordinate-plotter | **新范式** + 几何代数统一 | P1 |
+| Phase | 实验 | 节点 | 类型 | 核心能力 | 优先级 |
+|-------|------|------|------|----------|--------|
+| 2.1 | 多边形逼近 | archimedes-area | parameter-slider | slider + 极限直觉 | P0 |
+| 2.2 | 鸡兔同笼假设法 | china-chicken-rabbit | parameter-slider | slider 可视化 + 假设推理 | P0 |
+| 2.3 | 面积完成法 | al-khwarizmi-algebra | geometry-drag | SVG 几何分解 + 配方发现 | P0 |
+| 2.4 | 数轴上的运算 | brahmagupta-zero | number-line | **新范式** + 负数直觉 | P1 |
+| 2.5 | 坐标探索器 | descartes-coordinates | coordinate-plotter | **新范式** + 几何代数统一 | P1 |
 
 ### 不在 Phase 2 范围的实验
 
@@ -205,16 +205,23 @@ Phase 1 讲述了数学的起源——人类用身体丈量土地、发现和谐
 
 ## 4. 实施波次
 
-### Wave 1：Slider 三连（复用现有模式）
+### Phase 2.1：多边形逼近（复用 slider 模式）
+
+| 实验 | 新增代码 | 复用 | 预估工时 |
+|------|----------|------|----------|
+| archimedes-polygon-approximation | SVG 多边形渲染 + 逼近计算 | slider 模式 | 低-中 |
+
+**验证标准**：slider 交互流畅、内外切多边形实时更新、π 上下界正确
+
+### Phase 2.2：鸡兔同笼（复用 slider 模式）
 
 | 实验 | 新增代码 | 复用 | 预估工时 |
 |------|----------|------|----------|
 | china-chicken-rabbit-lab | 动物图标可视化 + 结果面板 | BabylonianBaseLab slider 模式 | 低 |
-| archimedes-polygon-approximation | SVG 多边形渲染 + 面积计算 | slider 模式 | 低-中 |
 
-**验证标准**：slider 交互流畅、数值实时更新、引导面板正常
+**验证标准**：slider 可视化、结果面板正常
 
-### Wave 2：几何代数（复用 SVG 模式）
+### Phase 2.3：面积完成法（复用 SVG 模式）
 
 | 实验 | 新增代码 | 复用 | 预估工时 |
 |------|----------|------|----------|
@@ -222,21 +229,30 @@ Phase 1 讲述了数学的起源——人类用身体丈量土地、发现和谐
 
 **验证标准**：拖拽拼合流畅、面积计算正确、公式展示清晰
 
-### Wave 3：新范式（number-line + coordinate-plotter）
+### Phase 2.4：数轴运算（新范式）
 
 | 实验 | 新增代码 | 复用 | 预估工时 |
 |------|----------|------|----------|
 | brahmagupta-number-line | `NumberLine.tsx` 基础组件 + 运算动画 | — | 中 |
-| descartes-coordinate-explorer | `CoordinatePlane.tsx` 基础组件 + 拖拽点 | DraggablePoint | 高 |
 
 **验证标准**：新组件响应式、触摸兼容、动画流畅
+
+### Phase 2.5：坐标探索器（新范式）
+
+| 实验 | 新增代码 | 复用 | 预估工时 |
+|------|----------|------|----------|
+| descartes-coordinate-explorer | `CoordinatePlane.tsx` 基础组件 + 拖拽点 | DraggablePoint | 高 |
+
+**验证标准**：坐标平面可交互、点可拖拽、坐标实时显示
 
 ### 依赖关系
 
 ```
-Wave 1 (slider) ──→ 可并行，无依赖
-Wave 2 (geometry) ──→ 依赖 Wave 1 完成（验证流程跑通）
-Wave 3 (new types) ──→ 可与 Wave 2 并行，但 coordinate-plotter 为 Phase 3 前置
+Phase 2.1 (slider) ──→ 可独立开始
+Phase 2.2 (slider) ──→ 可独立开始
+Phase 2.3 (geometry) ──→ 可独立开始
+Phase 2.4 (number-line) ──→ 可独立开始
+Phase 2.5 (coordinate-plotter) ──→ 可独立开始，但为 Phase 3 前置
 ```
 
 ---

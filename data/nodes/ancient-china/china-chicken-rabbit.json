@@ -68,42 +68,52 @@
     {
       "id": "china-chicken-rabbit-lab",
       "title": "假设法演示",
-      "description": "调整假设比例，观察如何推导出答案",
+      "description": "调整头数和脚数，用假设法推导出鸡和兔的数量",
       "type": "parameter-slider",
       "scene": {
         "description": "笼子里有鸡和兔共 35 只，脚共 94 只",
-        "goal": "通过调整假设找到鸡和兔的数量",
+        "goal": "通过调整头数和脚数，用假设法推导出鸡和兔的数量",
         "initialState": {
           "totalHeads": 35,
-          "totalFeet": 94,
-          "assumedChickens": 35
+          "totalFeet": 94
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "assumption-slider",
+            "id": "heads-slider",
             "type": "slider",
-            "label": "假设鸡的数量",
+            "label": "总头数",
             "initialValue": 35,
-            "min": 0,
-            "max": 35,
+            "min": 2,
+            "max": 50,
+            "step": 1
+          },
+          {
+            "id": "legs-slider",
+            "type": "slider",
+            "label": "总脚数",
+            "initialValue": 94,
+            "min": 4,
+            "max": 200,
             "step": 1
           }
         ]
       },
       "guidance": {
         "hints": [
-          "从全是鸡的假设开始",
-          "观察脚数的差异",
-          "每把一只鸡换成兔，脚数增加 2"
+          "试试经典的 35 头 94 脚——《孙子算经》的原题",
+          "从'假设全是鸡'开始，观察脚数的差异",
+          "每把一只鸡换成兔，脚数增加 2——为什么？",
+          "试试把脚数改成奇数，看看会发生什么"
         ],
         "discoveries": [
-          "假设法可以快速求解配对问题",
-          "差异分析是代数思维的核心",
-          "这个问题等价于二元一次方程组"
+          "假设法的核心是'差值分析'——假设与实际的差距告诉我们答案",
+          "每换一只鸡为兔，脚数增加 2（4-2=2）",
+          "假设法本质上就是在解方程组——只是没有用符号",
+          "脚数必须在 2×头数到 4×头数之间，且必须是偶数，否则无解"
         ],
-        "completionCriteria": "用户通过调整假设找到正确答案"
+        "completionCriteria": "调整头脚数到一组新值，用假设法推导出正确答案"
       },
       "estimatedMinutes": 8
     }

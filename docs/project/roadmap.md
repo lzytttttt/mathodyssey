@@ -142,13 +142,13 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 
 ### 交付物
 
-| 波次 | 交付物 | 类型 | 复用能力 | 优先级 |
-|------|--------|------|----------|--------|
-| Wave 1 | 鸡兔同笼假设法 | parameter-slider | BabylonianBaseLab slider 模式 | P0 |
-| Wave 1 | 多边形逼近圆 | parameter-slider | slider 模式 + SVG 多边形 | P0 |
-| Wave 2 | 面积完成法 | geometry-drag | PythagorasProof SVG + DraggablePoint | P0 |
-| Wave 3 | 数轴上的运算 | number-line（新范式） | — | P1 |
-| Wave 3 | 坐标探索器 | coordinate-plotter（新范式） | — | P1 |
+| Phase | 交付物 | 类型 | 复用能力 | 优先级 | 状态 |
+|-------|--------|------|----------|--------|------|
+| 2.1 | 多边形逼近圆 | parameter-slider | slider 模式 + SVG 多边形 | P0 | ✅ 完成 |
+| 2.2 | 鸡兔同笼假设法 | parameter-slider | slider 模式 + 动物图标 | P0 | ✅ 完成 |
+| 2.3 | 面积完成法 | parameter-slider | slider 模式 + SVG 面积动画 | P0 | ✅ 完成 |
+| 2.4 | 数轴上的运算 | number-line（新范式） | number-line 范式 + numberLine.ts | P1 | ✅ 完成 |
+| 2.5 | 坐标探索器 | coordinate-plotter（新范式） | — | P1 | 待开始 |
 
 ### 新增架构组件
 
@@ -160,7 +160,7 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 
 ### 验收标准
 
-- [ ] 12 个节点中 9 个有完整互动实验（Phase 1 的 4 个 + Phase 2 的 5 个）
+- [x] 12 个节点中 8 个有完整互动实验（Phase 1 的 4 个 + Phase 2 的 4 个）
 - [ ] 剩余 3 个节点（euclid-axioms、newton-leibniz-calculus、euler-graph-theory）显示"即将推出"
 - [ ] 2 个新范式（number-line、coordinate-plotter）组件化完成
 - [ ] 新组件遵循 ExperimentContainer 统一布局
