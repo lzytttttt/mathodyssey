@@ -1,0 +1,132 @@
+{
+  "id": "babylon-base60",
+  "title": "泥板上的六十进制",
+  "subtitle": "时间与角度的起源",
+  "era": "ancient-babylon",
+  "timePeriod": {
+    "start": -1800,
+    "end": -1600,
+    "display": "约公元前 1800 年"
+  },
+  "location": {
+    "name": "巴比伦",
+    "modernName": "Babylon, 伊拉克",
+    "longitude": 44.42,
+    "latitude": 32.54
+  },
+  "historicalProblem": "巴比伦天文学家需要精确记录天文周期，为什么他们选择了 60 进制？",
+  "narrative": {
+    "hook": "在大英博物馆的展厅里，一块 3700 年前的泥板上刻着一个数字：√2 的近似值，精确到小数点后 6 位。",
+    "context": "古巴比伦是两河流域的文明中心。巴比伦人是出色的天文学家，他们精确记录了月球和行星的运动周期。为了处理这些天文数据，他们需要一个强大的计数系统。",
+    "problem": "10 进制只能被 2 和 5 整除，计算分数时很不方便。巴比伦人需要一个更灵活的进制。",
+    "discovery": "60 可以被 1、2、3、4、5、6、10、12、15、20、30 整除——比 10 多得多。巴比伦人采用 60 进制，让分数计算变得简单。这一选择影响至今：60 秒 = 1 分钟，360 度 = 1 圆周。",
+    "credibility": "A",
+    "sources": ["Neugebauer, The Exact Sciences in Antiquity", "Ifrah, The Universal History of Numbers"]
+  },
+  "mathConcepts": [
+    {
+      "name": "进位制",
+      "definition": "用固定的基数来表示数字的系统。n 进制使用 0 到 n-1 的符号。",
+      "category": "algebra",
+      "formula": "123_{10} = 2 \\times 60 + 3 = 203_{60}",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "进制转换",
+      "definition": "将一个数字从一种进位制表示转换为另一种进位制表示。",
+      "category": "algebra",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "60 的因数优势",
+      "definition": "60 有 12 个因数（1,2,3,4,5,6,10,12,15,20,30,60），使得分数计算更方便。",
+      "category": "number-theory",
+      "educationLevel": "middle-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能解释什么是进位制",
+      "level": "understand"
+    },
+    {
+      "description": "能将 10 进制数转换为 60 进制",
+      "level": "apply",
+      "experimentId": "babylon-base60-converter"
+    },
+    {
+      "description": "能说明为什么 60 进制在分数计算中更方便",
+      "level": "analyze"
+    }
+  ],
+  "difficulty": "L1",
+  "experiments": [
+    {
+      "id": "babylon-base60-converter",
+      "title": "进制转换器",
+      "description": "在 10 进制和 60 进制之间转换数字，理解 60 的因数优势",
+      "type": "parameter-slider",
+      "scene": {
+        "description": "巴比伦天文学家需要记录一个天文数字",
+        "goal": "理解 60 进制的工作原理和优势",
+        "initialState": {
+          "decimalValue": 125,
+          "showFactors": true
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "decimal-input",
+            "type": "input",
+            "label": "输入 10 进制数",
+            "initialValue": 125,
+            "min": 0,
+            "max": 10000
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "试试输入不同的数字",
+          "观察 60 进制的每一位代表什么",
+          "想想为什么 60 比 10 更适合做分数"
+        ],
+        "discoveries": [
+          "60 进制用两位就能表示 0-3599 的数",
+          "60 的因数多，分数计算更简洁",
+          "我们今天的时间和角度仍在使用 60 进制"
+        ],
+        "completionCriteria": "用户成功将 3 个以上十进制数转换为 60 进制"
+      },
+      "estimatedMinutes": 8
+    }
+  ],
+  "challenges": [
+    {
+      "id": "babylon-challenge-1",
+      "question": "125 用 60 进制表示是什么？（提示：125 = 2×60 + 5）",
+      "type": "concept-application",
+      "answer": "2:05",
+      "explanation": "125 ÷ 60 = 2 余 5，所以 125₁₀ = 2:05₆₀",
+      "hints": ["用 125 除以 60", "商是高位，余数是低位"],
+      "difficulty": "L2"
+    },
+    {
+      "id": "babylon-challenge-2",
+      "question": "为什么 60 比 10 更适合做分数运算？",
+      "type": "concept-application",
+      "answer": "因为 60 有更多的因数",
+      "explanation": "60 有 12 个因数（1,2,3,4,5,6,10,12,15,20,30,60），而 10 只有 4 个因数（1,2,5,10）。更多的因数意味着更多分数可以表示为有限小数。",
+      "hints": ["列出 60 和 10 的所有因数", "比较它们的数量"],
+      "difficulty": "L2"
+    }
+  ],
+  "modernConnections": [
+    "60 秒 = 1 分钟，60 分钟 = 1 小时",
+    "360 度圆周（6 × 60）",
+    "GPS 坐标的度分秒表示",
+    "计算机中的十六进制（另一种非十进制）"
+  ],
+  "tags": ["代数", "进制", "六十进制", "古巴比伦", "天文学"]
+}

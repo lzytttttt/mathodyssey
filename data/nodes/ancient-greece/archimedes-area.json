@@ -1,0 +1,139 @@
+{
+  "id": "archimedes-area",
+  "title": "阿基米德的穷竭法",
+  "subtitle": "微积分的黎明",
+  "era": "ancient-greece",
+  "timePeriod": {
+    "start": -250,
+    "end": -212,
+    "display": "约公元前 250 年"
+  },
+  "location": {
+    "name": "锡拉库萨",
+    "modernName": "Syracuse, 意大利",
+    "longitude": 15.29,
+    "latitude": 37.07
+  },
+  "historicalProblem": "没有微积分的时代，阿基米德如何计算圆和抛物线的面积？",
+  "narrative": {
+    "hook": "在古希腊，圆的面积是一个谜。所有人都知道 pi*r^2，但没人能证明它。",
+    "context": "阿基米德是古代最伟大的数学家之一。他生活在西西里岛的锡拉库萨，是一位多产的发明家和数学家。",
+    "problem": "如何用已知的直线图形面积来计算曲线图形的面积？",
+    "discovery": "阿基米德发明了穷竭法：在圆内不断内接正多边形，边数越多，多边形面积越接近圆面积。这正是现代极限思想的萌芽。",
+    "credibility": "A",
+    "sources": ["Archimedes, Measurement of a Circle", "Boyer, A History of Mathematics"]
+  },
+  "keyFigures": [
+    {
+      "name": "阿基米德",
+      "lifespan": "约公元前 287 - 212 年",
+      "bio": "古希腊数学家、物理学家、工程师。在数学、物理、工程领域都有开创性贡献。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "极限",
+      "definition": "当一个变量无限趋近某个值时，它所趋近的值就是极限。",
+      "category": "calculus",
+      "formula": "\\lim_{n \\to \\infty} a_n = L",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "穷竭法",
+      "definition": "通过不断逼近来计算面积或体积的方法，是积分思想的前身。",
+      "category": "calculus",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "圆面积",
+      "definition": "圆的面积等于 pi 乘以半径的平方。",
+      "category": "geometry",
+      "formula": "S = \\pi r^2",
+      "educationLevel": "middle-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能解释穷竭法的基本思想",
+      "level": "understand"
+    },
+    {
+      "description": "能通过增加多边形边数逼近圆面积",
+      "level": "apply",
+      "experimentId": "archimedes-polygon-approximation"
+    }
+  ],
+  "difficulty": "L4",
+  "prerequisites": ["pythagoras-theorem"],
+  "experiments": [
+    {
+      "id": "archimedes-polygon-approximation",
+      "title": "多边形逼近",
+      "description": "逐步增加圆内接正多边形的边数，观察面积如何逼近 pi*r^2",
+      "type": "parameter-slider",
+      "scene": {
+        "description": "圆内接正多边形，边数从 3 开始逐步增加",
+        "goal": "观察多边形面积如何逼近圆面积",
+        "initialState": {
+          "sides": 3,
+          "radius": 200
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "sides-slider",
+            "type": "slider",
+            "label": "多边形边数",
+            "initialValue": 3,
+            "min": 3,
+            "max": 128,
+            "step": 1
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "从三角形开始，逐步增加边数",
+          "观察多边形面积和圆面积的差距"
+        ],
+        "discoveries": [
+          "边数越多，多边形越接近圆",
+          "当边数趋向无穷时，多边形面积等于圆面积"
+        ],
+        "completionCriteria": "用户观察到边数增加时面积趋近 pi*r^2"
+      },
+      "estimatedMinutes": 10
+    }
+  ],
+  "challenges": [
+    {
+      "id": "archimedes-challenge-1",
+      "question": "一个圆的半径是 7，面积是多少？（pi 约等于 3.14）",
+      "type": "concept-application",
+      "answer": "约 153.86",
+      "explanation": "S = pi*r^2 = 3.14 x 49 = 153.86",
+      "hints": ["使用圆面积公式", "先计算 r 的平方"],
+      "difficulty": "L2"
+    }
+  ],
+  "modernConnections": [
+    "微积分中的极限概念",
+    "积分的几何意义",
+    "数值计算中的逼近方法"
+  ],
+  "relatedConcepts": [
+    {
+      "nodeId": "pythagoras-theorem",
+      "relationType": "prerequisite",
+      "description": "多边形面积计算需要勾股定理"
+    },
+    {
+      "nodeId": "newton-leibniz-calculus",
+      "relationType": "leads-to",
+      "description": "穷竭法是微积分的思想先驱"
+    }
+  ],
+  "tags": ["微积分", "极限", "穷竭法", "古希腊", "阿基米德", "面积"]
+}

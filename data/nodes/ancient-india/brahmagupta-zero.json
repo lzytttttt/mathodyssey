@@ -1,0 +1,124 @@
+{
+  "id": "brahmagupta-zero",
+  "title": "零的诞生：从空位到数字",
+  "subtitle": "数系的革命",
+  "era": "ancient-india",
+  "timePeriod": {
+    "start": 628,
+    "end": 628,
+    "display": "公元 628 年"
+  },
+  "location": {
+    "name": "乌贾因",
+    "modernName": "Ujjain, 印度",
+    "longitude": 75.78,
+    "latitude": 23.18
+  },
+  "historicalProblem": "零是一个数字吗？它参与运算的规则是什么？负数又是什么？",
+  "narrative": {
+    "hook": "在婆罗摩笈多之前，零只是一个空位标记。是他第一次把零当作一个真正的数字。",
+    "context": "公元 7 世纪，印度数学家婆罗摩笈多写了一本划时代的著作《婆罗摩笈多修正体系》。在这本书中，他第一次系统地定义了零的运算规则和负数的概念。",
+    "problem": "古代数学家不知道如何处理没有这个概念。零是什么？它能参与运算吗？负数又是什么？",
+    "discovery": "婆罗摩笈多定义了零的运算规则：a + 0 = a，a x 0 = 0。他还引入了负数的概念，把数轴从正数扩展到了负数。",
+    "credibility": "A",
+    "sources": ["Brahmasphutasiddhanta", "Ifrah, The Universal History of Numbers"]
+  },
+  "keyFigures": [
+    {
+      "name": "婆罗摩笈多",
+      "lifespan": "公元 598 - 668 年",
+      "bio": "印度数学家、天文学家。第一次系统定义零的运算规则和负数概念。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "零",
+      "definition": "表示没有的数，是加法的单位元。",
+      "category": "number-theory",
+      "formula": "a + 0 = a",
+      "educationLevel": "elementary"
+    },
+    {
+      "name": "负数",
+      "definition": "小于零的数，表示相反方向的量。",
+      "category": "number-theory",
+      "formula": "a + (-a) = 0",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "有理数运算规则",
+      "definition": "正数、负数和零之间的加减乘除规则。",
+      "category": "algebra",
+      "educationLevel": "middle-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能说明零的历史意义",
+      "level": "remember"
+    },
+    {
+      "description": "能在数轴上表示正数、负数和零",
+      "level": "understand",
+      "experimentId": "brahmagupta-number-line"
+    }
+  ],
+  "difficulty": "L2",
+  "experiments": [
+    {
+      "id": "brahmagupta-number-line",
+      "title": "数轴上的运算",
+      "description": "在扩展数轴上拖拽正数和负数，理解加减法规则",
+      "type": "number-line",
+      "scene": {
+        "description": "一条从 -10 到 10 的数轴",
+        "goal": "通过操作理解正负数的加减法规则",
+        "initialState": {
+          "position": 0,
+          "range": 10
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "number-input",
+            "type": "input",
+            "label": "输入运算",
+            "initialValue": "3 + (-5)"
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "正数向右移动，负数向左移动",
+          "加法就是沿数轴正方向移动"
+        ],
+        "discoveries": [
+          "零是正数和负数的分界点",
+          "正数加负数等于相减"
+        ],
+        "completionCriteria": "用户完成 5 个以上正负数运算"
+      },
+      "estimatedMinutes": 8
+    }
+  ],
+  "challenges": [
+    {
+      "id": "zero-challenge-1",
+      "question": "3 + (-5) = ?",
+      "type": "concept-application",
+      "answer": "-2",
+      "explanation": "3 + (-5) = 3 - 5 = -2",
+      "hints": ["正数加负数等于相减"],
+      "difficulty": "L1"
+    }
+  ],
+  "modernConnections": [
+    "有理数运算",
+    "计算机中的整数表示",
+    "金融中的借贷记账",
+    "温度计中的正负温度"
+  ],
+  "tags": ["数论", "零", "负数", "古印度", "婆罗摩笈多", "数系"]
+}

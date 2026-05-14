@@ -1,0 +1,156 @@
+{
+  "id": "newton-leibniz-calculus",
+  "title": "微积分：变化的数学",
+  "subtitle": "从静止到运动",
+  "era": "early-modern",
+  "timePeriod": {
+    "start": 1665,
+    "end": 1684,
+    "display": "17 世纪 60-70 年代"
+  },
+  "historicalProblem": "如何计算瞬间速度？如何求曲线下的面积？变化的量能否用数学精确描述？",
+  "narrative": {
+    "hook": "苹果落地的速度是变化的——越来越快。但数学家只会处理匀速运动。如何描述这种变化？",
+    "context": "17 世纪，物理学需要处理运动和变化的问题，但当时的数学只能处理静止的量。牛顿和莱布尼茨分别独立发明了微积分，解决了这个问题。",
+    "problem": "如何计算变化的量？如何求曲线的切线？如何求曲线下的面积？",
+    "discovery": "微积分的核心思想是：把变化的量在极小的范围内近似为不变的量。导数描述瞬间变化率，积分描述累积量。微积分基本定理把两者联系起来。",
+    "credibility": "A",
+    "sources": ["Newton, Principia", "Leibniz, Nova Methodus", "Boyer, A History of Mathematics"]
+  },
+  "keyFigures": [
+    {
+      "name": "牛顿",
+      "lifespan": "1643 - 1727",
+      "bio": "英国数学家、物理学家。发明了微积分（流数法），提出了万有引力定律。",
+      "credibility": "A"
+    },
+    {
+      "name": "莱布尼茨",
+      "lifespan": "1646 - 1716",
+      "bio": "德国数学家、哲学家。独立发明了微积分，创造了 dx、dy 等符号。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "导数",
+      "definition": "函数在某一点的瞬时变化率。",
+      "category": "calculus",
+      "formula": "f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}",
+      "educationLevel": "college-intro"
+    },
+    {
+      "name": "积分",
+      "definition": "函数在某个区间上的累积量，几何意义是曲线下的面积。",
+      "category": "calculus",
+      "formula": "\\int_a^b f(x) dx",
+      "educationLevel": "college-intro"
+    },
+    {
+      "name": "极限",
+      "definition": "当变量无限趋近某个值时，函数值趋近的值。",
+      "category": "calculus",
+      "formula": "\\lim_{x \\to a} f(x) = L",
+      "educationLevel": "college-intro"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能解释导数的几何意义（切线斜率）",
+      "level": "understand",
+      "experimentId": "newton-tangent-tracker"
+    },
+    {
+      "description": "能在曲线上观察切线斜率的变化",
+      "level": "apply"
+    },
+    {
+      "description": "能说明微积分基本定理的意义",
+      "level": "analyze"
+    }
+  ],
+  "difficulty": "L5",
+  "prerequisites": ["archimedes-area", "descartes-coordinates"],
+  "experiments": [
+    {
+      "id": "newton-tangent-tracker",
+      "title": "切线追踪器",
+      "description": "在曲线上拖拽点，观察切线斜率的变化",
+      "type": "tangent-tracker",
+      "scene": {
+        "description": "一条函数曲线，点可以在曲线上移动",
+        "goal": "理解导数是切线斜率",
+        "initialState": {
+          "function": "x^2",
+          "pointX": 2
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "point-slider",
+            "type": "slider",
+            "label": "在曲线上移动点",
+            "initialValue": 2,
+            "min": -3,
+            "max": 3,
+            "step": 0.1
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "拖拽点，观察切线的变化",
+          "切线斜率就是导数值",
+          "观察斜率如何随 x 变化"
+        ],
+        "discoveries": [
+          "导数就是切线的斜率",
+          "斜率反映函数变化的快慢",
+          "f(x) = x² 的导数是 2x"
+        ],
+        "completionCriteria": "用户理解导数与切线斜率的关系"
+      },
+      "estimatedMinutes": 12
+    }
+  ],
+  "challenges": [
+    {
+      "id": "calculus-challenge-1",
+      "question": "f(x) = x² 在 x = 3 处的导数是多少？",
+      "type": "concept-application",
+      "answer": "6",
+      "explanation": "f'(x) = 2x，所以 f'(3) = 2 × 3 = 6",
+      "hints": ["先求导函数", "再代入 x = 3"],
+      "difficulty": "L4"
+    },
+    {
+      "id": "calculus-challenge-2",
+      "question": "导数和积分是什么关系？",
+      "type": "concept-application",
+      "answer": "它们是互逆运算",
+      "explanation": "微积分基本定理指出：导数和积分是互逆运算。对函数先积分再求导（或先求导再积分），会回到原来的函数。",
+      "hints": ["想想加法和减法的关系", "想想微积分基本定理"],
+      "difficulty": "L5"
+    }
+  ],
+  "modernConnections": [
+    "物理学中的运动学和力学",
+    "经济学中的边际分析",
+    "机器学习中的梯度下降",
+    "工程中的信号处理"
+  ],
+  "relatedConcepts": [
+    {
+      "nodeId": "archimedes-area",
+      "relationType": "prerequisite",
+      "description": "穷竭法是积分思想的先驱"
+    },
+    {
+      "nodeId": "descartes-coordinates",
+      "relationType": "prerequisite",
+      "description": "解析几何为微积分提供了工具"
+    }
+  ],
+  "tags": ["微积分", "导数", "积分", "极限", "近代", "牛顿", "莱布尼茨"]
+}

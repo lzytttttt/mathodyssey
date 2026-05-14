@@ -1,0 +1,150 @@
+{
+  "id": "pascal-fermat-probability",
+  "title": "赌徒的骰子：概率论的诞生",
+  "subtitle": "运气的数学",
+  "era": "early-modern",
+  "timePeriod": {
+    "start": 1654,
+    "end": 1654,
+    "display": "1654 年"
+  },
+  "location": {
+    "name": "巴黎",
+    "modernName": "Paris, 法国",
+    "longitude": 2.35,
+    "latitude": 48.86
+  },
+  "historicalProblem": "赌徒梅累提出：中断的赌局如何公平分配赌注？运气能否用数学计算？",
+  "narrative": {
+    "hook": "1654 年，一个赌徒向帕斯卡提出了一个问题，引发了概率论的诞生。",
+    "context": "法国贵族梅累是一个狂热的赌徒。他遇到了一个难题：如果赌局中断，如何根据当前的胜负情况公平分配赌注？他把这个问题写信告诉了帕斯卡。",
+    "problem": "两个赌徒约定先赢 3 局的人拿走全部赌注。现在甲赢了 2 局，乙赢了 1 局，赌局中断了。赌注该怎么分？",
+    "discovery": "帕斯卡和费马通过通信讨论这个问题，提出了概率的基本思想：用有利结果数除以总结果数。这标志着概率论的诞生。",
+    "credibility": "A",
+    "sources": ["Pascal-Fermat correspondence", "David, Games, Gods and Gambling"]
+  },
+  "keyFigures": [
+    {
+      "name": "帕斯卡",
+      "lifespan": "1623 - 1662",
+      "bio": "法国数学家、物理学家、哲学家。概率论的创始人之一，提出了帕斯卡三角。",
+      "credibility": "A"
+    },
+    {
+      "name": "费马",
+      "lifespan": "1601 - 1665",
+      "bio": "法国数学家。概率论的创始人之一，提出了费马大定理。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "概率",
+      "definition": "事件发生的可能性大小，用 0 到 1 之间的数表示。",
+      "category": "probability",
+      "formula": "P(A) = \\frac{\\text{有利结果数}}{\\text{总结果数}}",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "古典概型",
+      "definition": "每个基本事件等可能发生的概率模型。",
+      "category": "probability",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "大数定律",
+      "definition": "大量重复实验中，事件发生的频率趋近于其概率。",
+      "category": "probability",
+      "educationLevel": "college-intro"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能计算简单事件的概率",
+      "level": "apply",
+      "experimentId": "pascal-dice-simulation"
+    },
+    {
+      "description": "能通过实验观察大数定律",
+      "level": "understand"
+    },
+    {
+      "description": "能区分理论概率和实验频率",
+      "level": "analyze"
+    }
+  ],
+  "difficulty": "L3",
+  "experiments": [
+    {
+      "id": "pascal-dice-simulation",
+      "title": "掷骰子模拟器",
+      "description": "进行大量虚拟掷骰子实验，观察结果分布如何逼近理论概率",
+      "type": "simulation",
+      "scene": {
+        "description": "帕斯卡和费马讨论赌局中的骰子问题。投掷两个六面骰子，观察点数和 2-12 的分布规律。",
+        "goal": "通过大量掷骰子实验，观察频率分布如何趋近理论概率分布",
+        "initialState": {
+          "rolls": 0,
+          "target": 6
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "roll-button",
+            "type": "button",
+            "label": "掷骰子",
+            "initialValue": 0
+          },
+          {
+            "id": "batch-button",
+            "type": "button",
+            "label": "掷 100 次",
+            "initialValue": 0
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "每次掷骰子，每个面出现的概率是 1/6",
+          "掷的次数越多，频率越接近 1/6",
+          "观察频率如何随次数变化"
+        ],
+        "discoveries": [
+          "单次结果是随机的，大量重复是有规律的",
+          "频率趋近于理论概率",
+          "这就是大数定律"
+        ],
+        "completionCriteria": "用户观察到频率趋近于 1/6"
+      },
+      "estimatedMinutes": 10
+    }
+  ],
+  "challenges": [
+    {
+      "id": "probability-challenge-1",
+      "question": "掷一个公平骰子，出现 6 的概率是多少？",
+      "type": "concept-application",
+      "answer": "1/6",
+      "explanation": "骰子有 6 个面，每个面等可能出现，所以 P(6) = 1/6",
+      "hints": ["有利结果数是 1", "总结果数是 6"],
+      "difficulty": "L1"
+    },
+    {
+      "id": "probability-challenge-2",
+      "question": "掷 100 次骰子，出现 6 的次数一定是 100/6 ≈ 17 次吗？",
+      "type": "concept-application",
+      "answer": "不一定，但会接近",
+      "explanation": "大数定律说的是频率趋近于概率，但不是精确相等。100 次实验中，出现 6 的次数可能在 10-25 次之间。",
+      "hints": ["想想大数定律的含义", "频率和概率有什么区别"],
+      "difficulty": "L3"
+    }
+  ],
+  "modernConnections": [
+    "统计学和数据分析",
+    "保险精算",
+    "机器学习中的概率模型",
+    "量子力学中的概率诠释"
+  ],
+  "tags": ["概率", "统计", "骰子", "近代", "帕斯卡", "费马"]
+}

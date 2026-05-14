@@ -1,0 +1,141 @@
+{
+  "id": "al-khwarizmi-algebra",
+  "title": "代数的诞生：al-jabr",
+  "subtitle": "方程求解的系统方法",
+  "era": "islamic-golden-age",
+  "timePeriod": {
+    "start": 820,
+    "end": 830,
+    "display": "公元 820 年"
+  },
+  "location": {
+    "name": "巴格达",
+    "modernName": "Baghdad, 伊拉克",
+    "longitude": 44.37,
+    "latitude": 33.31
+  },
+  "historicalProblem": "如何用系统的方法解决各类方程？代数（algebra）这个词是怎么来的？",
+  "narrative": {
+    "hook": "al-jabr——恢复、补全。这个词来自花拉子密的书名，后来演变成了 algebra（代数）。",
+    "context": "公元 9 世纪，巴格达是伊斯兰世界的学术中心。花拉子密在这里的智慧宫工作，他写了一本改变数学史的书。",
+    "problem": "当时数学家能解特定类型的方程，但缺乏统一的方法。花拉子密的目标是建立一套系统的方法来解各类方程。",
+    "discovery": "花拉子密把方程分为几种标准类型，为每种类型给出几何化的解法。其中面积完成法是核心技巧。",
+    "credibility": "A",
+    "sources": ["al-Khwarizmi, al-jabr wa'l-muqabala", "Boyer, A History of Mathematics"]
+  },
+  "keyFigures": [
+    {
+      "name": "花拉子密",
+      "lifespan": "约 780 - 850 年",
+      "bio": "波斯数学家、天文学家。其著作奠定了代数学的基础，algorithm（算法）一词来自他的名字。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "代数",
+      "definition": "用符号表示未知量，通过等式变换求解的数学分支。",
+      "category": "algebra",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "配方法",
+      "definition": "将二次式化为完全平方的方法。",
+      "category": "algebra",
+      "formula": "x^2 + bx = (x + \\frac{b}{2})^2 - (\\frac{b}{2})^2",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "二次方程",
+      "definition": "最高次数为 2 的方程。",
+      "category": "algebra",
+      "formula": "ax^2 + bx + c = 0",
+      "educationLevel": "high-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能说出代数一词的来源",
+      "level": "remember"
+    },
+    {
+      "description": "能用面积完成法配平方",
+      "level": "apply",
+      "experimentId": "al-khwarizmi-area-completion"
+    }
+  ],
+  "difficulty": "L3",
+  "prerequisites": ["china-chicken-rabbit"],
+  "experiments": [
+    {
+      "id": "al-khwarizmi-area-completion",
+      "title": "面积完成法",
+      "description": "拖拽几何块完成正方形，直观理解配方法",
+      "type": "geometry-drag",
+      "scene": {
+        "description": "x^2 + bx 的几何表示，需要补成正方形",
+        "goal": "通过拖拽几何块完成正方形，理解配方法",
+        "initialState": {
+          "x": 3,
+          "b": 4
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "x-slider",
+            "type": "slider",
+            "label": "调整 x 的值",
+            "initialValue": 3,
+            "min": 1,
+            "max": 8,
+            "step": 1
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "x^2 是一个正方形",
+          "bx 是一个矩形",
+          "把矩形分成两半，补到正方形旁边"
+        ],
+        "discoveries": [
+          "x^2 + bx 可以配成 (x + b/2)^2",
+          "配方法的几何意义是补全正方形"
+        ],
+        "completionCriteria": "用户成功将 x^2 + bx 配成完全平方"
+      },
+      "estimatedMinutes": 10
+    }
+  ],
+  "challenges": [
+    {
+      "id": "algebra-challenge-1",
+      "question": "x^2 + 6x + 9 可以写成什么完全平方？",
+      "type": "concept-application",
+      "answer": "(x + 3)^2",
+      "explanation": "6x / 2 = 3x，所以 x^2 + 6x + 9 = (x + 3)^2",
+      "hints": ["取一次项系数的一半", "3^2 = 9"],
+      "difficulty": "L2"
+    }
+  ],
+  "modernConnections": [
+    "二次方程求根公式",
+    "代数思维和符号运算",
+    "算法思想",
+    "计算机代数系统"
+  ],
+  "relatedConcepts": [
+    {
+      "nodeId": "china-chicken-rabbit",
+      "relationType": "prerequisite",
+      "description": "方程思想的早期形式"
+    },
+    {
+      "nodeId": "descartes-coordinates",
+      "relationType": "leads-to",
+      "description": "笛卡尔统一了代数和几何"
+    }
+  ],
+  "tags": ["代数", "方程", "配方法", "伊斯兰", "花拉子密"]
+}

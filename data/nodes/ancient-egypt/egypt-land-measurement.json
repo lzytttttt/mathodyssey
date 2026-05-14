@@ -1,0 +1,154 @@
+{
+  "id": "egypt-land-measurement",
+  "title": "尼罗河畔的土地丈量",
+  "subtitle": "几何学的起源",
+  "era": "ancient-egypt",
+  "timePeriod": {
+    "start": -2000,
+    "end": -1800,
+    "display": "约公元前 2000 年"
+  },
+  "location": {
+    "name": "孟菲斯",
+    "modernName": "Memphis, 埃及",
+    "longitude": 31.25,
+    "latitude": 29.85
+  },
+  "historicalProblem": "尼罗河每年泛滥后，土地边界被冲毁，如何重新划分土地并计算税收？",
+  "narrative": {
+    "hook": "每年夏天，尼罗河的洪水都会吞没两岸的农田。洪水退去后，一切边界标记都消失了。",
+    "context": "古埃及是尼罗河的馈赠。河流带来的肥沃淤泥让农业繁荣，但每年的洪水也带来了一个难题：土地边界消失了。法老需要重新丈量土地来分配所有权和计算税收。",
+    "problem": "没有边界标记，如何确定每块土地的大小？如何把不规则的地块变成可计算的面积？",
+    "discovery": "埃及的拉绳人发明了一套方法：用绳子丈量，把不规则地块分割为矩形和三角形，分别计算面积再求和。这便是几何学的起源。",
+    "credibility": "B",
+    "sources": ["莱因德纸草书", "Boyer, A History of Mathematics"]
+  },
+  "keyFigures": [
+    {
+      "name": "拉绳人",
+      "lifespan": "约公元前 2000 年",
+      "bio": "古埃及专门负责丈量土地的官员，是最早的几何学家。",
+      "credibility": "B"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "相似三角形",
+      "definition": "两个三角形如果对应角相等，则对应边成比例。",
+      "category": "geometry",
+      "formula": "\\frac{a_1}{a_2} = \\frac{b_1}{b_2} = \\frac{c_1}{c_2}",
+      "educationLevel": "middle-school",
+      "details": "当太阳光线平行照射时，物体和它的影子构成的三角形都相似。"
+    },
+    {
+      "name": "比例关系",
+      "definition": "两个量之间的比值保持不变的关系。",
+      "category": "algebra",
+      "formula": "\\frac{h}{g} = \\frac{L}{l}",
+      "educationLevel": "middle-school",
+      "details": "利用已知高度的标杆和它的影长，可以推算出未知高度建筑的影长比例。"
+    },
+    {
+      "name": "矩形面积",
+      "definition": "矩形的面积等于长乘以宽。",
+      "category": "geometry",
+      "formula": "S = a \\times b",
+      "educationLevel": "elementary"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能解释相似三角形的含义",
+      "level": "understand"
+    },
+    {
+      "description": "能用相似三角形比例关系计算未知高度",
+      "level": "apply",
+      "experimentId": "egypt-land-measurement-lab"
+    },
+    {
+      "description": "能说出利用影子测量高度的原理",
+      "level": "understand"
+    }
+  ],
+  "difficulty": "L2",
+  "experiments": [
+    {
+      "id": "egypt-land-measurement-lab",
+      "title": "影子测高",
+      "description": "利用太阳影子和相似三角形，测量建筑物的高度",
+      "type": "geometry-drag",
+      "scene": {
+        "description": "你需要测量一座金字塔的高度，但不能爬上去。旁边有一根已知高度的标杆。太阳照下来，标杆和金字塔都投下了影子。你能利用影子算出金字塔有多高吗？",
+        "goal": "通过调整太阳角度和标杆高度，发现影子长度与物体高度的比例关系",
+        "initialState": {
+          "sunAngle": 45,
+          "stickHeight": 80,
+          "buildingHeight": 200
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "sun-angle",
+            "type": "slider",
+            "label": "太阳高度角",
+            "initialValue": 45,
+            "min": 15,
+            "max": 75
+          },
+          {
+            "id": "stick-height",
+            "type": "draggable-point",
+            "label": "标杆高度",
+            "initialValue": 80,
+            "min": 40,
+            "max": 140
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "观察标杆影子和金字塔影子的长度比例",
+          "试试改变太阳角度，影子会怎么变化？",
+          "如果标杆高度翻倍，影子会怎样？",
+          "注意两个三角形的形状是否相似"
+        ],
+        "discoveries": [
+          "物体越高，影子越长",
+          "太阳角度越小，影子越长",
+          "标杆和金字塔的影子长度之比等于它们的高度之比",
+          "这就是相似三角形的原理：h/g = L/l"
+        ],
+        "completionCriteria": "用户能解释为什么利用影子可以测量高度，并正确使用比例公式计算"
+      },
+      "estimatedMinutes": 10
+    }
+  ],
+  "challenges": [
+    {
+      "id": "egypt-challenge-1",
+      "question": "一根 2 米高的标杆影子长 3 米，旁边一棵树的影子长 9 米。树有多高？",
+      "type": "concept-application",
+      "answer": "6 米",
+      "explanation": "根据相似三角形：树高/标杆高 = 树影/标杆影，即 h/2 = 9/3，所以 h = 2 x 3 = 6 米",
+      "hints": ["使用比例公式 h/g = L/l", "标杆高 2 米，影长 3 米", "树影长 9 米"],
+      "difficulty": "L2"
+    },
+    {
+      "id": "egypt-challenge-2",
+      "question": "泰勒斯测量金字塔高度时，选了一个特定时刻让标杆影长等于标杆高度。这时太阳角度是多少度？",
+      "type": "exploration",
+      "answer": "45 度",
+      "explanation": "当影长等于物体高度时，tan(角度) = 高度/影长 = 1，所以角度 = 45 度。此时计算最简单：金字塔高度就等于它的影子长度。",
+      "hints": ["在实验中试试 45 度", "观察此时影长和高度的关系", "tan(45°) = 1"],
+      "difficulty": "L3"
+    }
+  ],
+  "modernConnections": [
+    "建筑规划中的面积计算",
+    "GPS 和卫星测绘中的面积测量",
+    "CAD 软件中的几何计算"
+  ],
+  "tags": ["几何", "面积", "测量", "古埃及", "土地丈量"]
+}

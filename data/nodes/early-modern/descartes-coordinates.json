@@ -1,0 +1,150 @@
+{
+  "id": "descartes-coordinates",
+  "title": "笛卡尔：代数与几何的统一",
+  "subtitle": "解析几何的诞生",
+  "era": "early-modern",
+  "timePeriod": {
+    "start": 1637,
+    "end": 1637,
+    "display": "1637 年"
+  },
+  "location": {
+    "name": "莱顿",
+    "modernName": "Leiden, 荷兰",
+    "longitude": 4.49,
+    "latitude": 52.16
+  },
+  "historicalProblem": "代数方程和几何图形之间有什么关系？能否用数字描述位置？",
+  "narrative": {
+    "hook": "据说笛卡尔是在床上观察苍蝇爬行时，想到了用数字描述位置的方法。",
+    "context": "17 世纪，代数和几何是两个独立的数学分支。笛卡尔在 1637 年出版的《方法论》附录中，提出了将两者统一的方法。",
+    "problem": "如何用代数方法研究几何问题？如何用数字精确描述空间中的位置？",
+    "discovery": "笛卡尔引入了坐标系的概念：用两个数（坐标）来确定平面上的一个点。这样，几何图形可以用代数方程表示，代数方程也可以用几何图形可视化。",
+    "credibility": "B",
+    "sources": ["Descartes, La Géométrie", "Boyer, A History of Mathematics"]
+  },
+  "keyFigures": [
+    {
+      "name": "笛卡尔",
+      "lifespan": "1596 - 1650",
+      "bio": "法国数学家、哲学家。解析几何的创始人，提出了'我思故我在'的哲学命题。",
+      "credibility": "A"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "坐标系",
+      "definition": "用有序数对确定平面上点的位置的系统。",
+      "category": "geometry",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "函数图像",
+      "definition": "函数关系在坐标系中的几何表示。",
+      "category": "algebra",
+      "educationLevel": "high-school"
+    },
+    {
+      "name": "解析几何",
+      "definition": "用代数方法研究几何问题的数学分支。",
+      "category": "geometry",
+      "educationLevel": "high-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能在坐标系中表示点的位置",
+      "level": "apply",
+      "experimentId": "descartes-coordinate-explorer"
+    },
+    {
+      "description": "能理解方程和图形的对应关系",
+      "level": "understand"
+    },
+    {
+      "description": "能说明解析几何对数学发展的意义",
+      "level": "analyze"
+    }
+  ],
+  "difficulty": "L3",
+  "prerequisites": ["al-khwarizmi-algebra"],
+  "experiments": [
+    {
+      "id": "descartes-coordinate-explorer",
+      "title": "坐标探索器",
+      "description": "在坐标平面上拖拽点，观察坐标变化",
+      "type": "coordinate-plotter",
+      "scene": {
+        "description": "一个笛卡尔坐标平面",
+        "goal": "理解坐标与位置的对应关系",
+        "initialState": {
+          "pointX": 3,
+          "pointY": 4
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "point-drag",
+            "type": "draggable-point",
+            "label": "拖拽点",
+            "initialValue": 0
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "拖拽点，观察坐标值的变化",
+          "x 坐标表示左右位置",
+          "y 坐标表示上下位置"
+        ],
+        "discoveries": [
+          "每个点对应唯一的坐标对",
+          "坐标的变化反映了点的移动",
+          "方程可以用图形表示"
+        ],
+        "completionCriteria": "用户能预测给定坐标的点位置"
+      },
+      "estimatedMinutes": 8
+    }
+  ],
+  "challenges": [
+    {
+      "id": "descartes-challenge-1",
+      "question": "点 (3, 4) 到原点的距离是多少？",
+      "type": "concept-application",
+      "answer": "5",
+      "explanation": "使用勾股定理：d = √(3² + 4²) = √(9 + 16) = √25 = 5",
+      "hints": ["用距离公式", "距离 = √(x² + y²)"],
+      "difficulty": "L2"
+    },
+    {
+      "id": "descartes-challenge-2",
+      "question": "为什么说笛卡尔统一了代数和几何？",
+      "type": "concept-application",
+      "answer": "他用坐标系把几何图形转化为代数方程，把代数方程转化为几何图形",
+      "explanation": "坐标系是代数和几何之间的桥梁。几何问题可以用代数方法求解，代数问题可以用几何方法直观化。",
+      "hints": ["想想坐标系的作用", "方程和图形有什么关系"],
+      "difficulty": "L3"
+    }
+  ],
+  "modernConnections": [
+    "函数图像和数据可视化",
+    "GPS 定位系统",
+    "计算机图形学",
+    "机器学习中的特征空间"
+  ],
+  "relatedConcepts": [
+    {
+      "nodeId": "al-khwarizmi-algebra",
+      "relationType": "prerequisite",
+      "description": "代数是解析几何的基础"
+    },
+    {
+      "nodeId": "newton-leibniz-calculus",
+      "relationType": "leads-to",
+      "description": "微积分建立在解析几何之上"
+    }
+  ],
+  "tags": ["几何", "坐标系", "解析几何", "近代", "笛卡尔"]
+}

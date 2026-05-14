@@ -1,0 +1,138 @@
+{
+  "id": "china-chicken-rabbit",
+  "title": "鸡兔同笼：假设法的智慧",
+  "subtitle": "代数思维的萌芽",
+  "era": "ancient-china",
+  "timePeriod": {
+    "start": 400,
+    "end": 500,
+    "display": "约公元 5 世纪"
+  },
+  "location": {
+    "name": "建康",
+    "modernName": "南京, 中国",
+    "longitude": 118.80,
+    "latitude": 32.06
+  },
+  "historicalProblem": "今有雉兔同笼，上有三十五头，下有九十四足。问雉兔各几何？",
+  "narrative": {
+    "hook": "今有雉兔同笼，上有三十五头，下有九十四足——这道 1500 年前的数学题，至今仍是代数入门的经典。",
+    "context": "《孙子算经》是中国南北朝时期的数学著作，记载了大量实用数学问题。其中最著名的就是鸡兔同笼问题。",
+    "problem": "笼子里有鸡和兔共 35 只，数脚有 94 只。鸡和兔各有多少只？",
+    "discovery": "假设法：如果全是鸡，应该有 70 只脚，但实际有 94 只，多了 24 只。每把一只鸡换成兔，脚数增加 2。所以兔有 12 只，鸡有 23 只。",
+    "credibility": "A",
+    "sources": ["《孙子算经》", "钱宝琮, 中国数学史"]
+  },
+  "keyFigures": [
+    {
+      "name": "孙子",
+      "lifespan": "约公元 5 世纪",
+      "bio": "《孙子算经》的作者，生平不详。其著作对中国数学发展影响深远。",
+      "credibility": "C"
+    }
+  ],
+  "mathConcepts": [
+    {
+      "name": "方程思想",
+      "definition": "用符号表示未知量，通过等量关系求解的思想。",
+      "category": "algebra",
+      "educationLevel": "middle-school"
+    },
+    {
+      "name": "假设法",
+      "definition": "通过假设一个条件成立，推导出与实际的差异，从而求解的方法。",
+      "category": "algebra",
+      "educationLevel": "elementary"
+    },
+    {
+      "name": "二元一次方程组",
+      "definition": "含有两个未知数的一次方程组。",
+      "category": "algebra",
+      "formula": "\\begin{cases} x + y = 35 \\\\ 2x + 4y = 94 \\end{cases}",
+      "educationLevel": "middle-school"
+    }
+  ],
+  "learningObjectives": [
+    {
+      "description": "能用假设法解决鸡兔同笼问题",
+      "level": "apply",
+      "experimentId": "china-chicken-rabbit-lab"
+    },
+    {
+      "description": "能将鸡兔同笼问题转化为方程组",
+      "level": "analyze"
+    }
+  ],
+  "difficulty": "L2",
+  "experiments": [
+    {
+      "id": "china-chicken-rabbit-lab",
+      "title": "假设法演示",
+      "description": "调整假设比例，观察如何推导出答案",
+      "type": "parameter-slider",
+      "scene": {
+        "description": "笼子里有鸡和兔共 35 只，脚共 94 只",
+        "goal": "通过调整假设找到鸡和兔的数量",
+        "initialState": {
+          "totalHeads": 35,
+          "totalFeet": 94,
+          "assumedChickens": 35
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "assumption-slider",
+            "type": "slider",
+            "label": "假设鸡的数量",
+            "initialValue": 35,
+            "min": 0,
+            "max": 35,
+            "step": 1
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "从全是鸡的假设开始",
+          "观察脚数的差异",
+          "每把一只鸡换成兔，脚数增加 2"
+        ],
+        "discoveries": [
+          "假设法可以快速求解配对问题",
+          "差异分析是代数思维的核心",
+          "这个问题等价于二元一次方程组"
+        ],
+        "completionCriteria": "用户通过调整假设找到正确答案"
+      },
+      "estimatedMinutes": 8
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chicken-challenge-1",
+      "question": "鸡兔同笼，头 20，脚 56。鸡和兔各多少？",
+      "type": "concept-application",
+      "answer": "鸡 12，兔 8",
+      "explanation": "假设全是鸡：20x2=40 脚，差 56-40=16 脚。兔 = 16/2 = 8，鸡 = 20-8 = 12",
+      "hints": ["假设全是鸡", "计算脚数差异", "每换一只兔增加 2 脚"],
+      "difficulty": "L2"
+    },
+    {
+      "id": "chicken-challenge-2",
+      "question": "假设法和列方程组有什么联系？",
+      "type": "concept-application",
+      "answer": "假设法本质上是在解方程组",
+      "explanation": "设鸡 x 只，兔 y 只：x+y=20, 2x+4y=56。假设全是鸡就是设 y=0，差异分析就是消元法。",
+      "hints": ["列出方程组", "想想假设法的每一步对应方程的什么操作"],
+      "difficulty": "L3"
+    }
+  ],
+  "modernConnections": [
+    "代数方程组求解",
+    "线性规划中的约束优化",
+    "经济学中的供需分析",
+    "编程中的算法思维"
+  ],
+  "tags": ["代数", "方程", "假设法", "古中国", "鸡兔同笼"]
+}
