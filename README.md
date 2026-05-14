@@ -33,11 +33,13 @@ MathOdyssey 通过历史故事和互动实验解决这些问题：
 
 ## 当前阶段
 
-**Phase 1 MVP 原型已完成**
+**Phase 2 Planning 已完成，准备进入 Wave 1 开发**
 
 - ✅ Phase 0（项目初始化）：文档体系、Schema、Next.js 项目
 - ✅ Phase 1（MVP 原型）：12 节点 + 时间轴 + 4 个互动实验
-- ⬜ Phase 2（核心互动实验）：补全剩余 8 个节点实验
+- ✅ Phase 1.5（移动端适配）：时间轴触摸交互 + 版权声明
+- ✅ Phase 2 Planning：主线"从几何到代数"、5 个实验规划、文档同步
+- ⬜ Phase 2（从几何到代数）：鸡兔同笼、多边形逼近、面积完成法、数轴运算、坐标探索器
 
 详见 [项目路线图](docs/project/roadmap.md)。
 
@@ -178,21 +180,22 @@ TimelineNode (JSON)
 
 ### 实验类型
 
-| 类型 | 目录 | 技术 | 示例 |
-|------|------|------|------|
-| 几何实验 | `experiments/geometry/` | SVG | 拖拽点、面积验证 |
-| 代数实验 | `experiments/algebra/` | SVG + 滑块 | 进制转换、面积完成法 |
-| 概率实验 | `experiments/probability/` | D3 + Canvas | 掷骰子、频率统计 |
-| 微积分实验 | `experiments/calculus/` | Canvas | 切线追踪、极限可视化 |
+| 类型 | 目录 | 技术 | 示例 | 状态 |
+|------|------|------|------|------|
+| 几何实验 | `experiments/geometry/` | SVG | 拖拽点、面积验证 | 2 个实验 |
+| 数值系统 | `experiments/number-system/` | Slider + 可视化 | 进制转换、数轴运算 | 1 个实验 |
+| 概率实验 | `experiments/probability/` | D3 + Canvas | 掷骰子、频率统计 | 1 个实验 |
+| 坐标实验 | `experiments/coordinate/` | SVG + 拖拽 | 坐标探索器、函数曲线 | Phase 2 新增 |
 
 ## 项目路线图
 
 | 阶段 | 名称 | 核心目标 | 状态 |
 |------|------|----------|------|
-| Phase 0 | 项目初始化 | 基础设施和文档体系 | ✅ 基本完成 |
-| Phase 1 | MVP 原型 | 12 节点 + 时间轴 + 基础实验 | ⬜ 待开始 |
-| Phase 2 | 核心互动实验 | 所有节点有实验 + 概念图谱 | ⬜ 待开始 |
-| Phase 3 | 内容体系扩展 | CMS + 更多节点 | ⬜ 待开始 |
+| Phase 0 | 项目初始化 | 基础设施和文档体系 | ✅ 完成 |
+| Phase 1 | MVP 原型 | 12 节点 + 时间轴 + 4 个实验 | ✅ 完成 |
+| Phase 1.5 | 移动端适配 | 时间轴触摸交互 | ✅ 完成 |
+| Phase 2 | 从几何到代数 | 5 个实验 + 2 个新范式 | 🔵 Planning 完成 |
+| Phase 3 | 微积分与抽象结构 | 切线追踪 + 图论 + 公理 | ⬜ 待开始 |
 | Phase 4 | 学习路径与挑战 | 路径系统 + 挑战题 | ⬜ 待开始 |
 | Phase 5 | 产品化和发布 | 性能优化 + SEO + 部署 | ⬜ 待开始 |
 

@@ -332,3 +332,64 @@ Pointer Events 是 W3C 标准，浏览器支持良好（>96%）。使用 `pointe
 - 容器设置 `touch-action: 'none'` 防止浏览器默认手势拦截
 - 通过 `setPointerCapture` 确保指针移出容器后仍能接收事件
 - 点击 vs 拖拽通过移动距离阈值（5px）区分
+
+---
+
+## DEC-012: Phase 2 主线选择"从几何到代数"
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联文档：`docs/project/phase-2-planning.md`
+
+### 背景
+
+Phase 1 完成 4 个实验（丈量土地、毕达哥拉斯面积、进制转换、掷骰子），覆盖 3 种范式（geometry-drag、parameter-slider、simulation）。8 个节点待实现实验。需要决定 Phase 2 的主线和实验选择。
+
+### 选项
+
+| 方案 | 主线 | 实验数 | 优点 | 缺点 |
+|------|------|--------|------|------|
+| A. 补全所有 8 个 | 无主线 | 8 | 全部完成 | 范围过大、无叙事连贯性 |
+| B. 代数诞生 | 几何→代数 | 5 | 叙事连贯、为 Phase 3 铺路 | 暂缓微积分和图论 |
+| C. 微积分之路 | 极限→导数 | 4 | 数学深度高 | 前置架构未就绪（需坐标系） |
+| D. 跨文化数学 | 各文明代表 | 6 | 覆盖面广 | 叙事散乱、技术跳跃 |
+
+### 取舍
+
+方案 B（代数诞生）的 5 个实验形成清晰的历史弧线：公理化方法 → 逼近思想 → 代数符号 → 数系扩展 → 坐标几何。这条弧线延续 Phase 1 的"测量"主题，推进到"抽象思维"，同时为 Phase 3 微积分建立坐标系基础设施。
+
+方案 A 范围过大，违反 MVP 聚焦原则。方案 C 的微积分实验需要函数曲线渲染能力，而该能力依赖坐标系组件（coordinate-plotter），属于循环依赖。方案 D 叙事散乱，用户体验不佳。
+
+### 结果
+
+- Phase 2 主线确定为"从几何到代数"
+- 5 个实验：鸡兔同笼、多边形逼近、面积完成法、数轴运算、坐标探索器
+- 3 个实验推迟到 Phase 3：欧几里得公理构建器、牛顿切线追踪器、欧拉七桥探索
+- 概念图谱推迟到 Phase 3+
+
+---
+
+## DEC-013: Phase 2 暂不进入微积分和图论
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联决策：DEC-012
+
+### 背景
+
+8 个待实现节点中包含微积分（newton-tangent-tracker）和图论（euler-bridge-explorer）实验。需要决定是否在 Phase 2 实现。
+
+### 取舍
+
+**微积分实验（tangent-tracker）**：需要函数曲线渲染能力（FunctionCurve 组件），而 FunctionCurve 依赖坐标平面组件（CoordinatePlane）。CoordinatePlane 是 Phase 3 坐标探索器建立的基础设施。因此 tangent-tracker 的正确顺序是：Phase 2 建立 CoordinatePlane → Phase 3 在此基础上实现 FunctionCurve → Phase 3 实现 tangent-tracker。
+
+**图论实验（euler-bridge-explorer）**：graph-exploration 是全新范式，需要节点-边图的渲染和路径交互。与"从几何到代数"主线关联较弱，且实现复杂度高。
+
+**公理构建器（euclid-axiom-builder）**：toggle 交互模式需要独立设计，"从公理推导定理"的反馈机制复杂，不适合在 Phase 2 与 5 个实验并行开发。
+
+### 结果
+
+- 微积分实验推迟到 Phase 3（CoordinatePlane 建立后）
+- 图论实验推迟到 Phase 3（独立新范式）
+- 公理构建器推迟到 Phase 3（独立交互设计）
+- Phase 2 聚焦 5 个实验，不扩大范围

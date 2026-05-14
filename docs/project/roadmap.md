@@ -134,31 +134,54 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 
 ---
 
-## Phase 2：核心互动实验
+## Phase 2：从几何到代数
 
-### 目标
-补全其余 8 个节点的互动实验，引入概念图谱。
+### 主线
+
+人类如何从"看图说话"进化到"用符号思考"？Phase 2 沿数学史主线，追踪五个关键转折：公理化方法（欧几里得）→ 逼近思想（阿基米德）→ 代数符号（花拉子米）→ 数系扩展（婆罗摩笈多）→ 坐标几何（笛卡尔）。横跨 1800 年，为 Phase 3 微积分做好架构准备。
 
 ### 交付物
 
-| 交付物 | 说明 | 优先级 |
-|--------|------|--------|
-| 几何实验（1 个） | 欧几里得公理构建器 | P0 |
-| 代数实验（2 个） | 鸡兔同笼假设法、面积完成法 | P0 |
-| 微积分实验（2 个） | 切线追踪器、极限可视化 | P1 |
-| 阿基米德逼近实验 | 多边形逼近圆 | P1 |
-| 七桥探索实验 | 路径探索 | P1 |
-| 零与负数实验 | 数轴操作 | P1 |
-| 概念图谱基础 | 力导向图展示概念关系 | P1 |
-| 实验引导系统 | 提示和发现引导 | P2 |
-| 实验完成反馈 | 完成时的概念总结 | P2 |
+| 波次 | 交付物 | 类型 | 复用能力 | 优先级 |
+|------|--------|------|----------|--------|
+| Wave 1 | 鸡兔同笼假设法 | parameter-slider | BabylonianBaseLab slider 模式 | P0 |
+| Wave 1 | 多边形逼近圆 | parameter-slider | slider 模式 + SVG 多边形 | P0 |
+| Wave 2 | 面积完成法 | geometry-drag | PythagorasProof SVG + DraggablePoint | P0 |
+| Wave 3 | 数轴上的运算 | number-line（新范式） | — | P1 |
+| Wave 3 | 坐标探索器 | coordinate-plotter（新范式） | — | P1 |
+
+### 新增架构组件
+
+| 组件 | 目录 | 后续复用 |
+|------|------|----------|
+| NumberLine.tsx | `experiments/number-system/` | 负数运算、不等式 |
+| CoordinatePlane.tsx | `experiments/coordinate/` | Phase 3 函数图像、微积分 |
+| FunctionCurve.tsx | `experiments/coordinate/` | Phase 3 切线追踪、极限可视化 |
 
 ### 验收标准
-- [ ] 12 个节点每个至少有 1 个互动实验
+
+- [ ] 12 个节点中 9 个有完整互动实验（Phase 1 的 4 个 + Phase 2 的 5 个）
+- [ ] 剩余 3 个节点（euclid-axioms、newton-leibniz-calculus、euler-graph-theory）显示"即将推出"
+- [ ] 2 个新范式（number-line、coordinate-plotter）组件化完成
+- [ ] 新组件遵循 ExperimentContainer 统一布局
+- [ ] 纯函数模块（algebra.ts、coordinate.ts）无 DOM/React 依赖
+- [ ] 注册表更新到 9 个实验
 - [ ] 实验交互流畅，无明显卡顿
-- [ ] 实验引导帮助用户发现数学规律
-- [ ] 概念图谱展示节点之间的关系
-- [ ] 点击图谱节点可跳转到详情页
+- [ ] `npm run lint` 通过（0 errors）
+- [ ] `npm run build` 通过（22+ pages）
+
+### Phase 2 不做什么
+
+| 暂缓内容 | 原因 |
+|----------|------|
+| 欧几里得公理构建器 | toggle 交互模式需独立设计，反馈机制复杂 |
+| 牛顿切线追踪器 | 需先建立函数曲线渲染能力（coordinate-plotter 是前置） |
+| 欧拉七桥探索 | 图论交互范式全新，与"代数诞生"主线关联较弱 |
+| 概念图谱 | 非 MVP 阻塞项，放入 Phase 3+ |
+
+### Phase 3 前置关系
+
+Phase 2 建立的 `CoordinatePlane.tsx` 和 `FunctionCurve.tsx` 是 Phase 3 微积分实验（切线追踪器、极限可视化）的直接前置。Phase 3 将在此基础上实现 tangent-tracker 和 graph-exploration 两种新范式。
 
 ---
 

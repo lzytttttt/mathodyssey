@@ -2,12 +2,13 @@
 
 ## 当前项目阶段
 
-**Phase 1.5 时间轴移动端适配完成**
+**Phase 2 Planning 已完成，准备进入 Phase 2 Wave 1**
 
 - Phase 0（项目初始化）：✅ 全部完成
 - Phase 1（MVP 原型）：✅ 全部完成（基础框架 + 4 个互动实验）
 - Phase 1.5（移动端适配）：✅ 全部完成（时间轴触摸交互 + 版权声明）
-- 下一里程碑：Phase 2（补全剩余 8 个节点实验）
+- **Phase 2 Planning**：✅ 已完成（主线确定、5 个实验规划、文档同步）
+- 下一里程碑：Phase 2 Wave 1（鸡兔同笼 + 多边形逼近）
 
 ---
 
@@ -108,24 +109,40 @@
 
 | 任务 | 优先级 | 预估工作量 | 说明 |
 |------|--------|-----------|------|
-| 补全剩余 8 个节点实验 | P2 | 高 | Phase 2 范围 |
+| Phase 2 Wave 1：鸡兔同笼 + 多边形逼近 | P0 | 中 | slider 复用模式 |
+| Phase 2 Wave 2：面积完成法 | P0 | 中 | geometry-drag 复用模式 |
+| Phase 2 Wave 3：数轴运算 + 坐标探索器 | P1 | 高 | 2 个新范式 |
 | Husky + lint-staged | P2 | 低 | 提交时自动检查 |
 
 ---
 
 ## 下一步优先任务
 
-### 1. Phase 2 补全剩余 8 个节点实验（P2）
+### 1. Phase 2 Wave 1：Slider 复用（P0）
 
-按优先级排序：
-1. 鸡兔同笼假设法（algebra）— slider 类型
-2. 欧几里得公理构建器（geometry）— drag 类型
-3. 面积完成法（algebra）— drag 类型
-4. 大数定律可视化（probability）— simulation 类型
-5. 切线追踪器（calculus）— drag 类型
-6. 极限可视化（calculus）— slider 类型
-7. 多边形逼近圆（geometry）— slider 类型
-8. 七桥探索（graph theory）— path 类型
+1. **鸡兔同笼假设法**（china-chicken-rabbit-lab）— parameter-slider
+   - 复用 BabylonianBaseLab 的 slider 模式
+   - 新增 algebra.ts 纯函数模块
+   - 动物图标可视化 + 结果面板
+2. **多边形逼近圆**（archimedes-polygon-approximation）— parameter-slider
+   - 复用 slider 模式 + SVG 多边形渲染
+   - 扩展 geometry.ts 添加多边形面积函数
+   - 圆 + 内接正多边形 + 面积对比
+
+### 2. Phase 2 Wave 2：几何代数（P0）
+
+3. **面积完成法**（al-khwarizmi-area-completion）— geometry-drag
+   - 复用 PythagorasProof 的 SVG + DraggablePoint
+   - x² + bx 的几何分解 + 拖拽拼合
+
+### 3. Phase 2 Wave 3：新范式（P1）
+
+4. **数轴运算**（brahmagupta-number-line）— number-line（新范式）
+   - 新建 NumberLine.tsx 基础组件
+   - 小人跳跃动画 + 运算可视化
+5. **坐标探索器**（descartes-coordinate-explorer）— coordinate-plotter（新范式）
+   - 新建 CoordinatePlane.tsx 基础组件
+   - Phase 3 微积分实验的前置架构
 
 ---
 
@@ -144,25 +161,25 @@
 
 ### 必读（按顺序）
 1. `docs/project/session-handoff.md` — 本文件，了解当前状态
-2. `docs/content/timeline-node-schema.md` — 实验数据结构定义
-3. `docs/content/content-system.md` — 实验设计规范（第 138-218 行）
-4. `docs/engineering/technical-architecture.md` — 组件分层和目录结构
-5. `docs/project/backlog.md` — 任务列表和依赖关系
+2. `docs/project/phase-2-planning.md` — Phase 2 完整规划（主线、实验、波次、架构）
+3. `docs/content/timeline-node-schema.md` — 实验数据结构定义
+4. `docs/content/content-system.md` — 实验设计规范（第 138-218 行）
+5. `docs/project/backlog.md` — 任务列表和依赖关系（F-04-06 ~ F-04-10）
 
 ### 参考
 6. `CLAUDE.md` — 开发原则和约束
-7. `docs/project/roadmap.md` — Phase 1 验收标准
-8. `docs/project/decision-log.md` — 已有技术决策（特别是 DEC-007 实验架构）
-9. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告（含架构复盘、移动端状态、问题清单）
+7. `docs/project/roadmap.md` — Phase 2 验收标准
+8. `docs/project/decision-log.md` — 已有技术决策（特别是 DEC-012 Phase 2 主线选择）
+9. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告
 
-### 代码
-9. `src/types/timeline.ts` — Experiment 相关类型定义
-10. `src/lib/experiments/registry.ts` — 实验注册表
-11. `src/components/experiments/ExperimentContainer.tsx` — 实验容器
-12. `src/components/experiments/geometry/MeasurementLab.tsx` — 第一个实验（参考模式）
-13. `src/components/experiments/geometry/DraggablePoint.tsx` — 可复用拖拽组件
-14. `src/lib/math/geometry.ts` — 几何计算纯函数
-15. `src/hooks/useTimelinePanZoom.ts` — 时间轴平移/缩放 Hook（Phase 1.5）
+### 代码（Wave 1 参考）
+10. `src/components/experiments/number-system/BabylonianBaseLab.tsx` — slider 实验参考模式（鸡兔同笼复用）
+11. `src/lib/math/numberSystems.ts` — 纯函数模块参考模式
+12. `src/lib/math/geometry.ts` — 几何计算纯函数（多边形逼近扩展）
+13. `src/components/experiments/ExperimentContainer.tsx` — 实验容器
+14. `src/lib/experiments/registry.ts` — 实验注册表（Wave 1 需新增 2 条）
+15. `data/nodes/ancient-china/china-chicken-rabbit.json` — 鸡兔同笼实验配置
+16. `data/nodes/ancient-greece/archimedes-area.json` — 多边形逼近实验配置
 
 ---
 
@@ -181,6 +198,8 @@
 | DEC-009 | 数值系统实验归入 number-system 目录 | 2026-05-14 |
 | DEC-010 | 概率实验归入 probability 目录，纯函数独立为 probability.ts | 2026-05-14 |
 | DEC-011 | 时间轴交互采用 Pointer Events 统一鼠标和触摸 | 2026-05-14 |
+| DEC-012 | Phase 2 主线选择"从几何到代数"，5 个实验 | 2026-05-14 |
+| DEC-013 | Phase 2 暂不进入微积分和图论（前置架构未就绪） | 2026-05-14 |
 
 ---
 
