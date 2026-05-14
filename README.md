@@ -246,3 +246,11 @@ TimelineNode (JSON)
 | [决策记录](docs/project/decision-log.md) | 关键决策的背景和理由 |
 | [ADR](docs/project/adr/) | 架构决策记录 |
 | [协作规范](CLAUDE.md) | Claude Code 工作规范 |
+
+## 版权声明
+
+Copyright 2026 lzytttttt
+
+本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 开源发布。
+
+你可以自由使用、修改和分发本项目的代码，但需遵守 Apache 2.0 协议的条款，包括保留版权声明和许可证副本。详见 [LICENSE](LICENSE) 文件。

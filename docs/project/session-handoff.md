@@ -2,11 +2,12 @@
 
 ## 当前项目阶段
 
-**Phase 1 MVP 原型全部完成**
+**Phase 1.5 时间轴移动端适配完成**
 
 - Phase 0（项目初始化）：✅ 全部完成
 - Phase 1（MVP 原型）：✅ 全部完成（基础框架 + 4 个互动实验）
-- 下一里程碑：Phase 2（补全剩余 8 个节点实验 + 移动端适配）
+- Phase 1.5（移动端适配）：✅ 全部完成（时间轴触摸交互 + 版权声明）
+- 下一里程碑：Phase 2（补全剩余 8 个节点实验）
 
 ---
 
@@ -85,13 +86,28 @@
 - [x] `npm run build` 通过（17 个页面全部生成）
 - [x] `npm run lint` 通过（0 errors, 0 warnings）
 
+### 时间轴移动端适配（Phase 1.5）
+- [x] useTimelinePanZoom hook `src/hooks/useTimelinePanZoom.ts`
+  - Pointer Events 统一处理鼠标和触摸
+  - 单指拖拽平移（setPointerCapture + 边界约束）
+  - 双指 pinch 缩放（距离比计算 + 中点缩放）
+  - 桌面端滚轮缩放
+  - 点击 vs 拖拽区分（5px 阈值）
+  - touch-action: none 防止浏览器默认手势
+  - 纯函数分离：clampZoom、calculatePinchDistance、calculatePanDelta
+- [x] TimelineCanvas 重构为使用 hook
+- [x] 版权声明：Footer + README + LICENSE（Apache 2.0）
+
+### 验证结果（Phase 1.5）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+
 ---
 
 ## 未完成内容
 
 | 任务 | 优先级 | 预估工作量 | 说明 |
 |------|--------|-----------|------|
-| 移动端触摸适配 | P1 | 中 | 时间轴触摸滑动、实验触摸操作 |
 | 补全剩余 8 个节点实验 | P2 | 高 | Phase 2 范围 |
 | Husky + lint-staged | P2 | 低 | 提交时自动检查 |
 
@@ -99,15 +115,7 @@
 
 ## 下一步优先任务
 
-### 1. 移动端触摸适配（P1）
-
-时间轴和实验的触摸操作：
-- 时间轴触摸滑动（drag to pan）
-- DraggablePoint 触摸事件（已支持 Pointer Events）
-- 实验滑块控件触摸优化
-- 响应式布局验证（手机竖屏/横屏）
-
-### 2. Phase 2 补全剩余 8 个节点实验（P2）
+### 1. Phase 2 补全剩余 8 个节点实验（P2）
 
 按优先级排序：
 1. 鸡兔同笼假设法（algebra）— slider 类型
@@ -154,6 +162,7 @@
 12. `src/components/experiments/geometry/MeasurementLab.tsx` — 第一个实验（参考模式）
 13. `src/components/experiments/geometry/DraggablePoint.tsx` — 可复用拖拽组件
 14. `src/lib/math/geometry.ts` — 几何计算纯函数
+15. `src/hooks/useTimelinePanZoom.ts` — 时间轴平移/缩放 Hook（Phase 1.5）
 
 ---
 
@@ -171,12 +180,32 @@
 | DEC-008 | 几何渲染辅助函数放入 lib/math/geometry.ts | 2026-05-14 |
 | DEC-009 | 数值系统实验归入 number-system 目录 | 2026-05-14 |
 | DEC-010 | 概率实验归入 probability 目录，纯函数独立为 probability.ts | 2026-05-14 |
+| DEC-011 | 时间轴交互采用 Pointer Events 统一鼠标和触摸 | 2026-05-14 |
 
 ---
 
-## 文件变更摘要（Phase 1.1 ~ 1.4）
+## 文件变更摘要（Phase 1.1 ~ 1.5）
 
-### 新增文件（15 个）
+### 新增文件（Phase 1.5）
+
+```
+src/
+├── hooks/
+│   └── useTimelinePanZoom.ts       # 时间轴平移/缩放 Hook（Pointer Events）
+└── LICENSE                          # Apache 2.0 许可证
+```
+
+### 修改文件（Phase 1.5）
+
+- `src/components/timeline/TimelineCanvas.tsx` — 重构为使用 useTimelinePanZoom hook
+- `src/components/layout/Footer.tsx` — 添加 Apache 2.0 版权声明
+- `README.md` — 添加版权和许可证章节
+- `docs/project/decision-log.md` — 新增 DEC-011
+- `docs/project/backlog.md` — 新增 F-02-06、更新 T-02-01-07 状态
+- `docs/project/roadmap.md` — 新增 Phase 1.5 章节、更新移动端验收
+- `docs/project/session-handoff.md` — Phase 1.5 状态更新
+
+### 新增文件（Phase 1.1 ~ 1.4）（15 个）
 
 ```
 src/

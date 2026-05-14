@@ -7,6 +7,18 @@ export default function Footer() {
           <p className="mt-2">
             数学不是需要记忆的公式，而是人类在解决真实问题过程中逐步发明的思维工具。
           </p>
+          <p className="mt-4 text-xs text-stone-400">
+            &copy; 2026 lzytttttt. Licensed under the{' '}
+            <a
+              href="https://www.apache.org/licenses/LICENSE-2.0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-stone-600"
+            >
+              Apache License 2.0
+            </a>
+            .
+          </p>
         </div>
       </div>
     </footer>

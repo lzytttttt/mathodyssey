@@ -300,3 +300,35 @@ probability 目录可容纳后续的大数定律可视化、概率分布探索�
 - 组件目录：`src/components/experiments/probability/`
 - 数学工具：`src/lib/math/probability.ts`（随机模拟 + 统计纯函数）
 - 后续概率实验（如大数定律可视化）放入同一目录
+
+---
+
+## DEC-011: 时间轴交互采用 Pointer Events 统一鼠标和触摸
+
+- 日期：2026-05-14
+- 状态：已决定
+- 关联 ADR：无
+
+### 背景
+
+Phase 1 Final Review 发现 TimelineCanvas 仅使用鼠标事件（onMouseDown/onMouseMove/onMouseUp/onWheel），移动端触摸无法操作时间轴。这是进入 Phase 2 前的 P1 阻塞项。需要选择移动端适配方案。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 分别处理 mouse + touch 事件 | 逻辑直观 | 两套代码、touch 手势需手动解析 |
+| Hammer.js / react-use-gesture | 功能丰富 | 引入第三方依赖（违反 CLAUDE.md） |
+| **Pointer Events（统一 API）** | **一套代码覆盖鼠标/触摸/触控笔、W3C 标准** | **需处理多指追踪** |
+
+### 取舍
+
+Pointer Events 是 W3C 标准，浏览器支持良好（>96%）。使用 `pointerId` 追踪多个触点，天然支持 pinch-to-zoom。项目已有 `useDrag` hook 使用 Pointer Events，保持一致性。不需要引入第三方库，符合 CLAUDE.md 约束。
+
+### 结果
+
+- 抽取 `useTimelinePanZoom` hook，使用 Pointer Events 处理单指平移和双指缩放
+- 保留 `onWheel` 处理桌面端滚轮缩放
+- 容器设置 `touch-action: 'none'` 防止浏览器默认手势拦截
+- 通过 `setPointerCapture` 确保指针移出容器后仍能接收事件
+- 点击 vs 拖拽通过移动距离阈值（5px）区分
