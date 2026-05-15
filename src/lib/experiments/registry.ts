@@ -55,6 +55,22 @@ const registry: Record<string, ExperimentComponentLoader> = {
     import('@/components/experiments/coordinate/CartesianExplorerLab').then(
       (m) => ({ default: m.default })
     ),
+  'descartes-function-explorer': () =>
+    import('@/components/experiments/function/FunctionExplorerLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'descartes-rate-of-change': () =>
+    import('@/components/experiments/calculus/AverageRateLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'newton-tangent-tracker': () =>
+    import('@/components/experiments/calculus/TangentTrackerLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'newton-area-accumulation': () =>
+    import('@/components/experiments/calculus/AreaAccumulatorLab').then(
+      (m) => ({ default: m.default })
+    ),
 };
 
 /**

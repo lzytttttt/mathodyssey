@@ -180,8 +180,6 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 - 质量：lint 0 errors，build 17 pages
 - 已修复：README.md Phase 2 状态
 - 建议：可进入 Phase 3
-- [ ] `npm run lint` 通过（0 errors）
-- [ ] `npm run build` 通过（22+ pages）
 
 ### Phase 2 不做什么
 
@@ -198,28 +196,96 @@ Phase 2 建立的 `CoordinatePlane.tsx` 和 `FunctionCurve.tsx` 是 Phase 3 微�
 
 ---
 
-## Phase 3：内容体系扩展
+## Phase 3：从坐标到变化
 
 ### 目标
-扩展内容管理系统，支持更多节点和内容编辑流程。
+
+沿着"从坐标到变化"的数学史主线，建立函数可视化和微积分直觉。从笛卡尔坐标自然过渡到函数图像，再从割线斜率（平均变化率）推进到切线斜率（瞬时变化率），最后以面积累积（积分）收尾。
+
+### 主线
+
+```
+笛卡尔                    牛顿/莱布尼茨
+(1637)                    (1665-1684)
+   │                           │
+   ▼                           ▼
+"方程就是曲线"              "变化的数学"
+"函数 = 输入→输出"          "瞬间速率 = 切线斜率"
+"割线斜率 → 平均变化率"     "面积 = 累积量"
+   │                           │
+   ▼                           ▼
+ 函数可视化                  导数 + 积分
+ 割线与平均变化率
+```
 
 ### 交付物
 
-| 交付物 | 说明 | 优先级 |
-|--------|------|--------|
-| CMS 适配器 | 支持从 Headless CMS 加载内容 | P0 |
-| 内容编辑流程 | 编写、审查、发布的工作流 | P0 |
-| 内容质量标准 | 编辑指南和质量检查清单 | P1 |
-| 内容模板 | 新节点的标准模板 | P1 |
-| 10 个新节点 | 重点补充中国和印度数学 | P1 |
-| 发布流水线 | 内容变更的自动构建和部署 | P2 |
+| Phase | 交付物 | 类型 | 复用能力 | 优先级 | 状态 |
+|-------|--------|------|----------|--------|------|
+| 3.1 | Function Graph Explorer | parameter-slider | CoordinateGrid + coordinate.ts + Slider | P0 | ✅ 完成 |
+| 3.2 | Average Rate of Change Lab | graph-exploration | FunctionCurve + SecantLine + calculus.ts | P0 | ✅ 完成 |
+| 3.3 | Tangent Tracker | tangent-tracker | FunctionCurve + SecantLine + TangentLine | P0 | ✅ 完成 |
+| 3.4 | Area Accumulation Lab | parameter-slider | FunctionCurve + AreaUnderCurve + calculus.ts | P0 | ✅ 完成 |
+
+### 新增架构组件
+
+| 组件/模块 | 目录 | 后续复用 |
+|-----------|------|----------|
+| functions.ts | `src/lib/math/` | 所有函数实验 |
+| calculus.ts | `src/lib/math/` | 切线追踪、面积累积 |
+| FunctionCurve.tsx | `experiments/function/` | Phase 4+ 所有函数实验 |
+| SecantLine.tsx | `experiments/calculus/` | 切线追踪器（点+直线模式） |
+| TangentLine.tsx | `experiments/calculus/` | 切线渲染（纯展示，接收 point+slope） |
+| AreaUnderCurve.tsx | `experiments/calculus/` | 定积分可视化 |
+
+### 节点分配
+
+不新增节点。4 个实验分配到现有节点：
+
+| 节点 | 新增实验 | 节点实验总数 |
+|------|----------|-------------|
+| descartes-coordinates | Function Graph Explorer + Average Rate of Change Lab | 3 个 |
+| newton-leibniz-calculus | Tangent Tracker + Area Accumulation Lab | 2 个 |
 
 ### 验收标准
-- [ ] 新增节点无需修改代码
-- [ ] 内容编辑指南完整可用
-- [ ] 10 个新节点内容质量达标
-- [ ] CMS 可视化编辑器可用
-- [ ] 内容变更自动触发构建
+
+- [x] 12 个节点中 11 个有完整互动实验（Phase 3.4 后：11/12）
+- [x] descartes-coordinates 节点有 3 个实验（3/3）
+- [x] newton-leibniz-calculus 节点有 2 个实验（Phase 3.4：2/2）
+- [x] 剩余 1 个节点（euclid-axioms）显示"即将推出"
+- [x] tangent-tracker 范式组件化完成（TangentLine.tsx + TangentTrackerLab.tsx）
+- [x] AreaUnderCurve.tsx 面积渲染组件完成
+- [x] FunctionCurve.tsx 可渲染函数曲线（linear + quadratic）
+- [x] 纯函数模块 functions.ts 无 DOM/React 依赖
+- [x] 纯函数模块 calculus.ts 无 DOM/React 依赖
+- [x] 注册表更新到 13 个实验（Phase 3.4 新增 1 个）
+- [x] 单节点多实验机制验证通过（descartes 有 3 个实验）
+- [x] `npm run lint` 通过（0 errors）
+- [x] `npm run build` 通过（17 pages）
+- [x] TypeScript 严格模式，无 `any` 类型
+
+### Phase 3 不做什么
+
+| 暂缓内容 | 原因 | 推迟到 |
+|----------|------|--------|
+| euler-bridge-explorer | 属于图论/离散数学，与"函数→变化"主线无关 | Phase 4 |
+| euclid-axiom-builder | toggle 交互模式需独立设计 | Phase 4 |
+| 大数定律可视化 | simulation 范式已有，与 Phase 3 主线无关 | Phase 4 |
+| 微分方程可视化 | 前置能力不足（需先建立导数+积分） | Phase 5 |
+| 概念图谱 | 非 MVP 阻塞项 | Phase 5+ |
+| 自动化测试 | 纯函数无单元测试 | Phase 5+ |
+| CI/CD | 手动 lint/build | Phase 5+ |
+
+### Phase 3 Final Review
+
+详见 `docs/project/phase-3-final-review.md`。
+
+- 架构复盘：13 实验通过 registry 接入、复用容器、纯函数分离
+- 移动端：SVG viewBox 响应式，slider 触摸友好，80 矩形无性能问题
+- 内容一致性：12 节点 JSON 完整，13 个实验 ID 一致
+- 质量：lint 0 errors，build 17 pages
+- 已修复：README.md Phase 3 状态
+- 建议：可进入 Phase 4
 
 ---
 

@@ -75,41 +75,129 @@
     {
       "id": "newton-tangent-tracker",
       "title": "切线追踪器",
-      "description": "在曲线上拖拽点，观察切线斜率的变化",
+      "description": "通过调整点 x 和间隔 h，观察割线如何逼近切线",
       "type": "tangent-tracker",
       "scene": {
-        "description": "一条函数曲线，点可以在曲线上移动",
-        "goal": "理解导数是切线斜率",
+        "description": "牛顿想知道苹果下落的「瞬间速度」。在曲线上取一点 A 和附近一点 B，连接它们的割线斜率是「平均变化率」。当 B 无限靠近 A 时，割线变成切线——斜率就是瞬时变化率。",
+        "goal": "理解导数 = 切线斜率 = 瞬时变化率，发现 h 越小割线越接近切线",
         "initialState": {
-          "function": "x^2",
-          "pointX": 2
+          "functionType": "quadratic",
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "x": 2,
+          "h": 1
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "point-slider",
+            "id": "x",
             "type": "slider",
-            "label": "在曲线上移动点",
+            "label": "x（切点位置）",
             "initialValue": 2,
-            "min": -3,
-            "max": 3,
+            "min": -5,
+            "max": 5,
+            "step": 0.1
+          },
+          {
+            "id": "h",
+            "type": "slider",
+            "label": "h（间隔）",
+            "initialValue": 1,
+            "min": 0.1,
+            "max": 5,
             "step": 0.1
           }
         ]
       },
       "guidance": {
         "hints": [
-          "拖拽点，观察切线的变化",
-          "切线斜率就是导数值",
-          "观察斜率如何随 x 变化"
+          "把 x 拖到 0，切线是什么方向？斜率是多少？",
+          "把 h 从 1 逐渐减小到 0.1，割线怎么变？",
+          "x=2 时切线斜率是多少？试试验证 f'(2) = 2×2 = 4",
+          "h 固定，拖动 x 观察切线斜率如何随位置变化"
         ],
         "discoveries": [
-          "导数就是切线的斜率",
-          "斜率反映函数变化的快慢",
-          "f(x) = x² 的导数是 2x"
+          "导数 f'(x) 就是切线的斜率 = 瞬时变化率",
+          "h 越小，割线越接近切线——这就是极限的直觉",
+          "对 y=x²，切线斜率 = 2x，斜率本身也是 x 的函数",
+          "x=0 时切线水平（斜率=0），这就是顶点"
         ],
-        "completionCriteria": "用户理解导数与切线斜率的关系"
+        "completionCriteria": "能解释 h→0 时割线趋近切线的过程，能说明导数 = 切线斜率"
+      },
+      "estimatedMinutes": 12
+    },
+    {
+      "id": "newton-area-accumulation",
+      "title": "面积累积器",
+      "description": "用矩形逼近曲线下面积，理解积分的几何直觉",
+      "type": "parameter-slider",
+      "scene": {
+        "description": "如何求曲线下方的面积？把区间切成许多小矩形，矩形面积之和会逐渐逼近真实面积。切得越细，逼近越准——这就是积分的核心思想。",
+        "goal": "理解积分 = 曲线下面积 = 矩形逼近的极限，发现 n 越大逼近越准",
+        "initialState": {
+          "functionType": "quadratic",
+          "a": 1,
+          "b": 0,
+          "c": 1,
+          "rangeA": 0,
+          "rangeB": 3,
+          "n": 8,
+          "method": "left"
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "rangeA",
+            "type": "slider",
+            "label": "a（区间起点）",
+            "initialValue": 0,
+            "min": -5,
+            "max": 5,
+            "step": 0.5
+          },
+          {
+            "id": "rangeB",
+            "type": "slider",
+            "label": "b（区间终点）",
+            "initialValue": 3,
+            "min": -5,
+            "max": 5,
+            "step": 0.5
+          },
+          {
+            "id": "n",
+            "type": "slider",
+            "label": "n（矩形数量）",
+            "initialValue": 8,
+            "min": 4,
+            "max": 80,
+            "step": 1
+          },
+          {
+            "id": "method",
+            "type": "button",
+            "label": "采样方法",
+            "initialValue": "left"
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "先把 n 设为 4，观察矩形和真实面积的差距",
+          "把 n 从 4 逐渐增到 64，矩形和怎么变？",
+          "试试 left、right、midpoint 三种方法，同 n 下哪个更接近？",
+          "区间 [0,3] 上 y=x²+1 的精确积分是多少？验证一下"
+        ],
+        "discoveries": [
+          "矩形面积之和 = 黎曼和，是积分的近似",
+          "n 越大，矩形越窄，黎曼和越接近真实面积",
+          "midpoint 通常比 left/right 更快逼近",
+          "积分 = 极限下的矩形面积之和 = 曲线下面积"
+        ],
+        "completionCriteria": "能解释 n→∞ 时黎曼和趋近积分值的过程，能说明积分 = 曲线下面积"
       },
       "estimatedMinutes": 12
     }

@@ -58,6 +58,16 @@
       "experimentId": "descartes-coordinate-explorer"
     },
     {
+      "description": "能通过调整参数理解函数方程与曲线形状的关系",
+      "level": "apply",
+      "experimentId": "descartes-function-explorer"
+    },
+    {
+      "description": "能通过调整区间端点理解割线斜率与平均变化率的关系",
+      "level": "apply",
+      "experimentId": "descartes-rate-of-change"
+    },
+    {
       "description": "能理解方程和图形的对应关系",
       "level": "understand"
     },
@@ -115,6 +125,168 @@
           "斜率 m = Δy / Δx 描述了直线的倾斜程度"
         ],
         "completionCriteria": "用户能解释 (x, y) 的含义，能计算两点间距离和斜率"
+      },
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "descartes-function-explorer",
+      "title": "函数图像探索器",
+      "description": "调整方程参数，观察曲线如何变化",
+      "type": "parameter-slider",
+      "scene": {
+        "description": "笛卡尔发现，方程不只是数字的关系——它可以画成一条曲线。y=x² 是一条抛物线。改变方程中的参数，曲线的形状就变了。",
+        "goal": "理解函数方程与曲线形状的对应关系，发现参数对曲线的影响",
+        "initialState": {
+          "functionType": "quadratic",
+          "m": 2,
+          "b": 1,
+          "a": 1,
+          "c": 0
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "m",
+            "type": "slider",
+            "label": "m（斜率）",
+            "initialValue": 2,
+            "min": -5,
+            "max": 5,
+            "step": 0.1
+          },
+          {
+            "id": "b",
+            "type": "slider",
+            "label": "b（截距）",
+            "initialValue": 1,
+            "min": -8,
+            "max": 8,
+            "step": 0.5
+          },
+          {
+            "id": "a",
+            "type": "slider",
+            "label": "a（开口）",
+            "initialValue": 1,
+            "min": -3,
+            "max": 3,
+            "step": 0.1
+          },
+          {
+            "id": "c",
+            "type": "slider",
+            "label": "c（常数项）",
+            "initialValue": 0,
+            "min": -8,
+            "max": 8,
+            "step": 0.5
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "选择线性函数，把 m 从 1 拖到 3，曲线怎么变？",
+          "m 是负数时，曲线方向反了吗？",
+          "选择二次函数，把 a 从 1 拖到 -1，开口方向变了吗？",
+          "a 的绝对值越大，曲线越窄还是越宽？"
+        ],
+        "discoveries": [
+          "方程中的每个参数都控制曲线的一个'姿态'",
+          "m 控制线性函数的斜率——与坐标探索器中的斜率概念一致",
+          "a 控制二次函数的开口方向和宽窄",
+          "二次函数的顶点是曲线的最高或最低点"
+        ],
+        "completionCriteria": "能解释 m/b/a 各参数对曲线的影响"
+      },
+      "estimatedMinutes": 8
+    },
+    {
+      "id": "descartes-rate-of-change",
+      "title": "平均变化率实验室",
+      "description": "在曲线上取两个点，观察割线斜率如何表示平均变化率",
+      "type": "graph-exploration",
+      "scene": {
+        "description": "在曲线上取两个点 A 和 B，连接它们的直线叫做割线。割线的斜率 = Δy/Δx，就是函数在这段区间上的「平均变化率」。当 B 靠近 A 时，割线趋近于切线——这就是导数的直觉来源。",
+        "goal": "理解割线斜率 = 平均变化率，发现两点越近越接近瞬时变化率",
+        "initialState": {
+          "functionType": "quadratic",
+          "a": 1,
+          "b": 0,
+          "c": 0,
+          "x1": -1,
+          "x2": 3
+        }
+      },
+      "interaction": {
+        "controls": [
+          {
+            "id": "function-type",
+            "type": "button",
+            "label": "函数类型",
+            "initialValue": "quadratic"
+          },
+          {
+            "id": "a",
+            "type": "slider",
+            "label": "a（开口）",
+            "initialValue": 1,
+            "min": -3,
+            "max": 3,
+            "step": 0.1
+          },
+          {
+            "id": "b",
+            "type": "slider",
+            "label": "b（对称轴）",
+            "initialValue": 0,
+            "min": -8,
+            "max": 8,
+            "step": 0.5
+          },
+          {
+            "id": "c",
+            "type": "slider",
+            "label": "c（截距）",
+            "initialValue": 0,
+            "min": -8,
+            "max": 8,
+            "step": 0.5
+          },
+          {
+            "id": "x1",
+            "type": "slider",
+            "label": "x₁",
+            "initialValue": -1,
+            "min": -5,
+            "max": 5,
+            "step": 0.5
+          },
+          {
+            "id": "x2",
+            "type": "slider",
+            "label": "x₂",
+            "initialValue": 3,
+            "min": -5,
+            "max": 5,
+            "step": 0.5
+          }
+        ]
+      },
+      "guidance": {
+        "hints": [
+          "在 y=x² 上取 A(-1,1) 和 B(3,9)，割线斜率是多少？",
+          "把 x₂ 从 3 移到 1，斜率变了吗？",
+          "试试 x₁=-2, x₂=2，对称区间上割线斜率是多少？为什么？",
+          "让 x₂ 越来越接近 x₁（比如 x₁=1, x₂=1.5, 1.1, 1.01），割线怎么变？"
+        ],
+        "discoveries": [
+          "割线斜率 = Δy/Δx = (f(x₂)-f(x₁))/(x₂-x₁)，就是平均变化率",
+          "对 y=x²，区间 [1,3] 的平均变化率 = (9-1)/(3-1) = 4",
+          "对 y=x²，区间 [-2,2] 的平均变化率 = 0——因为抛物线对称",
+          "当 x₂ 无限接近 x₁ 时，割线趋近于切线，平均变化率趋近于瞬时变化率"
+        ],
+        "completionCriteria": "能解释割线斜率的含义，能发现两点越近越接近切线的趋势"
       },
       "estimatedMinutes": 10
     }

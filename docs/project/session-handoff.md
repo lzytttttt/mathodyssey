@@ -2,18 +2,24 @@
 
 ## 当前项目阶段
 
-**Phase 2 Final Review 已完成**
+**Phase 3 Final Review 已完成，准备进入 Phase 4**
 
 - Phase 0（项目初始化）：✅ 全部完成
 - Phase 1（MVP 原型）：✅ 全部完成（基础框架 + 4 个互动实验）
 - Phase 1.5（移动端适配）：✅ 全部完成（时间轴触摸交互 + 版权声明）
-- **Phase 2**：✅ 全部完成（5 个实验 + 2 个新范式 + Final Review）
+- Phase 2（从几何到代数）：✅ 全部完成（5 个实验 + 2 个新范式 + Final Review）
   - Phase 2.1：Archimedes Polygon Approximation Lab
   - Phase 2.2：Chicken-Rabbit Assumption Lab
   - Phase 2.3：Completing the Square Lab
   - Phase 2.4：Negative Number Line Lab
   - Phase 2.5：Cartesian Coordinate Explorer
-- 下一里程碑：Phase 3（微积分与抽象结构）
+- **Phase 3**：✅ 全部完成（4 个实验 + Final Review）
+  - Phase 3.1：✅ Function Graph Explorer（descartes-coordinates 第 2 个实验）
+  - Phase 3.2：✅ Average Rate of Change Lab（descartes-coordinates 第 3 个实验）
+  - Phase 3.3：✅ Tangent Tracker（newton-leibniz-calculus 第 1 个实验）
+  - Phase 3.4：✅ Area Accumulation Lab（newton-leibniz-calculus 第 2 个实验）
+  - Phase 3 Final Review：✅ 完成
+- 下一里程碑：Phase 4（从连续到离散）
 
 ---
 
@@ -208,25 +214,64 @@
 - [x] `npm run build` 通过（17 个页面全部生成）
 - [x] `npm run lint` 通过（0 errors, 0 warnings）
 
+### Function Graph Explorer + 函数曲线基础设施（Phase 3.1）
+- [x] 纯函数模块 `src/lib/math/functions.ts`（7 个函数 + 类型定义）
+- [x] `FunctionType` — `'linear' | 'quadratic'`
+- [x] `FunctionParams` — discriminated union（linear: m/b, quadratic: a/b/c）
+- [x] `evaluateFunction` — 按 type 分发评估，quadratic a=0 退化为 linear
+- [x] `sampleCurve` — 采样 + valid 标记，step 默认 0.1
+- [x] `filterValidSegments` — 按 NaN/Infinity 断点分段
+- [x] `findFunctionFeatures` — 解析求零点/截距/顶点，a=0 安全处理
+- [x] `formatEquation` / `formatEquationLatex` — 系数显示优化（1/-1/0 处理）
+- [x] `describeParameter` — 参数含义描述
+- [x] 基础组件 `FunctionCurve.tsx`（function/ 目录）
+- [x] 纯展示组件：接收 FunctionParams + bounds，输出 SVG `<path>`
+- [x] 使用 sampleCurve + filterValidSegments 分段渲染
+- [x] 使用 coordinate.ts 的 mathToSvg 转换坐标
+- [x] 无状态、无 experiment 依赖、无 CoordinateGrid
+- [x] 实验组件 `FunctionExplorerLab.tsx`
+- [x] 函数类型切换（linear / quadratic）
+- [x] 参数 slider（linear: m/b, quadratic: a/b/c）
+- [x] SVG 画布：CoordinateGrid + FunctionCurve + 特征标注
+- [x] 特征点标注：零点（红）、y 截距（绿）、顶点（紫），bounds 过滤
+- [x] 结果面板：方程（KaTeX）+ 特征 + 参数含义 + 历史连接
+- [x] 预设按钮：y=2x+1、y=-x+4、y=x²、y=-x²+4
+- [x] Registry 注册 `descartes-function-explorer`
+- [x] JSON 配置更新（第 2 个 experiment + learningObjective）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+
 ---
 
 ## 未完成内容
 
 | 任务 | 优先级 | 预估工作量 | 说明 |
 |------|--------|-----------|------|
-| Phase 3：微积分与抽象结构 | P1 | 高 | FunctionCurve + tangent-tracker + graph-exploration |
+| Phase 3.3：Tangent Tracker | P0 | 中-高 | ✅ 已完成 |
+| Phase 3.4：Area Accumulation Lab | P0 | 中-高 | ✅ 已完成 |
 | Husky + lint-staged | P2 | 低 | 提交时自动检查 |
 
 ---
 
 ## 下一步优先任务
 
-### 1. Phase 3 前置准备（P1）
+### 1. Phase 3 Final Review（P0）
 
-- 设计 FunctionCurve.tsx 组件
-- 设计 tangent-tracker 范式
-- 设计 graph-exploration 范式
-- 新建 calculus.ts 纯函数模块
+Phase 3 全部 4 个实验已完成。建议进行 Phase 3 Final Review：
+- 架构复盘：13 个实验通过 registry 接入、复用容器、纯函数分离
+- 移动端：SVG viewBox 响应式、slider 触摸友好
+- 内容一致性：12 节点 JSON 完整、11 个有实验、1 个空槽（euclid-axioms）
+- 质量：lint 0 errors，build 17 pages
+- 验收标准对照：roadmap.md Phase 3 验收标准
+
+### Phase 3 Final Review 参考文件
+
+1. `docs/project/phase-3-planning.md` — Phase 3 完整规划
+2. `docs/project/session-handoff.md` — 本文件
+3. `docs/project/roadmap.md` — Phase 3 验收标准
+4. `docs/project/phase-2-final-review.md` — Phase 2 审查报告（格式参考）
+5. `src/lib/math/calculus.ts` — 微积分纯函数（6 个导数/积分函数）
+6. `src/lib/experiments/registry.ts` — 当前 13 个实验注册
 
 ---
 
@@ -238,6 +283,10 @@
 4. **每次开发后必须更新文档** — backlog.md, roadmap.md, decision-log.md
 5. **实验组件不包含历史叙述** — 通过 props 接收配置，只负责交互逻辑和可视化
 6. **遵循组件分层原则** — 页面 → 功能 → 业务 → 基础，不可反向依赖
+7. **Phase 3 不新增节点** — 复用 descartes-coordinates 和 newton-leibniz-calculus（DEC-019）
+8. **Phase 3 不进入图论** — Euler 七桥推到 Phase 4（DEC-020）
+9. **Phase 3 不直接跳到切线** — 必须先建立函数图像基础设施（FunctionCurve + functions.ts）
+10. **数学逻辑继续放入纯函数模块** — functions.ts 和 calculus.ts 无 DOM/React 依赖
 
 ---
 
@@ -245,36 +294,33 @@
 
 ### 必读（按顺序）
 1. `docs/project/session-handoff.md` — 本文件，了解当前状态
-2. `docs/project/phase-2-final-review.md` — Phase 2 最终审查报告
-3. `docs/project/phase-2-planning.md` — Phase 2 完整规划（主线、实验、波次、架构）
+2. `docs/project/phase-3-planning.md` — Phase 3 完整规划（主线、实验、架构）
+3. `docs/project/phase-2-final-review.md` — Phase 2 最终审查报告
 4. `docs/content/timeline-node-schema.md` — 实验数据结构定义
-5. `docs/content/content-system.md` — 实验设计规范（第 138-218 行）
+5. `docs/content/content-system.md` — 实验设计规范
 6. `docs/project/backlog.md` — 任务列表和依赖关系
+7. `docs/project/decision-log.md` — 已有技术决策（DEC-018 ~ DEC-028）
 
 ### 参考
-7. `CLAUDE.md` — 开发原则和约束
-8. `docs/project/roadmap.md` — Phase 2 验收标准
-9. `docs/project/decision-log.md` — 已有技术决策（DEC-012 ~ DEC-017）
+8. `CLAUDE.md` — 开发原则和约束
+9. `docs/project/roadmap.md` — Phase 3 验收标准
 10. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告
 
-### 代码（Phase 2 参考）
-10. `src/components/experiments/algebra/ChickenRabbitLab.tsx` — 鸡兔同笼实验（slider 模式参考）
-11. `src/components/experiments/algebra/CompletingSquareLab.tsx` — 面积完成法实验（双面板动画参考）
-12. `src/lib/math/algebra.ts` — 代数纯函数模块（chicken-rabbit + completingSquare）
-13. `src/components/experiments/geometry/ArchimedesPolygonLab.tsx` — 多边形逼近实验
-14. `src/lib/math/geometry.ts` — 几何计算纯函数
-15. `src/components/experiments/ExperimentContainer.tsx` — 实验容器
-16. `src/lib/experiments/registry.ts` — 实验注册表（当前 9 个实验）
-17. `data/nodes/ancient-china/china-chicken-rabbit.json` — 鸡兔同笼实验配置
-18. `data/nodes/ancient-greece/archimedes-area.json` — 多边形逼近实验配置
-19. `data/nodes/islamic-golden-age/al-khwarizmi-algebra.json` — 面积完成法实验配置
-20. `src/components/experiments/number-line/NegativeNumberLineLab.tsx` — 数轴运算实验（number-line 新范式）
-21. `src/lib/math/numberLine.ts` — 数轴运算纯函数模块
-22. `data/nodes/ancient-india/brahmagupta-zero.json` — 数轴运算实验配置
-23. `src/components/experiments/coordinate/CartesianExplorerLab.tsx` — 坐标探索器实验（coordinate-plotter 新范式）
-24. `src/components/experiments/coordinate/CoordinateGrid.tsx` — 坐标网格基础组件
-25. `src/lib/math/coordinate.ts` — 坐标数学纯函数模块
-26. `data/nodes/early-modern/descartes-coordinates.json` — 坐标探索器实验配置
+### 代码（Phase 3 前置参考）
+11. `src/components/experiments/coordinate/CartesianExplorerLab.tsx` — 坐标探索器（descartes 节点现有实验）
+12. `src/components/experiments/coordinate/CoordinateGrid.tsx` — 坐标网格基础组件（Phase 3 直接复用）
+13. `src/lib/math/coordinate.ts` — 坐标数学纯函数（mathToSvg、svgToMath 复用）
+14. `data/nodes/early-modern/descartes-coordinates.json` — descartes 节点数据（Phase 3.1/3.2 需更新）
+15. `data/nodes/early-modern/newton-leibniz-calculus.json` — newton 节点数据（Phase 3.3/3.4 需更新）
+16. `src/components/experiments/ExperimentContainer.tsx` — 实验容器（多实验入口验证）
+17. `src/lib/experiments/registry.ts` — 实验注册表（当前 13 个实验）
+18. `src/lib/math/calculus.ts` — 微积分纯函数（Phase 3.2 建立，Phase 3.3 扩展 derivativeAtPoint/tangentLineAt，Phase 3.4 继续扩展）
+19. `src/components/experiments/calculus/SecantLine.tsx` — 割线渲染组件（Phase 3.2 建立，Phase 3.3 复用）
+20. `src/components/experiments/calculus/TangentLine.tsx` — 切线渲染组件（Phase 3.3 建立，纯展示 point+slope）
+21. `src/components/experiments/calculus/TangentTrackerLab.tsx` — 切线追踪器实验（Phase 3.3 建立，AreaAccumulator 参考）
+22. `src/components/experiments/function/FunctionCurve.tsx` — 函数曲线渲染（Phase 3.1 建立，Phase 3.4 直接复用）
+23. `src/components/experiments/calculus/AreaUnderCurve.tsx` — 黎曼矩形渲染（Phase 3.4 建立，纯展示）
+24. `src/components/experiments/calculus/AreaAccumulatorLab.tsx` — 面积累积器实验（Phase 3.4 建立）
 
 ---
 
@@ -299,6 +345,17 @@
 | DEC-015 | 面积完成法归类为 parameter-slider | 2026-05-14 |
 | DEC-016 | number-line 实验类型独立于 parameter-slider | 2026-05-14 |
 | DEC-017 | 新建 coordinate.ts 纯函数模块 + coordinate/ 组件目录 | 2026-05-15 |
+| DEC-018 | Phase 3 主线选择"从坐标到变化"，4 个实验 | 2026-05-15 |
+| DEC-019 | 不新增 leibniz-calculus 节点，复用 descartes-coordinates | 2026-05-15 |
+| DEC-020 | Euler 七桥探索推迟到 Phase 4 | 2026-05-15 |
+| DEC-021 | 新建 functions.ts 纯函数模块 | 2026-05-15 |
+| DEC-022 | 新建 calculus.ts 纯函数模块 | 2026-05-15 |
+| DEC-023 | FunctionCurve.tsx 放入 function/ 目录并复用 CoordinateGrid | 2026-05-15 |
+| DEC-024 | quadratic a=0 允许退化为 linear | 2026-05-15 |
+| DEC-025 | calculus.ts 纯函数模块设计（averageRateOfChange + secantLineEquation） | 2026-05-15 |
+| DEC-026 | Average Rate of Change Lab 使用 graph-exploration 类型 | 2026-05-15 |
+| DEC-027 | TangentLine.tsx 独立于 SecantLine（切点+斜率 vs 两点连线） | 2026-05-15 |
+| DEC-028 | AreaUnderCurve.tsx 独立组件（矩形渲染 vs 函数曲线渲染） | 2026-05-15 |
 
 ---
 
@@ -336,6 +393,116 @@ src/
 - `docs/project/roadmap.md` — Phase 2 Final Review 摘要
 - `docs/project/session-handoff.md` — Phase 2 Final Review 完成状态
 - `docs/project/phase-2-final-review.md` — 新建
+
+---
+
+## 文件变更摘要（Phase 3 Planning）
+
+### 修改文件
+
+- `docs/project/phase-3-planning.md` — Phase 3 完整规划（新建）
+- `docs/project/roadmap.md` — Phase 3 章节替换原"内容体系扩展"
+- `docs/project/backlog.md` — 新增 F-04-11 ~ F-04-15 Feature + Task
+- `docs/project/decision-log.md` — 新增 DEC-018 ~ DEC-022
+- `docs/project/session-handoff.md` — Phase 3 Planning 完成状态
+- `README.md` — Phase 3 状态更新为"Planning 完成"
+
+---
+
+## 文件变更摘要（Phase 3.2）
+
+### 新增文件
+
+```
+src/
+├── lib/math/
+│   └── calculus.ts                                    # 微积分纯函数（4 个函数）
+└── components/experiments/
+    └── calculus/
+        ├── SecantLine.tsx                             # 割线+两点+Δ三角形纯展示组件
+        └── AverageRateLab.tsx                         # 平均变化率实验组件
+```
+
+### 修改文件
+
+- `src/lib/experiments/registry.ts` — 新增 descartes-rate-of-change 注册（11 个实验）
+- `data/nodes/early-modern/descartes-coordinates.json` — 新增第 3 个实验 + learningObjective（3 个实验）
+- `docs/project/backlog.md` — F-04-12、T-04-12-01~05 状态更新
+- `docs/project/roadmap.md` — Phase 3.2 状态更新、验收标准更新
+- `docs/project/session-handoff.md` — Phase 3.2 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-025、DEC-026
+
+---
+
+## 文件变更摘要（Phase 3.3）
+
+### 新增文件
+
+```
+src/
+└── components/experiments/
+    └── calculus/
+        ├── TangentLine.tsx                             # 切线纯展示组件（point+slope → SVG 线段）
+        └── TangentTrackerLab.tsx                       # 切线追踪器实验组件
+```
+
+### 修改文件
+
+- `src/lib/math/calculus.ts` — 新增 derivativeAtPoint、tangentLineAt + DerivativeResult 类型
+- `src/lib/experiments/registry.ts` — 新增 newton-tangent-tracker 注册（12 个实验）
+- `data/nodes/early-modern/newton-leibniz-calculus.json` — 更新 experiments[0] 配置（x+h 模式）
+- `docs/project/backlog.md` — F-04-13、T-04-13-01~04 状态更新
+- `docs/project/roadmap.md` — Phase 3.3 状态更新、验收标准更新
+- `docs/project/session-handoff.md` — Phase 3.3 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-027
+
+---
+
+## 文件变更摘要（Phase 3.4）
+
+### 新增文件
+
+```
+src/
+├── lib/math/calculus.ts                          # 修改：新增 riemannSum、exactIntegral、formatIntegralLatex
+└── components/experiments/
+    └── calculus/
+        ├── AreaUnderCurve.tsx                     # 新增：黎曼矩形+采样点纯展示组件
+        └── AreaAccumulatorLab.tsx                 # 新增：面积累积器实验组件
+```
+
+### 修改文件
+
+- `src/lib/experiments/registry.ts` — 新增 newton-area-accumulation 注册（13 个实验）
+- `data/nodes/early-modern/newton-leibniz-calculus.json` — 新增第 2 个实验 experiments[1]
+- `docs/project/backlog.md` — F-04-14、T-04-14-01~05 状态更新
+- `docs/project/roadmap.md` — Phase 3.4 状态更新、newton 2/2、11/12 节点有实验
+- `docs/project/session-handoff.md` — Phase 3.4 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-028
+
+---
+
+## 文件变更摘要（Phase 3.1）
+
+### 新增文件
+
+```
+src/
+├── lib/math/
+│   └── functions.ts                                    # 函数评估纯函数（7 个函数）
+└── components/experiments/
+    └── function/
+        ├── FunctionCurve.tsx                            # 函数曲线 SVG 渲染组件
+        └── FunctionExplorerLab.tsx                      # 函数图像探索器实验组件
+```
+
+### 修改文件
+
+- `src/lib/experiments/registry.ts` — 新增 descartes-function-explorer 注册
+- `data/nodes/early-modern/descartes-coordinates.json` — 新增第 2 个实验 + learningObjective
+- `docs/project/backlog.md` — F-04-11、F-04-15 任务状态更新
+- `docs/project/session-handoff.md` — Phase 3.1 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-023
 
 ---
 

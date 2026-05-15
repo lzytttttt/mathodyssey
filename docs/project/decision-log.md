@@ -514,3 +514,325 @@ Phase 2.5 坐标探索器实验需要坐标转换、距离、斜率、直线方�
 - 基础组件：`CoordinateGrid.tsx`（纯展示，Phase 3 复用）
 - 实验组件：`CartesianExplorerLab.tsx`
 - experiment.type 保持 `coordinate-plotter`（DEC-012 已定义）
+
+---
+
+## DEC-018: Phase 3 主线选择"从坐标到变化"
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联文档：`docs/project/phase-3-planning.md`
+
+### 背景
+
+Phase 2 完成后，12 个节点中 9 个有实验，3 个空槽（euclid-axioms、newton-leibniz-calculus、euler-graph-theory）。需要决定 Phase 3 的主线和实验选择。
+
+### 选项
+
+| 方案 | 主线 | 实验数 | 优点 | 缺点 |
+|------|------|--------|------|------|
+| A. 直接做微积分 | 切线+积分 | 3 | 简单直接 | 跳过函数可视化基础，教学顺序不对 |
+| B. 从坐标到变化 | 函数→变化率→切线→积分 | 4 | 教学逻辑清晰，渐进深化 | 需要新建函数曲线基础设施 |
+| C. 补全所有空槽 | 无主线 | 3+ | 全部完成 | 叙事散乱，范围过大 |
+| D. 包含图论 | 函数+图论 | 5 | 覆盖面广 | 图论与函数/变化主线关联弱 |
+
+### 取舍
+
+方案 A 跳过了"函数可视化"和"平均变化率"两个关键教学环节。没有函数曲线基础设施（FunctionCurve），tangent-tracker 无法实现。没有割线斜率的直觉，切线斜率的理解缺乏根基。
+
+方案 B 的 4 个实验形成清晰的教学递进：函数可视化（直观）→ 割线斜率（平均变化率）→ 切线斜率（瞬时变化率）→ 面积累积（积分）。每个实验为下一个建立直觉基础。
+
+方案 C 范围过大，违反 MVP 聚焦原则。方案 D 的图论实验与"函数→变化"主线关联弱。
+
+### 结果
+
+- Phase 3 主线确定为"从坐标到变化"
+- 4 个实验：Function Graph Explorer、Average Rate of Change Lab、Tangent Tracker、Area Accumulation Lab
+- Euler 七桥探索推迟到 Phase 4
+- 欧几里得公理构建器推迟到 Phase 4
+
+---
+
+## DEC-019: 不新增 leibniz-calculus 节点
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-018
+
+### 背景
+
+Phase 3 的 Function Graph Explorer 需要一个放置节点。原方案考虑新增 leibniz-calculus 节点。需要决定是否新增。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 新增 leibniz-calculus 节点 | 每个节点实验数更均衡 | 破坏 12 节点结构，需创建新 JSON + 更新多个文档 |
+| **复用 descartes-coordinates** | **保持 12 节点结构，减少维护负担** | **descartes 节点有 3 个实验** |
+
+### 取舍
+
+新增节点需要创建新的 JSON 文件、更新 mvp-nodes.md、session-handoff.md 等多个文档，破坏已有的 12 节点结构。而 descartes-coordinates 节点天然适合承载函数可视化实验——笛卡尔的坐标系是函数可视化的基础，"方程→曲线"是笛卡尔的核心贡献。
+
+descartes-coordinates 的 3 个实验形成清晰递进：坐标探索（Phase 2）→ 函数可视化（Phase 3.1）→ 变化率（Phase 3.2）。这比分散到不同节点更有教学连贯性。
+
+### 结果
+
+- 不新增 leibniz-calculus 节点
+- Function Graph Explorer 和 Average Rate of Change Lab 放入 descartes-coordinates 节点
+- 保持 12 节点结构不变
+
+---
+
+## DEC-020: Euler 七桥探索推迟到 Phase 4
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-018
+
+### 背景
+
+euler-graph-theory 节点有空槽实验 euler-bridge-explorer。需要决定是否在 Phase 3 实现。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| Phase 3 实现 | 补全空槽，为图论铺路 | 与"函数→变化"主线关联弱，增加架构复杂度 |
+| **推迟到 Phase 4** | **Phase 3 聚焦纯粹主线** | **euler 节点继续空槽** |
+
+### 取舍
+
+Euler 七桥属于图论和离散数学，不涉及函数、斜率、切线、面积——与 Phase 3 的"从坐标到变化"主线无关。实现七桥需要新建 graph.ts 和 GraphCanvas.tsx，增加 Phase 3 的架构复杂度。
+
+Phase 4 可以规划"从连续到离散"的新主线，Euler 七桥是该主线的完美起点。
+
+### 结果
+
+- euler-bridge-explorer 推迟到 Phase 4
+- Phase 3 聚焦 4 个函数/微积分实验
+
+---
+
+## DEC-021: 新建 functions.ts 纯函数模块
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-008、DEC-018
+
+### 背景
+
+Phase 3.1 Function Graph Explorer 需要函数评估、曲线采样、零点/极值计算等纯函数。需要决定放在哪个文件。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 coordinate.ts | 已有模块 | 坐标转换和函数评估语义不同，coordinate.ts 已有 10 个函数 |
+| 放入 geometry.ts | 已有模块 | 函数评估不属于几何渲染辅助 |
+| **新建 functions.ts** | **语义准确，独立清晰** | **多一个文件** |
+
+### 结果
+
+- 新建 `src/lib/math/functions.ts`
+- 函数：evaluateFunction、sampleCurve、findZeros、findExtrema、clampFunctionBounds
+- Phase 3 所有 4 个实验复用此模块
+
+---
+
+## DEC-022: 新建 calculus.ts 纯函数模块
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-018、DEC-021
+
+### 背景
+
+Phase 3.2~3.4 需要数值导数、切线方程、黎曼和、数值积分等微积分计算函数。
+
+### 结果
+
+- 新建 `src/lib/math/calculus.ts`
+- 函数：numericalDerivative、tangentLinePoints、secantLineSlope、riemannSum、numericalIntegration
+- Phase 3.2（割线斜率）、3.3（切线）、3.4（面积）复用此模块
+
+---
+
+## DEC-023: FunctionCurve.tsx 放入 function/ 目录并复用 CoordinateGrid
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-007、DEC-017、DEC-018
+
+### 背景
+
+Phase 3.1 需要新建函数曲线渲染组件 FunctionCurve.tsx。需要决定组件目录和与 CoordinateGrid 的关系。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 coordinate/ | 与 CoordinateGrid 同目录 | 语义不对，函数曲线不是坐标系基础设施 |
+| **新建 function/** | **语义清晰，Phase 3 function/calculus 主线** | **多一个目录** |
+| 合并到 CoordinateGrid | 单一组件 | 职责过重，CoordinateGrid 应保持纯网格 |
+
+### 取舍
+
+FunctionCurve 的职责是"将函数参数渲染为 SVG path"，CoordinateGrid 的职责是"渲染坐标网格"。两者组合使用（FunctionCurve 作为 CoordinateGrid 的同级 `<g>` 元素），但职责独立。FunctionCurve 不应包含 CoordinateGrid，也不应管理坐标系参数——这些由父组件（实验组件）负责组合。
+
+function/ 目录可容纳 Phase 3 的所有函数可视化组件（FunctionCurve、FunctionExplorerLab），与 calculus/ 目录（切线、面积）形成清晰分离。
+
+### 结果
+
+- 组件目录：`src/components/experiments/function/`
+- FunctionCurve.tsx 是纯展示组件：接收 FunctionParams + bounds，输出 SVG `<path>`
+- 不包含 CoordinateGrid，由父组件组合
+- 不管理实验 state，不读取 experiment JSON
+
+---
+
+## DEC-024: quadratic a=0 允许退化为 linear
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-021
+
+### 背景
+
+Function Explorer 的 quadratic 模式下，a slider 范围包含 0。当 a=0 时，y=ax²+bx+c 退化为 y=bx+c（线性函数）。需要决定是否允许这种情况。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| a slider 不允许等于 0 | 避免除零等问题 | 用户无法看到二次项消失的退化过程 |
+| **允许 a=0，按退化处理** | **用户能看到二次→线性的过渡** | **需要在 findFunctionFeatures 中特殊处理** |
+
+### 结果
+
+- 允许 a=0，findFunctionFeatures 内部检测 a=0 并退化为 linearFeatures(b, c)
+- 顶点公式 x=-b/(2a) 不会因除零崩溃（a=0 时不计算顶点）
+- 用户可以通过拖动 a 到 0 来观察抛物线变成直线的过程
+- 这是更好的教学体验：参数的连续变化 → 曲线的连续变化
+
+---
+
+## DEC-025: calculus.ts 纯函数模块设计
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-018、DEC-021
+
+### 背景
+
+Phase 3.2 Average Rate of Change Lab 需要平均变化率、割线方程等计算函数。需要决定函数放在哪个文件，以及模块的职责边界。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 functions.ts | 已有模块 | functions.ts 已有 7 个函数，且平均变化率语义属于微积分而非函数评估 |
+| 放入 coordinate.ts | 已有模块 | 坐标转换和微积分计算语义不同 |
+| **新建 calculus.ts** | **语义准确，Phase 3.3/3.4 直接复用** | **多一个文件** |
+
+### 结果
+
+- 新建 `src/lib/math/calculus.ts`
+- 函数：averageRateOfChange、secantLineEquation、isValidInterval、formatRateFormulaLatex
+- 依赖 functions.ts 的 evaluateFunction 和 coordinate.ts 的 lineEquationFromTwoPoints
+- 纯函数，无 React/DOM/SVG 依赖
+- Phase 3.3（切线追踪）将在同一文件中添加 numericalDerivative
+- Phase 3.4（面积累积）将在同一文件中添加 riemannSum、numericalIntegration
+
+---
+
+## DEC-026: Average Rate of Change Lab 使用 graph-exploration 类型
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-007
+
+### 背景
+
+Phase 3.2 Average Rate of Change Lab 的 experiment.type 需要确定。原始规划标注为 `parameter-slider`，但实验的核心是探索曲线上两点与割线的关系。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| parameter-slider | 与 Phase 3.1 一致 | 语义不准确，本实验的核心不是调参数 |
+| **graph-exploration** | **语义准确：探索图形上的关系** | **首次使用该类型** |
+
+### 取舍
+
+`graph-exploration` 已在 ExperimentType 中定义（timeline.ts），但从未被任何实验使用。本实验的核心交互是"探索曲线上两个点与割线的关系"，slider 是辅助手段。使用 `graph-exploration` 更准确地描述了用户心智模型：图形是主体，参数是手段。
+
+### 结果
+
+- experiment.type 使用 `graph-exploration`
+- 首次使用该 ExperimentType
+- 不修改 ExperimentType 定义
+
+---
+
+## DEC-027: TangentLine.tsx 独立于 SecantLine（切点+斜率 vs 两点连线）
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-025
+
+### 背景
+
+Phase 3.3 需要渲染切线。已有 SecantLine.tsx 渲染割线（通过两点连线）。需要决定是否复用 SecantLine 或新建 TangentLine。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 复用 SecantLine | 少一个文件 | 语义不对：切线是 point+slope，不是两点连线 |
+| 新建 TangentLine | 语义准确，接口清晰 | 多一个文件 |
+
+### 取舍
+
+切线的输入是"一个切点 + 一个斜率"，需要从切点向两侧延伸到 bounds 边界。SecantLine 的输入是"两个点"，连线后裁剪到 bounds。虽然都使用 bounds clipping 算法，但接口和语义不同。
+
+TangentLine 接收 `point + slope`，内部计算切线方程 y = slope * (t - x) + y，再裁剪到 bounds。这比"传入两个非常接近的点给 SecantLine"更精确、更清晰。
+
+### 结果
+
+- 新建 `src/components/experiments/calculus/TangentLine.tsx`
+- 接口：`point, slope, bounds, svgW, svgH, pad + 颜色/显示 props`
+- 纯展示组件，无 state，无 experiment 依赖
+- bounds clipping 算法复用 SecantLine 的模式
+
+---
+
+## DEC-028: AreaUnderCurve.tsx 独立组件（矩形渲染 vs 函数曲线渲染）
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-023
+
+### 背景
+
+Phase 3.4 需要渲染黎曼矩形。已有 FunctionCurve.tsx 渲染函数曲线。需要决定是否复用 FunctionCurve 或新建 AreaUnderCurve。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 扩展 FunctionCurve | 少一个文件 | 职责过重：曲线渲染 + 矩形渲染混在一起 |
+| 新建 AreaUnderCurve | 语义清晰，接口独立 | 多一个文件 |
+
+### 取舍
+
+FunctionCurve 的职责是"将函数参数渲染为 SVG path"。AreaUnderCurve 的职责是"将 Riemann 矩形几何数据渲染为 SVG rects"。两者输入不同：FunctionCurve 接收 FunctionParams，AreaUnderCurve 接收 RiemannRectangle[]。
+
+将两者合并会导致 FunctionCurve 承担过多职责，且矩形渲染逻辑（采样点标记、填充色、边框）与曲线渲染逻辑（path 生成、NaN 断点处理）差异较大。
+
+### 结果
+
+- 新建 `src/components/experiments/calculus/AreaUnderCurve.tsx`
+- 接口：`rectangles, bounds, svgW, svgH, pad + 填充/描边/采样点 props`
+- 纯展示组件，无 state，无 experiment 依赖
+- 不计算 riemannSum，接收预计算数据

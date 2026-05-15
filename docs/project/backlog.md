@@ -56,6 +56,11 @@
 | F-04-08 | 多边形逼近实验 | 理解极限思想的雏形 | slider 调整边数、面积趋近 | P0 |
 | F-04-09 | 数轴运算实验 | 理解负数和零的运算 | 数轴可交互、运算动画 | P1 |
 | F-04-10 | 坐标探索器实验 | 理解几何与代数的统一 | 坐标平面可交互、双点拖拽、距离/斜率/方程 | P1 | ✅ |
+| F-04-11 | Function Graph Explorer | 理解函数=方程→曲线 | 函数曲线可渲染、参数滑块实时更新 | P0 | ✅ |
+| F-04-12 | Average Rate of Change Lab | 理解割线斜率=平均变化率 | 双点拖拽、割线渲染、逼近动画 | P0 | ✅ |
+| F-04-13 | Tangent Tracker | 理解导数=切线斜率=瞬时变化率 | 割线+切线同时显示、h 控制逼近、斜率对比 | P0 | ✅ |
+| F-04-14 | Area Accumulation Lab | 理解积分=曲线下面积=累积量 | a/b/n slider、矩形逼近、误差对比 | P0 | ✅ |
+| F-04-15 | 函数曲线基础组件 | Phase 3 所有函数实验前置 | FunctionCurve.tsx 可渲染多种函数类型 | P0 | ✅ |
 | F-04-04 | 微积分实验（Phase 3） | 理解极限和变化 | 可操作极限过程 | P1 |
 | F-04-05 | 实验引导系统 | 引导发现规律 | 提示可显示、发现可记录 | P2 |
 
@@ -266,6 +271,51 @@
 | T-04-10-03 | 实现坐标探索器实验组件 | T-04-10-01, T-04-10-02 | 高 | 双点拖拽、Δ三角形、距离/斜率/方程展示 | ✅ |
 | T-04-10-04 | 注册实验到 registry + JSON 配置更新 | T-04-10-03 | 低 | descartes-coordinate-explorer 可访问 | ✅ |
 
+### F-04-15：函数曲线基础组件（Phase 3.1 前置）
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-04-15-01 | 创建 functions.ts 纯函数模块 | 无 | 中 | evaluateFunction、sampleCurve、filterValidSegments、findFunctionFeatures 可用 | ✅ |
+| T-04-15-02 | 实现 FunctionCurve.tsx 基础组件 | T-04-15-01 | 中 | 线性/二次曲线可渲染、SVG path 输出、NaN/Infinity 断点处理 | ✅ |
+
+### F-04-11：Function Graph Explorer（Phase 3.1）
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-04-11-01 | 实现函数探索器实验组件 | T-04-15-01, T-04-15-02 | 中 | 函数选择器、参数滑块、曲线实时更新、零点/极值标注 | ✅ |
+| T-04-11-02 | 更新 descartes-coordinates.json 实验配置 | T-04-11-01 | 低 | experiments 数组新增 function-explorer 配置 | ✅ |
+| T-04-11-03 | 注册实验到 registry | T-04-11-01 | 低 | descartes-function-explorer 可访问 | ✅ |
+| T-04-11-04 | 验证单节点多实验机制 | T-04-11-03 | 低 | descartes 节点详情页显示 2 个实验入口 | ✅ |
+
+### F-04-12：Average Rate of Change Lab（Phase 3.2）
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-04-12-01 | 创建 calculus.ts 纯函数模块（导数部分） | T-04-15-01 | 中 | averageRateOfChange、secantLineEquation 可用 | ✅ |
+| T-04-12-02 | 实现 SecantLine 纯展示组件 | T-04-12-01 | 中 | 割线 + 两点 + Δ三角形渲染 | ✅ |
+| T-04-12-03 | 实现割线实验组件 | T-04-12-02, T-04-15-02 | 中 | 双 slider、割线渲染、Δ三角形、逼近提示 | ✅ |
+| T-04-12-04 | 更新 descartes-coordinates.json 实验配置 | T-04-12-03 | 低 | experiments 数组新增 rate-of-change 配置 | ✅ |
+| T-04-12-05 | 注册实验到 registry | T-04-12-03 | 低 | descartes-rate-of-change 可访问 | ✅ |
+
+### F-04-13：Tangent Tracker（Phase 3.3）
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-04-13-01 | 实现 TangentLine.tsx 组件 | T-04-12-01 | 中 | 切线可渲染、与曲线相切 | ✅ |
+| T-04-13-02 | 实现切线追踪器实验组件 | T-04-13-01, T-04-15-02 | 高 | 割线+切线同时显示、h slider 控制逼近、斜率对比 | ✅ |
+| T-04-13-03 | 更新 newton-leibniz-calculus.json 实验配置 | T-04-13-02 | 低 | experiments 数组新增 tangent-tracker 配置 | ✅ |
+| T-04-13-04 | 注册实验到 registry | T-04-13-02 | 低 | newton-tangent-tracker 可访问 | ✅ |
+
+### F-04-14：Area Accumulation Lab（Phase 3.4）
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-04-14-01 | 扩展 calculus.ts 添加积分函数 | T-04-12-01 | 中 | riemannSum、exactIntegral、formatIntegralLatex 可用 | ✅ |
+| T-04-14-02 | 实现 AreaUnderCurve.tsx 组件 | T-04-14-01 | 中-高 | 黎曼矩形渲染、采样点标注 | ✅ |
+| T-04-14-03 | 实现面积累积器实验组件 | T-04-14-02, T-04-15-02 | 高 | a/b/n slider、left/right/midpoint toggle、逼近提示 | ✅ |
+| T-04-14-04 | 更新 newton-leibniz-calculus.json 实验配置 | T-04-14-03 | 低 | experiments 数组新增 area-accumulation 配置 | ✅ |
+| T-04-14-05 | 注册实验到 registry | T-04-14-03 | 低 | newton-area-accumulation 可访问 | ✅ |
+
 ### F-04-04：微积分实验（Phase 3）
 
 | Task ID | 描述 | 依赖 | 复杂度 | 完成标准 |
@@ -332,6 +382,17 @@
 | T-01-05-04 | 质量验证（lint + build） | 无 | 低 | lint 0 errors、build 17 pages | ✅ |
 | T-01-05-05 | 修复已发现问题 | T-01-05-01 | 低 | scene.description、README、提示文字 | ✅ |
 | T-01-05-06 | 文档封版 | T-01-05-05 | 低 | phase-1-final-review.md 创建 | ✅ |
+
+### F-03-04：Phase 3 Final Review
+
+| Task ID | 描述 | 依赖 | 复杂度 | 完成标准 | 状态 |
+|---------|------|------|--------|----------|------|
+| T-03-04-01 | 架构复盘（13 实验验证） | F-04-11~14 | 中 | 13 实验通过 registry 接入、复用容器、纯函数分离 | ✅ |
+| T-03-04-02 | 移动端适配检查 | F-02-01 | 中 | SVG 响应式、slider 触摸、矩形性能 | ✅ |
+| T-03-04-03 | 内容一致性检查 | F-03-01~03 | 低 | 12 节点 JSON 完整、13 实验 ID 一致 | ✅ |
+| T-03-04-04 | 质量验证（lint + build） | 无 | 低 | lint 0 errors、build 17 pages | ✅ |
+| T-03-04-05 | 修复已发现问题 | T-03-04-01 | 低 | README.md Phase 3 状态 | ✅ |
+| T-03-04-06 | 文档封版 | T-03-04-05 | 低 | phase-3-final-review.md 创建 | ✅ |
 
 ---
 
