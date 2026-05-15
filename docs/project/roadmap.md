@@ -148,7 +148,7 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 | 2.2 | 鸡兔同笼假设法 | parameter-slider | slider 模式 + 动物图标 | P0 | ✅ 完成 |
 | 2.3 | 面积完成法 | parameter-slider | slider 模式 + SVG 面积动画 | P0 | ✅ 完成 |
 | 2.4 | 数轴上的运算 | number-line（新范式） | number-line 范式 + numberLine.ts | P1 | ✅ 完成 |
-| 2.5 | 坐标探索器 | coordinate-plotter（新范式） | — | P1 | 待开始 |
+| 2.5 | 坐标探索器 | coordinate-plotter（新范式） | DraggablePoint + FormulaDisplay | P1 | ✅ 完成 |
 
 ### 新增架构组件
 
@@ -160,13 +160,26 @@ Phase 1 为 4 个低复杂度节点实现完整互动实验，其余 8 个节点
 
 ### 验收标准
 
-- [x] 12 个节点中 8 个有完整互动实验（Phase 1 的 4 个 + Phase 2 的 4 个）
+- [x] 12 个节点中 9 个有完整互动实验（Phase 1 的 4 个 + Phase 2 的 5 个）
 - [ ] 剩余 3 个节点（euclid-axioms、newton-leibniz-calculus、euler-graph-theory）显示"即将推出"
-- [ ] 2 个新范式（number-line、coordinate-plotter）组件化完成
-- [ ] 新组件遵循 ExperimentContainer 统一布局
-- [ ] 纯函数模块（algebra.ts、coordinate.ts）无 DOM/React 依赖
-- [ ] 注册表更新到 9 个实验
-- [ ] 实验交互流畅，无明显卡顿
+- [x] 2 个新范式（number-line、coordinate-plotter）组件化完成
+- [x] 新组件遵循 ExperimentContainer 统一布局
+- [x] 纯函数模块（algebra.ts、coordinate.ts）无 DOM/React 依赖
+- [x] 注册表更新到 9 个实验
+- [x] 实验交互流畅，无明显卡顿
+- [x] `npm run lint` 通过（0 errors）
+- [x] `npm run build` 通过（17 pages）
+
+### Phase 2 Final Review
+
+详见 `docs/project/phase-2-final-review.md`。
+
+- 架构复盘：9 实验通过 registry 接入、复用容器、纯函数分离
+- 移动端：时间轴 pan/pinch OK，SVG viewBox 响应式，控件触摸友好
+- 内容一致性：12 节点 JSON 完整，9 个实验 ID 一致
+- 质量：lint 0 errors，build 17 pages
+- 已修复：README.md Phase 2 状态
+- 建议：可进入 Phase 3
 - [ ] `npm run lint` 通过（0 errors）
 - [ ] `npm run build` 通过（22+ pages）
 

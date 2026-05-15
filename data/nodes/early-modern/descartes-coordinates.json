@@ -75,37 +75,48 @@
       "description": "在坐标平面上拖拽点，观察坐标变化",
       "type": "coordinate-plotter",
       "scene": {
-        "description": "一个笛卡尔坐标平面",
-        "goal": "理解坐标与位置的对应关系",
+        "description": "笛卡尔把几何图形放进坐标系，用数字对描述点的位置。拖动两个点，看看几何关系如何变成代数表达式。",
+        "goal": "理解坐标与位置的对应关系，发现距离和斜率的代数表达",
         "initialState": {
-          "pointX": 3,
-          "pointY": 4
+          "pointAX": 0,
+          "pointAY": 0,
+          "pointBX": 3,
+          "pointBY": 4
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "point-drag",
+            "id": "point-a",
             "type": "draggable-point",
-            "label": "拖拽点",
+            "label": "点 A",
+            "initialValue": 0
+          },
+          {
+            "id": "point-b",
+            "type": "draggable-point",
+            "label": "点 B",
             "initialValue": 0
           }
         ]
       },
       "guidance": {
         "hints": [
-          "拖拽点，观察坐标值的变化",
-          "x 坐标表示左右位置",
-          "y 坐标表示上下位置"
+          "拖动点 A 和点 B，观察坐标值如何变化",
+          "试试让两个点在同一水平线上，Δy 会变成多少？",
+          "试试让两个点在同一竖直线上，Δx 会变成多少？斜率呢？",
+          "把 A 放在原点 (0,0)，B 放在 (3,4)，距离是多少？"
         ],
         "discoveries": [
-          "每个点对应唯一的坐标对",
-          "坐标的变化反映了点的移动",
-          "方程可以用图形表示"
+          "每个点由一个有序数对 (x, y) 唯一确定",
+          "x 控制左右位置，y 控制上下位置",
+          "Δx 和 Δy 构成一个直角三角形的两条直角边",
+          "距离 d = √(Δx² + Δy²)，这就是勾股定理！",
+          "斜率 m = Δy / Δx 描述了直线的倾斜程度"
         ],
-        "completionCriteria": "用户能预测给定坐标的点位置"
+        "completionCriteria": "用户能解释 (x, y) 的含义，能计算两点间距离和斜率"
       },
-      "estimatedMinutes": 8
+      "estimatedMinutes": 10
     }
   ],
   "challenges": [

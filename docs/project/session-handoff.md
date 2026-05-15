@@ -2,17 +2,18 @@
 
 ## 当前项目阶段
 
-**Phase 2.4 Negative Number Line Lab 已完成**
+**Phase 2 Final Review 已完成**
 
 - Phase 0（项目初始化）：✅ 全部完成
 - Phase 1（MVP 原型）：✅ 全部完成（基础框架 + 4 个互动实验）
 - Phase 1.5（移动端适配）：✅ 全部完成（时间轴触摸交互 + 版权声明）
-- Phase 2 Planning：✅ 已完成（主线确定、5 个实验规划、文档同步）
-- **Phase 2.1**：✅ 已完成（Archimedes Polygon Approximation Lab）
-- **Phase 2.2**：✅ 已完成（Chicken-Rabbit Assumption Lab）
-- **Phase 2.3**：✅ 已完成（Completing the Square Lab）
-- **Phase 2.4**：✅ 已完成（Negative Number Line Lab）
-- 下一里程碑：Phase 2.5（坐标探索器）
+- **Phase 2**：✅ 全部完成（5 个实验 + 2 个新范式 + Final Review）
+  - Phase 2.1：Archimedes Polygon Approximation Lab
+  - Phase 2.2：Chicken-Rabbit Assumption Lab
+  - Phase 2.3：Completing the Square Lab
+  - Phase 2.4：Negative Number Line Lab
+  - Phase 2.5：Cartesian Coordinate Explorer
+- 下一里程碑：Phase 3（微积分与抽象结构）
 
 ---
 
@@ -178,31 +179,61 @@
 - [x] `npm run build` 通过（17 个页面全部生成）
 - [x] `npm run lint` 通过（0 errors, 0 warnings）
 
+### Cartesian Coordinate Explorer（Phase 2.5）
+- [x] 纯函数模块 `src/lib/math/coordinate.ts`（10 个函数 + 类型）
+- [x] `Point`, `Bounds`, `DEFAULT_BOUNDS` — 类型和常量
+- [x] `clampCoordinate` — 值域约束
+- [x] `mathToSvg` / `svgToMath` — 数学坐标 ↔ SVG 坐标转换
+- [x] `snapToGrid` — 吸附到整数网格
+- [x] `deltaBetweenPoints` — Δx / Δy 计算
+- [x] `distanceBetweenPoints` — 欧氏距离
+- [x] `slopeBetweenPoints` — 斜率（null = 垂直线）
+- [x] `quadrantOfPoint` — 象限判定
+- [x] `lineEquationFromTwoPoints` — 直线方程（normal / vertical / indeterminate 三种情况）
+- [x] `formatLineEquation` — 方程格式化
+- [x] 基础组件 `CoordinateGrid.tsx`（coordinate-plotter 新范式）
+- [x] SVG 网格线 + 坐标轴 + 箭头 + 刻度标签
+- [x] 象限着色（可选）
+- [x] 纯展示组件，无交互逻辑
+- [x] 实验组件 `CartesianExplorerLab.tsx`
+- [x] 双点拖拽：点 A（蓝色）+ 点 B（橙色），吸附整数网格
+- [x] Δ 三角形：水平虚线（Δx）+ 垂直虚线（Δy）+ 直角标记
+- [x] 连线 AB + 距离标注
+- [x] 直线方程延伸线（剪裁到 bounds）
+- [x] 结果面板：坐标显示 + Δx/Δy + 距离公式（KaTeX）+ 斜率 + 直线方程 + 象限
+- [x] 边界处理：Δx=0 斜率未定义、两点重合提示
+- [x] 预设按钮：经典 3-4-5、斜率正、斜率负、垂直线
+- [x] Registry 注册 `descartes-coordinate-explorer`
+- [x] JSON 配置更新（双点 initialState + 4 hints + 5 discoveries）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+
 ---
 
 ## 未完成内容
 
 | 任务 | 优先级 | 预估工作量 | 说明 |
 |------|--------|-----------|------|
-| Phase 2.5：坐标探索器 | P1 | 高 | coordinate-plotter 新范式 |
+| Phase 3：微积分与抽象结构 | P1 | 高 | FunctionCurve + tangent-tracker + graph-exploration |
 | Husky + lint-staged | P2 | 低 | 提交时自动检查 |
 
 ---
 
 ## 下一步优先任务
 
-### 1. Phase 2.5：坐标探索器（P1）
+### 1. Phase 3 前置准备（P1）
 
-- **坐标探索器**（descartes-coordinate-explorer）— coordinate-plotter（新范式）
-  - 新建 CoordinatePlane.tsx 基础组件
-  - Phase 3 微积分实验的前置架构
+- 设计 FunctionCurve.tsx 组件
+- 设计 tangent-tracker 范式
+- 设计 graph-exploration 范式
+- 新建 calculus.ts 纯函数模块
 
 ---
 
 ## 当前关键约束
 
 1. **不允许把数学内容硬编码在组件中** — 所有内容从 JSON 数据加载
-2. **不允许一次性扩大 MVP** — 严格遵守 Phase 1 范围（4 个实验）
+2. **不允许一次性扩大 MVP** — 严格遵守 roadmap 中的阶段划分
 3. **实验逻辑需要可复用** — 基础交互组件（DraggablePoint, Slider 等）应设计为通用组件
 4. **每次开发后必须更新文档** — backlog.md, roadmap.md, decision-log.md
 5. **实验组件不包含历史叙述** — 通过 props 接收配置，只负责交互逻辑和可视化
@@ -214,31 +245,36 @@
 
 ### 必读（按顺序）
 1. `docs/project/session-handoff.md` — 本文件，了解当前状态
-2. `docs/project/phase-2-planning.md` — Phase 2 完整规划（主线、实验、波次、架构）
-3. `docs/content/timeline-node-schema.md` — 实验数据结构定义
-4. `docs/content/content-system.md` — 实验设计规范（第 138-218 行）
-5. `docs/project/backlog.md` — 任务列表和依赖关系（F-04-06 ~ F-04-10）
+2. `docs/project/phase-2-final-review.md` — Phase 2 最终审查报告
+3. `docs/project/phase-2-planning.md` — Phase 2 完整规划（主线、实验、波次、架构）
+4. `docs/content/timeline-node-schema.md` — 实验数据结构定义
+5. `docs/content/content-system.md` — 实验设计规范（第 138-218 行）
+6. `docs/project/backlog.md` — 任务列表和依赖关系
 
 ### 参考
-6. `CLAUDE.md` — 开发原则和约束
-7. `docs/project/roadmap.md` — Phase 2 验收标准
-8. `docs/project/decision-log.md` — 已有技术决策（特别是 DEC-012 Phase 2 主线选择）
-9. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告
+7. `CLAUDE.md` — 开发原则和约束
+8. `docs/project/roadmap.md` — Phase 2 验收标准
+9. `docs/project/decision-log.md` — 已有技术决策（DEC-012 ~ DEC-017）
+10. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告
 
-### 代码（Phase 2.1 ~ 2.3 参考）
+### 代码（Phase 2 参考）
 10. `src/components/experiments/algebra/ChickenRabbitLab.tsx` — 鸡兔同笼实验（slider 模式参考）
 11. `src/components/experiments/algebra/CompletingSquareLab.tsx` — 面积完成法实验（双面板动画参考）
 12. `src/lib/math/algebra.ts` — 代数纯函数模块（chicken-rabbit + completingSquare）
 13. `src/components/experiments/geometry/ArchimedesPolygonLab.tsx` — 多边形逼近实验
 14. `src/lib/math/geometry.ts` — 几何计算纯函数
 15. `src/components/experiments/ExperimentContainer.tsx` — 实验容器
-16. `src/lib/experiments/registry.ts` — 实验注册表（当前 8 个实验）
+16. `src/lib/experiments/registry.ts` — 实验注册表（当前 9 个实验）
 17. `data/nodes/ancient-china/china-chicken-rabbit.json` — 鸡兔同笼实验配置
 18. `data/nodes/ancient-greece/archimedes-area.json` — 多边形逼近实验配置
 19. `data/nodes/islamic-golden-age/al-khwarizmi-algebra.json` — 面积完成法实验配置
 20. `src/components/experiments/number-line/NegativeNumberLineLab.tsx` — 数轴运算实验（number-line 新范式）
 21. `src/lib/math/numberLine.ts` — 数轴运算纯函数模块
 22. `data/nodes/ancient-india/brahmagupta-zero.json` — 数轴运算实验配置
+23. `src/components/experiments/coordinate/CartesianExplorerLab.tsx` — 坐标探索器实验（coordinate-plotter 新范式）
+24. `src/components/experiments/coordinate/CoordinateGrid.tsx` — 坐标网格基础组件
+25. `src/lib/math/coordinate.ts` — 坐标数学纯函数模块
+26. `data/nodes/early-modern/descartes-coordinates.json` — 坐标探索器实验配置
 
 ---
 
@@ -258,10 +294,48 @@
 | DEC-010 | 概率实验归入 probability 目录，纯函数独立为 probability.ts | 2026-05-14 |
 | DEC-011 | 时间轴交互采用 Pointer Events 统一鼠标和触摸 | 2026-05-14 |
 | DEC-012 | Phase 2 主线选择"从几何到代数"，5 个实验 | 2026-05-14 |
-| DEC-013 | Phase 2 暂不进入微积分和图论（前置架构未就绪） | 2026-05-14 |
-| DEC-014 | 新建 algebra.ts 纯函数模块（代数主线） | 2026-05-14 |
-| DEC-015 | 面积完成法归类为 parameter-slider（非 geometry-drag） | 2026-05-14 |
-| DEC-016 | number-line 实验类型独立于 parameter-slider（新范式） | 2026-05-14 |
+| DEC-013 | Phase 2 暂不进入微积分和图论 | 2026-05-14 |
+| DEC-014 | 新建 algebra.ts 纯函数模块 | 2026-05-14 |
+| DEC-015 | 面积完成法归类为 parameter-slider | 2026-05-14 |
+| DEC-016 | number-line 实验类型独立于 parameter-slider | 2026-05-14 |
+| DEC-017 | 新建 coordinate.ts 纯函数模块 + coordinate/ 组件目录 | 2026-05-15 |
+
+---
+
+## 文件变更摘要（Phase 2.5）
+
+### 新增文件
+
+```
+src/
+├── lib/math/
+│   └── coordinate.ts                              # 坐标数学函数（10 个纯函数）
+└── components/experiments/
+    └── coordinate/
+        ├── CoordinateGrid.tsx                      # 坐标网格基础组件
+        └── CartesianExplorerLab.tsx                # 坐标探索器实验组件
+```
+
+### 修改文件
+
+- `src/lib/experiments/registry.ts` — 新增 descartes-coordinate-explorer 注册
+- `data/nodes/early-modern/descartes-coordinates.json` — 扩展实验配置（双点 + guidance）
+- `docs/project/backlog.md` — F-04-10 任务状态更新
+- `docs/project/roadmap.md` — Phase 2.5 验收标准更新
+- `docs/project/session-handoff.md` — Phase 2.5 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-017
+
+---
+
+## 文件变更摘要（Phase 2 Final Review）
+
+### 修改文件
+
+- `README.md` — 更新 Phase 2 状态为完成
+- `docs/project/backlog.md` — EPIC-04 状态更新
+- `docs/project/roadmap.md` — Phase 2 Final Review 摘要
+- `docs/project/session-handoff.md` — Phase 2 Final Review 完成状态
+- `docs/project/phase-2-final-review.md` — 新建
 
 ---
 

@@ -51,6 +51,10 @@ const registry: Record<string, ExperimentComponentLoader> = {
     import('@/components/experiments/number-line/NegativeNumberLineLab').then(
       (m) => ({ default: m.default })
     ),
+  'descartes-coordinate-explorer': () =>
+    import('@/components/experiments/coordinate/CartesianExplorerLab').then(
+      (m) => ({ default: m.default })
+    ),
 };
 
 /**

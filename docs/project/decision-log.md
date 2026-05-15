@@ -486,3 +486,31 @@ number-line 的核心视觉是数轴上的位置与移动，强调方向感和�
 - 不合并到 parameter-slider
 - 新建 `src/lib/math/numberLine.ts` 纯函数模块
 - 新建 `src/components/experiments/number-line/` 组件目录
+
+---
+
+## DEC-017: 新建 coordinate.ts 纯函数模块 + coordinate/ 组件目录
+
+- 日期：2026-05-15
+- 状态：已决定
+- 关联决策：DEC-008、DEC-016
+
+### 背景
+
+Phase 2.5 坐标探索器实验需要坐标转换、距离、斜率、直线方程等纯函数。需要决定函数放在哪个文件，组件放在哪个目录。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 geometry.ts | 已有模块 | 坐标转换和代数方程不属于几何渲染辅助，语义不匹配 |
+| 放入 numberLine.ts | 已有模块 | 数轴是一维的，坐标平面是二维的，语义不同 |
+| 新建 coordinate.ts | 语义准确，Phase 3 函数图像/切线追踪直接复用 | 多一个文件 |
+
+### 结果
+
+- 纯函数模块：`src/lib/math/coordinate.ts`（坐标转换、距离、斜率、方程推导）
+- 组件目录：`src/components/experiments/coordinate/`
+- 基础组件：`CoordinateGrid.tsx`（纯展示，Phase 3 复用）
+- 实验组件：`CartesianExplorerLab.tsx`
+- experiment.type 保持 `coordinate-plotter`（DEC-012 已定义）
