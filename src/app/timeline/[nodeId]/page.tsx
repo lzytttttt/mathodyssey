@@ -5,9 +5,10 @@ import NarrativeCard from '@/components/content/NarrativeCard';
 import ConceptCard from '@/components/content/ConceptCard';
 import ObjectiveCard from '@/components/content/ObjectiveCard';
 import ExperimentEntry from '@/components/content/ExperimentEntry';
-import ChallengeCard from '@/components/content/ChallengeCard';
+import ChallengeQuiz from '@/components/challenges/ChallengeQuiz';
 import Card from '@/components/ui/Card';
 import { colors } from '@/styles/tokens';
+import { DIFFICULTY_LABELS } from '@/lib/challenges/constants';
 
 interface PageProps {
   params: Promise<{ nodeId: string }>;
@@ -27,14 +28,6 @@ export async function generateMetadata({ params }: PageProps) {
     description: node.historicalProblem,
   };
 }
-
-const difficultyLabels: Record<string, string> = {
-  L1: '入门',
-  L2: '基础',
-  L3: '中等',
-  L4: '进阶',
-  L5: '挑战',
-};
 
 export default async function NodeDetailPage({ params }: PageProps) {
   const { nodeId } = await params;
@@ -64,7 +57,7 @@ export default async function NodeDetailPage({ params }: PageProps) {
                 {node.timePeriod.display}
               </span>
               <span className="ml-2 text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600">
-                {difficultyLabels[node.difficulty]}
+                {DIFFICULTY_LABELS[node.difficulty]}
               </span>
             </div>
           </div>
@@ -117,7 +110,7 @@ export default async function NodeDetailPage({ params }: PageProps) {
 
         {/* 挑战问题 */}
         {node.challenges && node.challenges.length > 0 && (
-          <ChallengeCard challenges={node.challenges} />
+          <ChallengeQuiz challenges={node.challenges} />
         )}
 
         {/* 现代连接 */}

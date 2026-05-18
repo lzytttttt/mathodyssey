@@ -836,3 +836,146 @@ FunctionCurve 的职责是"将函数参数渲染为 SVG path"。AreaUnderCurve �
 - 接口：`rectangles, bounds, svgW, svgH, pad + 填充/描边/采样点 props`
 - 纯展示组件，无 state，无 experiment 依赖
 - 不计算 riemannSum，接收预计算数据
+
+---
+
+## DEC-029: graph.ts 纯函数模块 + GraphCanvas 独立组件
+
+- 日期：2026-05-18
+- 状态：已决定
+- 关联决策：DEC-007、DEC-008
+
+### 背景
+
+Phase 4.1 Euler Bridge Explorer 需要图数据结构和图论计算函数。需要决定函数放在哪个文件，图渲染组件放在哪个目录。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 放入 geometry.ts | 已有模块 | 图论不属于几何渲染辅助，语义不匹配 |
+| 放入 coordinate.ts | 已有模块 | 坐标转换和图论语义不同 |
+| 新建 graph.ts | 语义准确，所有图论实验复用 | 多一个文件 |
+
+### 取舍
+
+图论是独立的数学分支，与几何、代数、微积分并列。`graph.ts` 中的 `vertexDegree`、`hasEulerPath`、`traverseEdge` 等函数操作的是图结构（顶点 + 边），不涉及几何渲染或坐标转换。
+
+`GraphCanvas.tsx` 放入 `experiments/graph/` 目录，与 `EulerBridgeLab.tsx` 同目录。GraphCanvas 是纯展示 + 轻交互组件（渲染顶点、边，响应点击），不负责欧拉路径判定和状态管理。
+
+### 结果
+
+- 纯函数模块：`src/lib/math/graph.ts`（度计算、欧拉路径判定、路径验证、边遍历）
+- 组件目录：`src/components/experiments/graph/`
+- 基础组件：`GraphCanvas.tsx`（纯展示 + 点击交互）
+- 实验组件：`EulerBridgeLab.tsx`
+- 类型：`graph-exploration`（已存在于 ExperimentType，无需新增）
+
+---
+
+## DEC-030: 新增 proof-builder 实验类型
+
+- 日期：2026-05-18
+- 状态：已决定
+- 关联决策：DEC-007
+
+### 背景
+
+Phase 4.2 Euclid Axiom Builder 的核心交互是"选择公设 → 执行构造 → 推导结论"，与现有 7 种实验类型均不匹配。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 复用 parameter-slider | 无需修改类型定义 | 语义不准确，本实验没有 slider |
+| 复用 graph-exploration | 无需修改类型定义 | 语义不准确，本实验不是图探索 |
+| 新建 proof-builder | 语义准确 | 需要扩展 ExperimentType |
+
+### 结果
+
+- 新增 `'proof-builder'` 到 ExperimentType 联合类型
+- 修改 `src/types/timeline.ts`
+- 同步更新 `docs/content/timeline-node-schema.md`
+- 向后兼容：只新增不删除
+
+---
+
+## DEC-031: proof.ts 采用扁平 items + prerequisites 模型
+
+- 日期：2026-05-18
+- 状态：已决定
+- 关联决策：DEC-030
+
+### 背景
+
+需要设计证明的数据模型。候选方案：分层模型（axioms → steps → conclusion）和扁平模型（所有 items 平级，通过 requires 字段建立依赖）。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 分层模型 | UI 分组直观 | 需要多层数据结构，验证逻辑复杂 |
+| 扁平模型 + category 标签 | 单一验证函数处理所有 items，数据结构简单 | UI 分组需依赖 category 字段 |
+
+### 结果
+
+- 采用扁平模型：`ProofItem { id, name, statement, category, requires }`
+- category 区分 5 类：postulate、common-notion、definition、construction、conclusion
+- 公设和公理分开分类（postulate vs common-notion），语义更清晰
+- 单一验证函数 `canSelectItem` 处理所有 item 类型
+- proof.ts 包含 13 个 items（5 公设 + 3 公理 + 1 定义 + 3 构造 + 1 结论）+ 8 个纯函数
+
+---
+
+## DEC-032: Challenge System 使用组件本地状态
+
+- 日期：2026-05-18
+- 状态：已决定
+- 关联决策：无
+
+### 背景
+
+Phase 4.3 挑战题系统需要管理用户答题状态。需要决定状态管理方案。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| Zustand 全局状态 | 跨页面持久化 | 过度设计，MVP 不需要进度追踪 |
+| localStorage | 刷新后保留 | 需要序列化、清理逻辑 |
+| 组件本地 state | 最简单、零依赖 | 刷新丢失、不跨页面 |
+
+### 结果
+
+- 使用 React `useState` 管理所有答题状态
+- 不使用 Zustand、不使用 localStorage
+- 刷新页面重置答题进度（MVP 阶段可接受）
+- 状态：当前题目索引、用户输入、反馈阶段、已答结果数组
+
+---
+
+## DEC-033: 挑战题验证策略 — try-numeric-first + 保守文本兜底
+
+- 日期：2026-05-18
+- 状态：已决定
+- 关联决策：DEC-032
+
+### 背景
+
+20 道挑战题的答案类型多样：纯数字（"13"）、带单位（"4 米"）、分数（"1/6"）、近似值（"约 153.86"）、时间格式（"2:05"）、复合数字（"鸡 12，兔 8"）、纯文本（"不存在"）。需要设计统一的验证策略。
+
+### 选项
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| 精确匹配 | 简单 | 用户多打空格就失败 |
+| 数值容差 | 灵活 | "2:05" 误匹配 "2" |
+| 子字符串匹配 | 宽容 | 短答案误匹配 |
+| **try-numeric-first + 保守文本** | **数值灵活 + 文本安全** | **逻辑稍复杂** |
+
+### 结果
+
+- 策略：(1) 标准化精确匹配 → (2) 含 `:` 则跳过数值 → (3) 单数值容差比较 → (4) 多数值全部匹配 → (5) 保守文本（≥4 字符子串）
+- 纯函数模块：`src/lib/challenges/validation.ts`
+- 关键防护：含冒号的答案（时间/比例）不提取数字、短文本不触发子字符串匹配
+- 容差：max(|值| × 1%, 0.01)

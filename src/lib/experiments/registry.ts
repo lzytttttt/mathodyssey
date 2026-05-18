@@ -71,6 +71,14 @@ const registry: Record<string, ExperimentComponentLoader> = {
     import('@/components/experiments/calculus/AreaAccumulatorLab').then(
       (m) => ({ default: m.default })
     ),
+  'euler-bridge-explorer': () =>
+    import('@/components/experiments/graph/EulerBridgeLab').then(
+      (m) => ({ default: m.default })
+    ),
+  'euclid-axiom-builder': () =>
+    import('@/components/experiments/proof/ProofBuilderLab').then(
+      (m) => ({ default: m.default })
+    ),
 };
 
 /**

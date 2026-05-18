@@ -21,7 +21,10 @@
     "problem": "能否找到一条路线，经过每座桥恰好一次？",
     "discovery": "欧拉把问题抽象为图：用顶点表示区域，用边表示桥。他证明：存在这样的路线当且仅当奇数度顶点的个数为 0 或 2。柯尼斯堡的图有 4 个奇数度顶点，所以无解。",
     "credibility": "A",
-    "sources": ["Euler, Solutio problematis ad geometriam situs pertinentis", "Biggs, Graph Theory 1736-1936"]
+    "sources": [
+      "Euler, Solutio problematis ad geometriam situs pertinentis",
+      "Biggs, Graph Theory 1736-1936"
+    ]
   },
   "keyFigures": [
     {
@@ -118,9 +121,12 @@
       "id": "graph-challenge-1",
       "question": "一个图有 4 个顶点，度分别为 1, 2, 3, 4。是否存在欧拉路径？",
       "type": "concept-application",
-      "answer": "不存在",
+      "answer": "存在",
       "explanation": "欧拉路径存在当且仅当奇数度顶点个数为 0 或 2。这里奇数度顶点有 2 个（度为 1 和 3），所以存在欧拉路径。",
-      "hints": ["数一数奇数度顶点的个数", "欧拉路径的条件是什么"],
+      "hints": [
+        "数一数奇数度顶点的个数",
+        "欧拉路径的条件是什么"
+      ],
       "difficulty": "L3"
     },
     {
@@ -129,7 +135,10 @@
       "type": "cross-era",
       "answer": "GPS 导航用图论算法计算最短路径",
       "explanation": "城市道路网络可以抽象为图，交叉口是顶点，道路是边。GPS 用 Dijkstra 等图论算法找到最短路径。",
-      "hints": ["把地图抽象为图", "想想导航的核心问题"],
+      "hints": [
+        "把地图抽象为图",
+        "想想导航的核心问题"
+      ],
       "difficulty": "L3"
     }
   ],
@@ -139,5 +148,11 @@
     "网络拓扑设计",
     "计算机科学中的图算法"
   ],
-  "tags": ["图论", "欧拉路径", "七桥问题", "18世纪", "欧拉"]
+  "tags": [
+    "图论",
+    "欧拉路径",
+    "七桥问题",
+    "18世纪",
+    "欧拉"
+  ]
 }

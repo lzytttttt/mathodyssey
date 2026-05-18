@@ -84,7 +84,8 @@ type ExperimentType =
   | 'simulation'          // 模拟器（掷骰子、概率实验）
   | 'graph-exploration'   // 路径探索（七桥问题）
   | 'coordinate-plotter'  // 坐标绘图（笛卡尔坐标系、方程图像）
-  | 'tangent-tracker';    // 切线追踪（微积分切线、极限可视化）
+  | 'tangent-tracker'     // 切线追踪（微积分切线、极限可视化）
+  | 'proof-builder';      // 公理证明（欧几里得公理构建器）
 ```
 
 ### 核心接口

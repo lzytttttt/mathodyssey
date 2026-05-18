@@ -289,29 +289,41 @@ Phase 2 建立的 `CoordinatePlane.tsx` 和 `FunctionCurve.tsx` 是 Phase 3 微�
 
 ---
 
-## Phase 4：学习路径与挑战题
+## Phase 4：从证明到结构 + 学习验证闭环
 
-### 目标
-构建完整的学习系统，包括路径引导和知识验证。
+### 主线
+
+从连续数学（函数、导数、积分）过渡到离散结构（图论、公理、证明），同时建立"探索→发现→验证"的学习闭环。
 
 ### 交付物
 
-| 交付物 | 说明 | 优先级 |
-|--------|------|--------|
-| 学习路径系统 | 预设路径和自定义路径 | P0 |
-| 预设学习路径 | 3-5 条主题路径 | P0 |
-| 挑战题系统 | 分级题目、自动评分、提示 | P1 |
-| 进度追踪 | 记录学习进度 | P1 |
-| 搜索功能 | 全文搜索节点和概念 | P2 |
-| 路径推荐 | 基于进度的路径推荐 | P2 |
+| Phase | 交付物 | 类型 | 优先级 | 状态 |
+|-------|--------|------|--------|------|
+| 4.1 | Euler Bridge Explorer | graph-exploration（图论范式落地） | P0 | ✅ 完成 |
+| 4.2 | Euclid Axiom Builder | proof-builder（新范式） | P0 | ✅ 完成 |
+| 4.3 | Challenge System MVP | 交互式答题 + 验证 | P0 | ✅ 完成 |
 
 ### 验收标准
-- [ ] 至少 3 条预设学习路径可用
-- [ ] 用户可以创建自定义路径
-- [ ] 挑战题支持自动评分
-- [ ] 提示系统帮助用户思考
-- [ ] 学习进度可追踪
-- [ ] 搜索功能可用
+- [x] 12 个节点中 12 个有完整互动实验（Phase 4.2 后：15 个注册实验，12/12 全覆盖）
+- [x] proof-builder 范式组件化完成（ProofBuilderLab.tsx + proof.ts）
+- [x] 新增纯函数模块：graph.ts（Phase 4.1）、proof.ts（Phase 4.2）
+- [x] 新增 proof-builder ExperimentType
+- [x] euclid-axioms 节点实验类型更新为 proof-builder
+- [x] 挑战题系统从被动展示升级为交互验证（Phase 4.3）
+- [x] 新增纯函数模块：validation.ts（Phase 4.3）
+- [x] npm run lint 通过（0 errors）
+- [x] npm run build 通过（17 pages）
+
+### Phase 4 Final Review
+
+详见 `docs/project/phase-4-final-review.md`。
+
+- 架构复盘：15 实验通过 registry 接入、复用容器、纯函数分离
+- 移动端：SVG viewBox 响应式，触摸交互友好
+- 内容一致性：12 节点 JSON 完整，15 个实验 ID 一致，20 道挑战题可交互
+- 质量：lint 0 errors，build 17 pages
+- 已修复：euler-graph-theory 挑战题答案、page.tsx 常量重复、README/CLAUDE.md 状态
+- 建议：可进入 Phase 5
 
 ---
 

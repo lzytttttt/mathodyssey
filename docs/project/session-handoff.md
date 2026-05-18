@@ -2,7 +2,7 @@
 
 ## 当前项目阶段
 
-**Phase 3 Final Review 已完成，准备进入 Phase 4**
+**Phase 4 Final Review 已完成，准备进入 Phase 5**
 
 - Phase 0（项目初始化）：✅ 全部完成
 - Phase 1（MVP 原型）：✅ 全部完成（基础框架 + 4 个互动实验）
@@ -19,7 +19,11 @@
   - Phase 3.3：✅ Tangent Tracker（newton-leibniz-calculus 第 1 个实验）
   - Phase 3.4：✅ Area Accumulation Lab（newton-leibniz-calculus 第 2 个实验）
   - Phase 3 Final Review：✅ 完成
-- 下一里程碑：Phase 4（从连续到离散）
+- **Phase 4**：进行中（从证明到结构 + 学习验证闭环）
+  - Phase 4.1：✅ Euler Bridge Explorer（graph-exploration 范式落地）
+  - Phase 4.2：✅ Euclid Axiom Builder（proof-builder 范式落地，12/12 节点全覆盖）
+  - Phase 4.3：✅ Challenge System MVP（交互式答题 + 验证）
+- 下一里程碑：Phase 4 Final Review
 
 ---
 
@@ -111,6 +115,85 @@
 - [x] 版权声明：Footer + README + LICENSE（Apache 2.0）
 
 ### 验证结果（Phase 1.5）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+
+### Euler Bridge Explorer（Phase 4.1）
+- [x] 纯函数模块 `src/lib/math/graph.ts`（11 个函数 + 6 个类型）
+- [x] `GraphVertex`, `GraphEdge`, `Graph`, `TrailStep`, `EulerPathResult`, `TrailValidation` — 类型定义
+- [x] `vertexDegree` — 单顶点度数计算
+- [x] `allVertexDegrees` — 所有顶点度数字典
+- [x] `oddDegreeVertices` — 奇数度顶点列表
+- [x] `hasEulerPath` — 欧拉路径存在判定（0 或 2 个奇数度顶点）
+- [x] `hasEulerCircuit` — 欧拉回路存在判定（0 个奇数度顶点）
+- [x] `adjacentEdges` — 顶点相邻边列表
+- [x] `availableEdges` — 可用边（未使用 + 与当前顶点相邻）
+- [x] `traverseEdge` — 遍历边返回对端顶点
+- [x] `isStuck` — 卡住判定（有已用边但无可用边）
+- [x] `isTrailComplete` — 路径完成判定（所有边已使用）
+- [x] `validateTrail` — 路径验证（综合状态）
+- [x] 基础组件 `GraphCanvas.tsx`（graph-exploration 范式）
+- [x] SVG 图渲染：顶点（圆形 + 标签）+ 边（路径 + 标签）
+- [x] 多重边支持：二次贝塞尔曲线 + 垂直偏移（MULTI_EDGE_OFFSET=35）
+- [x] 边状态：默认（灰色）、可用（蓝色脉冲）、已用（绿色虚线）
+- [x] 顶点状态：默认、当前（蓝色）、奇数度（红色，判定后显示）
+- [x] 纯展示 + 轻交互组件，无欧拉路径判定逻辑
+- [x] 实验组件 `EulerBridgeLab.tsx`
+- [x] 柯尼斯堡七桥拓扑：4 顶点（A-B×2, A-C×2, A-D×1, B-D×1, C-D×1），度数 A=5/B=3/C=3/D=3
+- [x] 三阶段 UI：选起点 → 尝试走桥 → 查看判定
+- [x] 状态管理：currentVertex, usedEdges, trail, showJudgment, hasTried
+- [x] 操作：点击顶点选起点、点击可用边前进、撤销、重置
+- [x] 子面板：IntroPanel（地图→图抽象）、ProgressPanel（进度+卡住提示）、JudgmentPanel（度数表+欧拉判定+关键洞察）
+- [x] 卡住检测：amber 警告 + "查看欧拉判定"按钮
+- [x] 路径展示：实时显示走过的路径（北岸→(桥①)→西岛→...）
+- [x] Registry 注册 `euler-bridge-explorer`（14 个实验）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+
+### Euclid Axiom Builder（Phase 4.2）
+- [x] 新增 `proof-builder` ExperimentType（timeline.ts + timeline-node-schema.md）
+- [x] 纯函数模块 `src/lib/math/proof.ts`（8 个函数 + 4 个类型 + 13 个 items）
+- [x] `ProofItemCategory` — 5 类：postulate、common-notion、definition、construction、conclusion
+- [x] `ProofItem`, `ProofStep`, `ProofState`, `ProofValidationResult` — 类型定义
+- [x] `EUCLID_I1_ITEMS` — 13 个证明项（5 公设 + 3 公理 + 1 定义 + 3 构造 + 1 结论）
+- [x] `getProofItems` — 获取证明项数据库
+- [x] `canSelectItem` — 验证单个项是否可选（检查前置依赖）
+- [x] `getAvailableItems` — 获取所有当前可选项
+- [x] `isProofComplete` — 证明完成判定（结论已选）
+- [x] `buildProofChain` — 构建有序证明链
+- [x] `countNecessaryItems` — 统计必要项 vs 多余项（BFS 从结论回溯）
+- [x] `getRemainingItems`, `getItemById`, `getDirectPrereqs` — 辅助函数
+- [x] 实验组件 `ProofBuilderLab.tsx`（proof-builder 范式）
+- [x] SVG 几何画布：渐进式构造（线段 AB → 圆 A → 圆 B → 交点 C → AC/BC → 三角形填充 + Q.E.D.）
+- [x] 证明步骤面板：5 组分类显示（公设/公理/定义/构造/结论）
+- [x] 项状态：已选（绿色✓）、可选（蓝色○）、锁定（灰色🔒 + 缺失前置提示）
+- [x] 错误提示：选择无效项时显示原因
+- [x] 结果面板：有序证明链 + Q.E.D. 证明细节 + 多余项轻量提示
+- [x] 状态管理：selectedItems, lastError
+- [x] 重置功能
+- [x] Registry 注册 `euclid-axiom-builder`（15 个实验）
+- [x] euclid-axioms.json 更新（type→proof-builder、scene、guidance）
+- [x] `npm run build` 通过（17 个页面全部生成）
+- [x] `npm run lint` 通过（0 errors, 0 warnings）
+- [x] 12/12 节点全覆盖达成
+
+### Challenge System MVP（Phase 4.3）
+- [x] 常量模块 `src/lib/challenges/constants.ts`（DIFFICULTY_LABELS、DIFFICULTY_COLORS）
+- [x] 验证纯函数 `src/lib/challenges/validation.ts`（validateAnswer + 辅助函数）
+- [x] `normalizeAnswer` — 标准化（trim、lowercase、全角逗号/句号转换）
+- [x] `extractNumbers` — 正则提取所有数值
+- [x] `parseNumericToken` — 去"约"前缀 + 解析数值
+- [x] `isNumericLikeAnswer` — 判断是否为数值型答案（排除含冒号的格式）
+- [x] `parseNumericValue` — 支持分数（"1/6"）和容差
+- [x] 验证策略：精确匹配 → 含冒号跳过 → 单数值容差 → 多数值全部匹配 → 保守文本（≥4 字符）
+- [x] 交互组件 `src/components/challenges/ChallengeQuiz.tsx`（'use client'）
+- [x] 逐题展示：题目 + 进度条 + 难度标签
+- [x] 文本输入 + Enter 提交 + 获取提示
+- [x] 反馈阶段：正确（绿色）/ 错误（红色）+ 解释 + 重试/下一题
+- [x] 结果汇总：得分 + 逐题正误 + 正确答案 + 再试一次
+- [x] 状态管理：组件本地 useState（不使用 Zustand / localStorage）
+- [x] ChallengeCard 重构：从 constants.ts 导入难度常量
+- [x] 节点详情页：ChallengeCard → ChallengeQuiz 替换
 - [x] `npm run build` 通过（17 个页面全部生成）
 - [x] `npm run lint` 通过（0 errors, 0 warnings）
 
@@ -247,31 +330,28 @@
 
 | 任务 | 优先级 | 预估工作量 | 说明 |
 |------|--------|-----------|------|
-| Phase 3.3：Tangent Tracker | P0 | 中-高 | ✅ 已完成 |
-| Phase 3.4：Area Accumulation Lab | P0 | 中-高 | ✅ 已完成 |
+| Phase 5 规划 | P0 | 中 | 性能优化 + SEO + 学习路径 |
 | Husky + lint-staged | P2 | 低 | 提交时自动检查 |
 
 ---
 
 ## 下一步优先任务
 
-### 1. Phase 3 Final Review（P0）
+### 1. Phase 5 规划（P0）
 
-Phase 3 全部 4 个实验已完成。建议进行 Phase 3 Final Review：
-- 架构复盘：13 个实验通过 registry 接入、复用容器、纯函数分离
-- 移动端：SVG viewBox 响应式、slider 触摸友好
-- 内容一致性：12 节点 JSON 完整、11 个有实验、1 个空槽（euclid-axioms）
-- 质量：lint 0 errors，build 17 pages
-- 验收标准对照：roadmap.md Phase 3 验收标准
+Phase 4 Final Review 已完成，全部验收标准通过。下一步是 Phase 5 规划：
+- 性能优化（代码分割、懒加载）
+- SEO 优化（元标签、结构化数据、站点地图）
+- 学习路径系统（预设路径、进度追踪）
+- 挑战题系统增强（Zustand 全局状态、localStorage 持久化）
+- 用户文档（使用指南、教师指南）
 
-### Phase 3 Final Review 参考文件
+### Phase 5 参考文件
 
-1. `docs/project/phase-3-planning.md` — Phase 3 完整规划
-2. `docs/project/session-handoff.md` — 本文件
-3. `docs/project/roadmap.md` — Phase 3 验收标准
-4. `docs/project/phase-2-final-review.md` — Phase 2 审查报告（格式参考）
-5. `src/lib/math/calculus.ts` — 微积分纯函数（6 个导数/积分函数）
-6. `src/lib/experiments/registry.ts` — 当前 13 个实验注册
+1. `docs/project/session-handoff.md` — 本文件
+2. `docs/project/roadmap.md` — Phase 5 验收标准
+3. `docs/project/phase-4-final-review.md` — Phase 4 最终审查报告
+4. `docs/project/backlog.md` — 任务列表
 
 ---
 
@@ -283,10 +363,12 @@ Phase 3 全部 4 个实验已完成。建议进行 Phase 3 Final Review：
 4. **每次开发后必须更新文档** — backlog.md, roadmap.md, decision-log.md
 5. **实验组件不包含历史叙述** — 通过 props 接收配置，只负责交互逻辑和可视化
 6. **遵循组件分层原则** — 页面 → 功能 → 业务 → 基础，不可反向依赖
-7. **Phase 3 不新增节点** — 复用 descartes-coordinates 和 newton-leibniz-calculus（DEC-019）
-8. **Phase 3 不进入图论** — Euler 七桥推到 Phase 4（DEC-020）
-9. **Phase 3 不直接跳到切线** — 必须先建立函数图像基础设施（FunctionCurve + functions.ts）
-10. **数学逻辑继续放入纯函数模块** — functions.ts 和 calculus.ts 无 DOM/React 依赖
+7. **Phase 4 Challenge MVP 使用组件本地状态** — 不引入 Zustand、localStorage 或进度追踪（DEC-032）
+8. **proof.ts 纯函数无 DOM/React 依赖** — 证明逻辑与渲染分离（DEC-031）
+9. **数学逻辑继续放入纯函数模块** — graph.ts、proof.ts、validation.ts 无 DOM/React 依赖
+10. **12/12 节点已全覆盖** — Phase 4.2 完成后所有节点都有实验
+11. **挑战题验证 try-numeric-first + 保守文本** — 含冒号跳过数值提取、短文本不触发子串匹配（DEC-033）
+12. **Phase 4 Final Review 已通过** — 12/12 节点全覆盖、15 实验、20 道挑战题可交互
 
 ---
 
@@ -294,33 +376,20 @@ Phase 3 全部 4 个实验已完成。建议进行 Phase 3 Final Review：
 
 ### 必读（按顺序）
 1. `docs/project/session-handoff.md` — 本文件，了解当前状态
-2. `docs/project/phase-3-planning.md` — Phase 3 完整规划（主线、实验、架构）
-3. `docs/project/phase-2-final-review.md` — Phase 2 最终审查报告
-4. `docs/content/timeline-node-schema.md` — 实验数据结构定义
-5. `docs/content/content-system.md` — 实验设计规范
-6. `docs/project/backlog.md` — 任务列表和依赖关系
-7. `docs/project/decision-log.md` — 已有技术决策（DEC-018 ~ DEC-028）
+2. `docs/project/roadmap.md` — Phase 5 验收标准
+3. `docs/project/backlog.md` — 任务列表和依赖关系
+4. `docs/project/phase-4-final-review.md` — Phase 4 最终审查报告
 
 ### 参考
-8. `CLAUDE.md` — 开发原则和约束
-9. `docs/project/roadmap.md` — Phase 3 验收标准
-10. `docs/project/phase-1-final-review.md` — Phase 1 最终审查报告
+5. `CLAUDE.md` — 开发原则和约束
+6. `docs/project/decision-log.md` — 已有技术决策（DEC-001 ~ DEC-033）
+7. `docs/project/phase-3-final-review.md` — Phase 3 最终审查报告
 
-### 代码（Phase 3 前置参考）
-11. `src/components/experiments/coordinate/CartesianExplorerLab.tsx` — 坐标探索器（descartes 节点现有实验）
-12. `src/components/experiments/coordinate/CoordinateGrid.tsx` — 坐标网格基础组件（Phase 3 直接复用）
-13. `src/lib/math/coordinate.ts` — 坐标数学纯函数（mathToSvg、svgToMath 复用）
-14. `data/nodes/early-modern/descartes-coordinates.json` — descartes 节点数据（Phase 3.1/3.2 需更新）
-15. `data/nodes/early-modern/newton-leibniz-calculus.json` — newton 节点数据（Phase 3.3/3.4 需更新）
-16. `src/components/experiments/ExperimentContainer.tsx` — 实验容器（多实验入口验证）
-17. `src/lib/experiments/registry.ts` — 实验注册表（当前 13 个实验）
-18. `src/lib/math/calculus.ts` — 微积分纯函数（Phase 3.2 建立，Phase 3.3 扩展 derivativeAtPoint/tangentLineAt，Phase 3.4 继续扩展）
-19. `src/components/experiments/calculus/SecantLine.tsx` — 割线渲染组件（Phase 3.2 建立，Phase 3.3 复用）
-20. `src/components/experiments/calculus/TangentLine.tsx` — 切线渲染组件（Phase 3.3 建立，纯展示 point+slope）
-21. `src/components/experiments/calculus/TangentTrackerLab.tsx` — 切线追踪器实验（Phase 3.3 建立，AreaAccumulator 参考）
-22. `src/components/experiments/function/FunctionCurve.tsx` — 函数曲线渲染（Phase 3.1 建立，Phase 3.4 直接复用）
-23. `src/components/experiments/calculus/AreaUnderCurve.tsx` — 黎曼矩形渲染（Phase 3.4 建立，纯展示）
-24. `src/components/experiments/calculus/AreaAccumulatorLab.tsx` — 面积累积器实验（Phase 3.4 建立）
+### 代码（Phase 5 前置参考）
+8. `src/lib/experiments/registry.ts` — 实验注册表（15 个实验）
+9. `src/lib/challenges/validation.ts` — 挑战题验证纯函数
+10. `src/components/challenges/ChallengeQuiz.tsx` — 交互式答题组件
+11. `src/types/timeline.ts` — 全部类型定义（8 种 ExperimentType + Challenge）
 
 ---
 
@@ -356,6 +425,11 @@ Phase 3 全部 4 个实验已完成。建议进行 Phase 3 Final Review：
 | DEC-026 | Average Rate of Change Lab 使用 graph-exploration 类型 | 2026-05-15 |
 | DEC-027 | TangentLine.tsx 独立于 SecantLine（切点+斜率 vs 两点连线） | 2026-05-15 |
 | DEC-028 | AreaUnderCurve.tsx 独立组件（矩形渲染 vs 函数曲线渲染） | 2026-05-15 |
+| DEC-029 | graph.ts 纯函数模块 + GraphCanvas 独立组件 | 2026-05-18 |
+| DEC-030 | 新增 proof-builder 实验类型 | 2026-05-18 |
+| DEC-031 | proof.ts 采用扁平 items + prerequisites 模型 | 2026-05-18 |
+| DEC-032 | Challenge System 使用组件本地状态 | 2026-05-18 |
+| DEC-033 | 挑战题验证策略：try-numeric-first + 保守文本兜底 | 2026-05-18 |
 
 ---
 
@@ -503,6 +577,80 @@ src/
 - `docs/project/backlog.md` — F-04-11、F-04-15 任务状态更新
 - `docs/project/session-handoff.md` — Phase 3.1 完成状态
 - `docs/project/decision-log.md` — 新增 DEC-023
+
+---
+
+## 文件变更摘要（Phase 4.3）
+
+### 新增文件
+
+```
+src/
+├── lib/challenges/
+│   ├── constants.ts                          # 难度标签/颜色常量
+│   └── validation.ts                         # 答案验证纯函数（5 个函数）
+└── components/challenges/
+    └── ChallengeQuiz.tsx                      # 交互式答题组件
+```
+
+### 修改文件
+
+- `src/components/content/ChallengeCard.tsx` — 从 constants.ts 导入难度常量（移除内联定义）
+- `src/app/timeline/[nodeId]/page.tsx` — ChallengeCard → ChallengeQuiz 替换
+- `docs/project/backlog.md` — 新增 F-04-18 任务
+- `docs/project/roadmap.md` — Phase 4.3 状态更新
+- `docs/project/session-handoff.md` — Phase 4.3 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-032、DEC-033
+
+---
+
+## 文件变更摘要（Phase 4.2）
+
+### 新增文件
+
+```
+src/
+├── lib/math/
+│   └── proof.ts                              # 证明纯函数（8 个函数 + 4 个类型 + 13 个 items）
+└── components/experiments/
+    └── proof/
+        └── ProofBuilderLab.tsx                # 公理构建器实验组件
+```
+
+### 修改文件
+
+- `src/types/timeline.ts` — 新增 `'proof-builder'` 到 ExperimentType
+- `src/lib/experiments/registry.ts` — 新增 euclid-axiom-builder 注册（15 个实验）
+- `data/nodes/ancient-greece/euclid-axioms.json` — 更新实验配置（type→proof-builder）
+- `docs/content/timeline-node-schema.md` — 新增 proof-builder 类型说明
+- `docs/project/backlog.md` — EPIC-04 状态更新、新增 F-04-17 任务
+- `docs/project/roadmap.md` — Phase 4.2 状态更新、验收标准更新
+- `docs/project/session-handoff.md` — Phase 4.2 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-030、DEC-031
+
+---
+
+## 文件变更摘要（Phase 4.1）
+
+### 新增文件
+
+```
+src/
+├── lib/math/
+│   └── graph.ts                              # 图论纯函数（11 个函数 + 6 个类型）
+└── components/experiments/
+    └── graph/
+        ├── GraphCanvas.tsx                    # 图渲染基础组件（SVG + 多重边）
+        └── EulerBridgeLab.tsx                 # Euler 七桥实验组件
+```
+
+### 修改文件
+
+- `src/lib/experiments/registry.ts` — 新增 euler-bridge-explorer 注册（14 个实验）
+- `docs/project/backlog.md` — EPIC-04 状态更新、新增 F-04-16 任务
+- `docs/project/roadmap.md` — Phase 4 章节替换、4.1 状态更新
+- `docs/project/session-handoff.md` — Phase 4.1 完成状态
+- `docs/project/decision-log.md` — 新增 DEC-029
 
 ---
 

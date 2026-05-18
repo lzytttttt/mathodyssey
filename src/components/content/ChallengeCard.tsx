@@ -4,26 +4,11 @@ import { useState } from 'react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import type { Challenge } from '@/types/timeline';
+import { DIFFICULTY_LABELS, DIFFICULTY_COLORS } from '@/lib/challenges/constants';
 
 interface ChallengeCardProps {
   challenges: Challenge[];
 }
-
-const difficultyLabels: Record<string, string> = {
-  L1: '入门',
-  L2: '基础',
-  L3: '中等',
-  L4: '进阶',
-  L5: '挑战',
-};
-
-const difficultyColors: Record<string, string> = {
-  L1: 'bg-green-100 text-green-700',
-  L2: 'bg-lime-100 text-lime-700',
-  L3: 'bg-yellow-100 text-yellow-700',
-  L4: 'bg-orange-100 text-orange-700',
-  L5: 'bg-red-100 text-red-700',
-};
 
 export default function ChallengeCard({ challenges }: ChallengeCardProps) {
   const [showAnswer, setShowAnswer] = useState<Record<string, boolean>>({});
@@ -42,9 +27,9 @@ export default function ChallengeCard({ challenges }: ChallengeCardProps) {
                 问题 {index + 1}
               </span>
               <span
-                className={`text-xs px-2 py-0.5 rounded ${difficultyColors[challenge.difficulty]}`}
+                className={`text-xs px-2 py-0.5 rounded ${DIFFICULTY_COLORS[challenge.difficulty]}`}
               >
-                {difficultyLabels[challenge.difficulty]}
+                {DIFFICULTY_LABELS[challenge.difficulty]}
               </span>
             </div>
             <p className="text-stone-800 mb-4">{challenge.question}</p>

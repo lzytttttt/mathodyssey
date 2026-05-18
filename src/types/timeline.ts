@@ -50,7 +50,8 @@ export type ExperimentType =
   | 'simulation'
   | 'graph-exploration'
   | 'coordinate-plotter'
-  | 'tangent-tracker';
+  | 'tangent-tracker'
+  | 'proof-builder';
 
 /** 时间范围 */
 export interface TimePeriod {

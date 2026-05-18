@@ -68,36 +68,43 @@
     {
       "id": "euclid-axiom-builder",
       "title": "公理构建器",
-      "description": "选择公理，尝试推导出简单定理",
-      "type": "parameter-slider",
+      "description": "从欧几里得公设出发，构造《几何原本》第一命题：等边三角形",
+      "type": "proof-builder",
       "scene": {
-        "description": "你是一位古希腊数学家，需要从公理出发推导定理",
-        "goal": "选择正确的公理组合来推导目标定理",
+        "description": "你是亚历山大城的数学家，面前有一条线段 AB。你的任务是仅用直尺和圆规，从五个公设出发，构造一个等边三角形。",
+        "goal": "选择正确的公设和构造步骤，完成欧几里得《几何原本》命题 I.1 的证明",
         "initialState": {
-          "selectedAxioms": [],
-          "targetTheorem": "三角形内角和等于180度"
+          "ax": 200,
+          "ay": 340,
+          "bx": 400,
+          "by": 340,
+          "goalId": "conclusion"
         }
       },
       "interaction": {
         "controls": [
           {
-            "id": "axiom-selector",
-            "type": "toggle",
-            "label": "选择公理",
-            "initialValue": false
+            "id": "proof-items",
+            "type": "button",
+            "label": "选择公设和构造步骤",
+            "initialValue": ""
           }
         ]
       },
       "guidance": {
         "hints": [
-          "从最基础的公理开始",
-          "想想需要哪些前提才能证明目标定理"
+          "欧几里得有 5 个公设。这个证明只需要用到其中 2 个。",
+          "圆规的核心能力是：以任意点为圆心、任意距离为半径画圆。",
+          "两个圆的交点是关键——它到 A 和 B 的距离都等于 AB。",
+          "等边三角形的定义是三条边都相等。你需要证明 AC = AB = BC。"
         ],
         "discoveries": [
-          "所有复杂的数学结论都可以从简单公理推导",
-          "公理必须是独立的、不矛盾的"
+          "公设 3（画圆）是构造的核心工具——没有圆规就找不到等边三角形的第三个顶点",
+          "两个半径相等的圆相交时，交点到两个圆心的距离都等于半径",
+          "证明的关键一步：AC = AB（圆 A 半径）且 BC = BA（圆 B 半径），由公理 1 得 AC = AB = BC",
+          "欧几里得的证明只用了 5 个公设中的 2 个（公设 1 和 3），加上公理 1"
         ],
-        "completionCriteria": "用户成功选择正确的公理组合推导出目标定理"
+        "completionCriteria": "用户正确选择所有必要公设，完成 4 个构造步骤，并推导出等边三角形的结论"
       },
       "estimatedMinutes": 12
     }

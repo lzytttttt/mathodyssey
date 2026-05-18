@@ -33,14 +33,14 @@ MathOdyssey 通过历史故事和互动实验解决这些问题：
 
 ## 当前阶段
 
-**Phase 3 已完成，准备进入 Phase 4**
+**Phase 4 已完成，准备进入 Phase 5**
 
 - ✅ Phase 0（项目初始化）：文档体系、Schema、Next.js 项目
 - ✅ Phase 1（MVP 原型）：12 节点 + 时间轴 + 4 个互动实验
 - ✅ Phase 1.5（移动端适配）：时间轴触摸交互 + 版权声明
 - ✅ Phase 2（从几何到代数）：5 个实验 + 2 个新范式（number-line、coordinate-plotter）
 - ✅ Phase 3（从坐标到变化）：4 个实验 + 函数/微积分基础设施
-- ⬜ Phase 4（从连续到离散）：图论 + 公理
+- ✅ Phase 4（从证明到结构）：2 个实验 + 挑战题系统 + 12/12 节点全覆盖
 
 详见 [项目路线图](docs/project/roadmap.md)。
 
@@ -197,7 +197,7 @@ TimelineNode (JSON)
 | Phase 1.5 | 移动端适配 | 时间轴触摸交互 | ✅ 完成 |
 | Phase 2 | 从几何到代数 | 5 个实验 + 2 个新范式 | ✅ 完成 |
 | Phase 3 | 从坐标到变化 | 函数图像 + 变化率 + 切线 + 积分 | ✅ 完成 |
-| Phase 4 | 从连续到离散 | 图论 + 公理 + 挑战题 | ⬜ 待开始 |
+| Phase 4 | 从证明到结构 | 图论 + 公理 + 挑战题 | ✅ 完成 |
 | Phase 5 | 产品化和发布 | 性能优化 + SEO + 部署 | ⬜ 待开始 |
 
 详见 [项目路线图](docs/project/roadmap.md)。
