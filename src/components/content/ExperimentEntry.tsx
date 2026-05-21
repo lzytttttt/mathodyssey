@@ -16,32 +16,47 @@ const typeLabels: Record<string, string> = {
   'graph-exploration': '路径探索',
   'coordinate-plotter': '坐标绘图',
   'tangent-tracker': '切线追踪',
+  'proof-builder': '证明构建',
+};
+
+const typeIcons: Record<string, string> = {
+  'geometry-drag': '📐',
+  'parameter-slider': '🎚️',
+  'number-line': '📏',
+  'simulation': '🎲',
+  'graph-exploration': '🕸️',
+  'coordinate-plotter': '📊',
+  'tangent-tracker': '📈',
+  'proof-builder': '🧱',
 };
 
 export default function ExperimentEntry({ experiments }: ExperimentEntryProps) {
   return (
-    <Card className="p-6">
-      <h3 className="text-lg font-semibold text-stone-800 mb-4">互动实验</h3>
-      <div className="space-y-4">
+    <Card variant="glass" className="p-6">
+      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">🔬 互动实验</h3>
+      <div className="space-y-3">
         {experiments.map((exp) => (
           <div
             key={exp.id}
-            className="flex items-center justify-between p-4 bg-blue-50 rounded-lg"
+            className="flex items-center justify-between p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-light)] hover:border-[var(--accent-primary)]/30 transition-colors"
           >
-            <div>
-              <h4 className="font-medium text-stone-800">{exp.title}</h4>
-              <p className="text-sm text-stone-600 mt-1">{exp.description}</p>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">{typeIcons[exp.type] || '🔬'}</span>
+                <h4 className="font-medium text-[var(--text-primary)]">{exp.title}</h4>
+              </div>
+              <p className="text-sm text-[var(--text-secondary)] mt-1 line-clamp-1">{exp.description}</p>
               <div className="flex items-center gap-3 mt-2">
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
+                <span className="text-xs bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] px-2 py-0.5 rounded-full">
                   {typeLabels[exp.type] || exp.type}
                 </span>
-                <span className="text-xs text-stone-500">
-                  约 {exp.estimatedMinutes} 分钟
+                <span className="text-xs text-[var(--text-muted)]">
+                  ⏱ 约 {exp.estimatedMinutes} 分钟
                 </span>
               </div>
             </div>
-            <Link href={`/experiments/${exp.id}`}>
-              <Button variant="primary" size="sm">
+            <Link href={`/experiments/${exp.id}`} className="ml-4 flex-shrink-0">
+              <Button variant="gradient" size="sm">
                 开始实验
               </Button>
             </Link>

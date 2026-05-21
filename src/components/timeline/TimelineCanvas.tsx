@@ -5,6 +5,7 @@ import TimelineNodeComponent from './TimelineNode';
 import EraMarker from './EraMarker';
 import { eras } from '@/lib/data/eras';
 import { useTimelinePanZoom } from '@/hooks/useTimelinePanZoom';
+import { colors } from '@/styles/tokens';
 
 interface TimelineCanvasProps {
   nodes: TimelineNode[];
@@ -27,13 +28,12 @@ export default function TimelineCanvas({ nodes }: TimelineCanvasProps) {
     (era) => era.endYear >= viewStart && era.startYear <= viewEnd
   );
 
-  return (
-    <div className="relative w-full">
-      {/* Zoom/pan hint */}
-      <div className="absolute top-4 right-4 z-10 text-xs text-stone-400">
-        滚轮/双指缩放 · 拖拽平移
-      </div>
+  // Smart tick interval based on zoom level
+  const yearSpan = viewEnd - viewStart;
+  const tickInterval = yearSpan > 2000 ? 500 : yearSpan > 800 ? 200 : 100;
 
+  return (
+    <div className="relative w-full rounded-xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-card)]">
       {/* Timeline container */}
       <div ref={containerRef} {...containerProps}>
         <svg width="100%" height="100%">
@@ -51,39 +51,64 @@ export default function TimelineCanvas({ nodes }: TimelineCanvasProps) {
             );
           })}
 
-          {/* Timeline axis line */}
+          {/* Timeline gradient axis line */}
+          <defs>
+            <linearGradient id="timeline-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              {visibleEras.map((era) => {
+                const startPct = ((yearToX(Math.max(era.startYear, viewStart))) / containerWidth) * 100;
+                const endPct = ((yearToX(Math.min(era.endYear, viewEnd))) / containerWidth) * 100;
+                const eraColor = colors.era[era.id] || '#a3a3a3';
+                return [
+                  <stop key={`${era.id}-start`} offset={`${startPct}%`} stopColor={eraColor} stopOpacity="0.6" />,
+                  <stop key={`${era.id}-end`} offset={`${endPct}%`} stopColor={eraColor} stopOpacity="0.6" />,
+                ];
+              }).flat()}
+            </linearGradient>
+          </defs>
           <line
             x1="0"
             y1={NODE_Y}
             x2={containerWidth}
             y2={NODE_Y}
-            stroke="#d4d4d4"
+            stroke="url(#timeline-gradient)"
             strokeWidth="2"
+          />
+          {/* Fallback solid line under gradient */}
+          <line
+            x1="0"
+            y1={NODE_Y}
+            x2={containerWidth}
+            y2={NODE_Y}
+            stroke="var(--border-color, #d4d4d4)"
+            strokeWidth="1"
+            opacity="0.3"
           />
 
           {/* Year tick marks */}
           {Array.from(
-            { length: Math.ceil((viewEnd - viewStart) / 500) + 1 },
+            { length: Math.ceil((viewEnd - viewStart) / tickInterval) + 1 },
             (_, i) => {
-              const year = Math.ceil(viewStart / 500) * 500 + i * 500;
+              const year = Math.ceil(viewStart / tickInterval) * tickInterval + i * tickInterval;
               if (year < viewStart || year > viewEnd) return null;
               const x = yearToX(year);
               return (
                 <g key={year}>
                   <line
                     x1={x}
-                    y1={NODE_Y - 10}
+                    y1={NODE_Y - 8}
                     x2={x}
-                    y2={NODE_Y + 10}
-                    stroke="#a3a3a3"
+                    y2={NODE_Y + 8}
+                    stroke="var(--text-muted, #a3a3a3)"
                     strokeWidth="1"
+                    opacity="0.4"
                   />
                   <text
                     x={x}
-                    y={NODE_Y + 30}
+                    y={NODE_Y + 28}
                     textAnchor="middle"
-                    fill="#737373"
-                    fontSize="12"
+                    fill="var(--text-muted, #737373)"
+                    fontSize="11"
+                    fontFamily="var(--font-sans, Inter)"
                   >
                     {year < 0 ? `前${-year}年` : `${year}年`}
                   </text>

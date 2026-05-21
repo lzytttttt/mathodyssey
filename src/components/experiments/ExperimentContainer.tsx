@@ -21,39 +21,49 @@ export default function ExperimentContainer({
   resultPanel,
 }: ExperimentContainerProps) {
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* Scene description */}
-      <div className="bg-white border-b border-stone-200 p-6">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-stone-700 text-base leading-relaxed">
-            {experiment.scene.description}
-          </p>
-          <p className="mt-2 text-sm font-medium text-blue-700">
-            目标：{experiment.scene.goal}
-          </p>
+      <div className="border-b border-[var(--border-color)] p-6 bg-[var(--bg-card)]">
+        <div className="max-w-5xl mx-auto flex items-start gap-4">
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 flex items-center justify-center text-lg">
+            📖
+          </div>
+          <div>
+            <p className="text-[var(--text-primary)] text-base leading-relaxed">
+              {experiment.scene.description}
+            </p>
+            <p className="mt-2 text-sm font-medium text-[var(--accent-primary)]">
+              🎯 目标：{experiment.scene.goal}
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Interactive canvas area */}
-      <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        <div className="rounded-xl border border-[var(--border-color)] overflow-hidden bg-[var(--bg-card)] shadow-sm">
           {children}
         </div>
       </div>
 
       {/* Result panel */}
       {resultPanel && (
-        <div className="max-w-4xl mx-auto px-4 pb-6">
-          <div className="bg-white rounded-xl border border-stone-200 p-6">
+        <div className="max-w-5xl mx-auto px-4 pb-6">
+          <div className="rounded-xl border border-[var(--border-color)] p-6 bg-[var(--bg-card)] shadow-sm">
             {resultPanel}
           </div>
         </div>
       )}
 
       {/* Guidance */}
-      <div className="max-w-4xl mx-auto px-4 pb-8">
-        <div className="bg-white rounded-xl border border-stone-200 p-6">
-          <h3 className="text-lg font-semibold text-stone-800 mb-4">探索引导</h3>
+      <div className="max-w-5xl mx-auto px-4 pb-8">
+        <div className="rounded-xl border border-[var(--border-color)] p-6 bg-[var(--bg-card)] shadow-sm">
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+            <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center text-sm">
+              💡
+            </span>
+            探索引导
+          </h3>
           <GuidancePanel
             hints={experiment.guidance.hints}
             discoveries={experiment.guidance.discoveries}

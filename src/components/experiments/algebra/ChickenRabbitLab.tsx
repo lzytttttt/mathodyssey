@@ -14,7 +14,7 @@ import {
 
 /** Canvas dimensions */
 const SVG_W = 800;
-const SVG_H = 400;
+const SVG_H = 420;
 
 /** Slider ranges */
 const HEADS_MIN = 2;
@@ -66,18 +66,12 @@ function generatePositions(
 function ChickenIcon({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x}, ${y})`}>
-      {/* Body */}
-      <circle r={ICON_R} fill="#f59e0b" stroke="#d97706" strokeWidth="1" />
-      {/* Eye */}
+      <circle r={ICON_R} fill="#f59e0b" stroke="#d97706" strokeWidth="1.5" />
       <circle cx={-4} cy={-4} r={2} fill="#44403c" />
-      {/* Beak */}
       <polygon points="10,-2 16,0 10,2" fill="#ef4444" />
-      {/* Comb */}
       <path d="M -4,-14 Q -2,-18 0,-14 Q 2,-18 4,-14" fill="#ef4444" />
-      {/* Legs */}
       <line x1={-4} y1={ICON_R} x2={-6} y2={ICON_R + 8} stroke="#d97706" strokeWidth="1.5" />
       <line x1={4} y1={ICON_R} x2={6} y2={ICON_R + 8} stroke="#d97706" strokeWidth="1.5" />
-      {/* Feet */}
       <line x1={-8} y1={ICON_R + 8} x2={-4} y2={ICON_R + 8} stroke="#d97706" strokeWidth="1" />
       <line x1={4} y1={ICON_R + 8} x2={8} y2={ICON_R + 8} stroke="#d97706" strokeWidth="1" />
     </g>
@@ -88,19 +82,13 @@ function ChickenIcon({ x, y }: { x: number; y: number }) {
 function RabbitIcon({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x}, ${y})`}>
-      {/* Body */}
-      <circle r={ICON_R} fill="#a78bfa" stroke="#7c3aed" strokeWidth="1" />
-      {/* Eye */}
+      <circle r={ICON_R} fill="#a78bfa" stroke="#7c3aed" strokeWidth="1.5" />
       <circle cx={-4} cy={-4} r={2} fill="#44403c" />
-      {/* Nose */}
       <circle cx={8} cy={0} r={2} fill="#f472b6" />
-      {/* Ears */}
       <ellipse cx={-6} cy={-22} rx={4} ry={10} fill="#a78bfa" stroke="#7c3aed" strokeWidth="1" />
       <ellipse cx={6} cy={-22} rx={4} ry={10} fill="#a78bfa" stroke="#7c3aed" strokeWidth="1" />
-      {/* Inner ears */}
       <ellipse cx={-6} cy={-22} rx={2} ry={6} fill="#f472b6" opacity="0.4" />
       <ellipse cx={6} cy={-22} rx={2} ry={6} fill="#f472b6" opacity="0.4" />
-      {/* Legs (4 legs) */}
       <line x1={-8} y1={ICON_R} x2={-10} y2={ICON_R + 8} stroke="#7c3aed" strokeWidth="1.5" />
       <line x1={-3} y1={ICON_R} x2={-5} y2={ICON_R + 8} stroke="#7c3aed" strokeWidth="1.5" />
       <line x1={3} y1={ICON_R} x2={5} y2={ICON_R + 8} stroke="#7c3aed" strokeWidth="1.5" />
@@ -112,7 +100,6 @@ function RabbitIcon({ x, y }: { x: number; y: number }) {
 export default function ChickenRabbitLab({
   experiment,
 }: ChickenRabbitLabProps) {
-  // --- Read initial state from JSON config ---
   const initialState = experiment.scene.initialState;
   const initialHeads = clampHeads(
     typeof initialState.totalHeads === 'number' ? initialState.totalHeads : 35
@@ -121,11 +108,9 @@ export default function ChickenRabbitLab({
     typeof initialState.totalFeet === 'number' ? initialState.totalFeet : 94
   );
 
-  // --- State ---
   const [heads, setHeads] = useState(initialHeads);
   const [legs, setLegs] = useState(initialLegs);
 
-  // --- Derived ---
   const solution = useMemo(() => solveChickenRabbit(heads, legs), [heads, legs]);
   const steps = useMemo(
     () => chickenRabbitAssumptionSteps(heads, legs),
@@ -140,17 +125,15 @@ export default function ChickenRabbitLab({
   const rabbits = solution?.rabbits ?? 0;
   const isSolvable = solution !== null;
 
-  // --- SVG animal positions ---
   const chickenPositions = useMemo(
-    () => generatePositions(chickens, 80, 120),
+    () => generatePositions(chickens, 80, 130),
     [chickens]
   );
   const rabbitPositions = useMemo(
-    () => generatePositions(rabbits, 480, 120),
+    () => generatePositions(rabbits, 480, 130),
     [rabbits]
   );
 
-  // --- Handlers ---
   const handleHeadsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHeads(Number(e.target.value));
   };
@@ -167,88 +150,104 @@ export default function ChickenRabbitLab({
   // --- Result panel ---
   const resultPanel = (
     <div className="space-y-5">
-      <h3 className="text-lg font-semibold text-stone-800">
+      <h3 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
+        <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10 flex items-center justify-center text-sm">
+          🧮
+        </span>
         假设法推理
       </h3>
 
       {isSolvable ? (
         <>
           {/* Step-by-step reasoning */}
-          <div className="p-4 bg-stone-50 rounded-lg border border-stone-200 space-y-3">
-            <div className="flex items-start gap-3">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">1</span>
-              <div>
-                <p className="text-sm text-stone-600">假设全是鸡</p>
-                <p className="font-mono text-stone-800">
-                  {heads} &times; 2 = {steps.assumedAllChickenLegs} 只脚
-                </p>
+          <div className="p-5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] space-y-4">
+            {[
+              {
+                step: 1,
+                label: '假设全是鸡',
+                value: `${heads} × 2 = ${steps.assumedAllChickenLegs} 只脚`,
+                color: 'bg-blue-500',
+              },
+              {
+                step: 2,
+                label: '与实际脚数的差异',
+                value: `${legs} − ${steps.assumedAllChickenLegs} = ${fmt(steps.legDifference)} 只脚`,
+                color: 'bg-indigo-500',
+              },
+              {
+                step: 3,
+                label: '每只兔比鸡多 2 只脚',
+                value: `${fmt(steps.legDifference)} ÷ 2 = ${fmt(steps.rabbitsFromDifference)} 只兔`,
+                color: 'bg-purple-500',
+              },
+              {
+                step: 4,
+                label: '鸡的数量',
+                value: `${heads} − ${steps.rabbits} = ${steps.chickens} 只鸡`,
+                color: 'bg-amber-500',
+              },
+            ].map((item) => (
+              <div key={item.step} className="flex items-start gap-3">
+                <span
+                  className={`shrink-0 w-7 h-7 rounded-lg ${item.color} text-white text-xs font-bold flex items-center justify-center shadow-sm`}
+                >
+                  {item.step}
+                </span>
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-0.5">{item.label}</p>
+                  <p className="font-mono text-[var(--text-primary)] text-sm">
+                    {item.value}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">2</span>
-              <div>
-                <p className="text-sm text-stone-600">与实际脚数的差异</p>
-                <p className="font-mono text-stone-800">
-                  {legs} &minus; {steps.assumedAllChickenLegs} = {fmt(steps.legDifference)} 只脚
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">3</span>
-              <div>
-                <p className="text-sm text-stone-600">每只兔比鸡多 2 只脚</p>
-                <p className="font-mono text-stone-800">
-                  {fmt(steps.legDifference)} &divide; 2 = {fmt(steps.rabbitsFromDifference)} 只兔
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">4</span>
-              <div>
-                <p className="text-sm text-stone-600">鸡的数量</p>
-                <p className="font-mono text-stone-800">
-                  {heads} &minus; {steps.rabbits} = {steps.chickens} 只鸡
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Solution result */}
-          <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="text-center">
-                <p className="text-xs text-amber-600 mb-1">鸡</p>
-                <p className="text-3xl font-mono font-bold text-amber-900">
-                  {steps.chickens}
-                </p>
+          <div className="rounded-xl overflow-hidden">
+            <div className="p-5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-500/5 dark:to-orange-500/5 border border-amber-200/50 dark:border-amber-500/10">
+              <div className="flex items-center justify-center gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-500/10 mx-auto flex items-center justify-center mb-2">
+                    <span className="text-2xl">🐔</span>
+                  </div>
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mb-0.5">鸡</p>
+                  <p className="text-3xl font-mono font-bold text-amber-900 dark:text-amber-300">
+                    {steps.chickens}
+                  </p>
+                </div>
+                <div className="h-16 w-px bg-amber-200 dark:bg-amber-500/20" />
+                <div className="text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-500/10 mx-auto flex items-center justify-center mb-2">
+                    <span className="text-2xl">🐰</span>
+                  </div>
+                  <p className="text-xs text-purple-600 dark:text-purple-400 mb-0.5">兔</p>
+                  <p className="text-3xl font-mono font-bold text-purple-900 dark:text-purple-300">
+                    {steps.rabbits}
+                  </p>
+                </div>
               </div>
-              <span className="text-2xl text-stone-400">|</span>
-              <div className="text-center">
-                <p className="text-xs text-amber-600 mb-1">兔</p>
-                <p className="text-3xl font-mono font-bold text-amber-900">
-                  {steps.rabbits}
-                </p>
-              </div>
+              <p className="text-sm text-amber-700 dark:text-amber-400 text-center mt-4 font-mono p-2 rounded-lg bg-amber-100/50 dark:bg-amber-500/5">
+                ✅ 验证: {steps.chickens}×2 + {steps.rabbits}×4 = {steps.chickens * 2} + {steps.rabbits * 4} = {steps.chickens * 2 + steps.rabbits * 4}
+              </p>
             </div>
-            <p className="text-sm text-amber-700 text-center mt-3 font-mono">
-              验证: {steps.chickens}&times;2 + {steps.rabbits}&times;4 = {steps.chickens * 2} + {steps.rabbits * 4} = {steps.chickens * 2 + steps.rabbits * 4} ✓
-            </p>
           </div>
 
           {/* Equation connection */}
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <h4 className="text-sm font-medium text-green-800 mb-3">
+          <div className="rounded-xl p-5 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/5 dark:to-teal-500/5 border border-emerald-200/50 dark:border-emerald-500/10">
+            <h4 className="text-sm font-semibold text-emerald-800 dark:text-emerald-300 mb-4 flex items-center gap-2">
+              <span className="w-6 h-6 rounded-md bg-emerald-500/10 flex items-center justify-center text-xs">🔗</span>
               从假设法到方程
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs text-green-600 mb-2">古代假设法</p>
-                <p className="text-sm text-green-700">
+              <div className="p-3 rounded-lg bg-white/60 dark:bg-white/5">
+                <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-2">📜 古代假设法</p>
+                <p className="text-sm text-[var(--text-secondary)]">
                   假设全是鸡 → 差值分析 → 得到答案
                 </p>
               </div>
-              <div>
-                <p className="text-xs text-green-600 mb-2">现代方程组</p>
+              <div className="p-3 rounded-lg bg-white/60 dark:bg-white/5">
+                <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-2">📐 现代方程组</p>
                 <div className="space-y-1">
                   <FormulaDisplay
                     formula={equations.equation1}
@@ -263,38 +262,42 @@ export default function ChickenRabbitLab({
                 </div>
               </div>
             </div>
-            <div className="mt-3 pt-3 border-t border-green-200">
-              <p className="text-xs text-green-600 mb-1">消元法（假设法的本质）</p>
-              <FormulaDisplay
-                formula={equations.eliminationFormula}
-                displayMode={false}
-                className="text-sm"
-              />
+            <div className="mt-4 pt-4 border-t border-emerald-200/50 dark:border-emerald-500/10">
+              <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-2">⚡ 消元法（假设法的本质）</p>
+              <div className="p-3 rounded-lg bg-white/60 dark:bg-white/5">
+                <FormulaDisplay
+                  formula={equations.eliminationFormula}
+                  displayMode={false}
+                  className="text-sm"
+                />
+              </div>
             </div>
           </div>
         </>
       ) : (
-        /* No solution提示 */
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-          <h4 className="text-sm font-medium text-red-800 mb-2">
-            无整数解
+        /* No solution */
+        <div className="p-5 rounded-xl bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-500/5 dark:to-rose-500/5 border border-red-200/50 dark:border-red-500/10">
+          <h4 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-2 flex items-center gap-2">
+            <span className="text-lg">⚠️</span> 无整数解
           </h4>
-          <p className="text-sm text-red-700 mb-3">
+          <p className="text-sm text-red-700 dark:text-red-400 mb-3">
             脚数必须满足以下条件：
           </p>
-          <ul className="text-sm text-red-700 space-y-1 list-disc list-inside">
-            <li>
+          <ul className="text-sm text-red-700 dark:text-red-400 space-y-1.5 ml-1">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 dark:bg-red-500" />
               脚数必须是偶数（鸡和兔的脚都是偶数）
             </li>
-            <li>
-              2 &times; 头数 &le; 脚数 &le; 4 &times; 头数
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 dark:bg-red-500" />
+              2 × 头数 ≤ 脚数 ≤ 4 × 头数
             </li>
           </ul>
-          <div className="mt-3 p-3 bg-red-100 rounded-lg">
-            <p className="text-sm text-red-800 font-mono">
+          <div className="mt-3 p-3 rounded-lg bg-red-100/50 dark:bg-red-500/10 font-mono text-sm">
+            <p className="text-red-800 dark:text-red-300">
               当前: 头={heads}, 脚={legs}
             </p>
-            <p className="text-sm text-red-800 font-mono">
+            <p className="text-red-800 dark:text-red-300">
               有效范围: [{2 * heads}, {4 * heads}]
               {legs % 2 !== 0 && '，且脚数必须是偶数'}
             </p>
@@ -312,11 +315,12 @@ export default function ChickenRabbitLab({
         className="w-full h-auto"
         style={{ touchAction: 'none' }}
       >
-        {/* Background */}
-        <rect width={SVG_W} height={SVG_H} fill="#fafaf9" />
-
-        {/* Grid pattern */}
+        {/* Background gradient */}
         <defs>
+          <linearGradient id="cr-bg-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--bg-card, #ffffff)" />
+            <stop offset="100%" stopColor="var(--bg-secondary, #f5f3f0)" />
+          </linearGradient>
           <pattern
             id="cr-grid"
             width="40"
@@ -326,11 +330,12 @@ export default function ChickenRabbitLab({
             <path
               d="M 40 0 L 0 0 0 40"
               fill="none"
-              stroke="#e7e5e4"
+              stroke="var(--border-light, #e7e5e4)"
               strokeWidth="0.5"
             />
           </pattern>
         </defs>
+        <rect width={SVG_W} height={SVG_H} fill="url(#cr-bg-grad)" />
         <rect width={SVG_W} height={SVG_H} fill="url(#cr-grid)" />
 
         {/* Title */}
@@ -339,73 +344,71 @@ export default function ChickenRabbitLab({
           y={30}
           textAnchor="middle"
           fontSize="18"
-          fontWeight="600"
-          fill="#44403c"
+          fontWeight="700"
+          fill="var(--text-primary, #44403c)"
         >
           鸡兔同笼
         </text>
 
-        {/* Problem statement */}
+        {/* Problem statement badge */}
+        <rect
+          x={SVG_W / 2 - 60}
+          y={42}
+          width={120}
+          height={26}
+          rx={13}
+          fill="var(--accent-primary, #4f46e5)"
+          opacity="0.1"
+        />
         <text
           x={SVG_W / 2}
-          y={55}
+          y={59}
           textAnchor="middle"
           fontSize="13"
-          fill="#78716c"
+          fontWeight="600"
+          fill="var(--accent-primary, #4f46e5)"
         >
           {heads} 头 {legs} 脚
         </text>
 
         {isSolvable ? (
           <>
-            {/* Chicken section label */}
+            {/* Chicken section */}
+            <rect x={20} y={78} width={360} height={32} rx={10} fill="#f59e0b" opacity="0.08" />
             <text
-              x={160}
-              y={88}
+              x={200}
+              y={100}
               textAnchor="middle"
               fontSize="14"
               fontWeight="600"
               fill="#d97706"
             >
-              鸡 &times; {chickens}
-            </text>
-            <text
-              x={160}
-              y={104}
-              textAnchor="middle"
-              fontSize="11"
-              fill="#92400e"
-            >
-              {chickens} &times; 2 = {chickens * 2} 脚
+              🐔 鸡 × {chickens}
+              <tspan dx={12} fontSize="11" fill="#92400e" opacity={0.7}>
+                ({chickens} × 2 = {chickens * 2} 脚)
+              </tspan>
             </text>
 
-            {/* Chicken icons */}
             {chickenPositions.map((pos, i) => (
               <ChickenIcon key={`c-${i}`} x={pos.x} y={pos.y} />
             ))}
 
-            {/* Rabbit section label */}
+            {/* Rabbit section */}
+            <rect x={420} y={78} width={360} height={32} rx={10} fill="#a78bfa" opacity="0.08" />
             <text
-              x={560}
-              y={88}
+              x={600}
+              y={100}
               textAnchor="middle"
               fontSize="14"
               fontWeight="600"
               fill="#7c3aed"
             >
-              兔 &times; {rabbits}
-            </text>
-            <text
-              x={560}
-              y={104}
-              textAnchor="middle"
-              fontSize="11"
-              fill="#5b21b6"
-            >
-              {rabbits} &times; 4 = {rabbits * 4} 脚
+              🐰 兔 × {rabbits}
+              <tspan dx={12} fontSize="11" fill="#5b21b6" opacity={0.7}>
+                ({rabbits} × 4 = {rabbits * 4} 脚)
+              </tspan>
             </text>
 
-            {/* Rabbit icons */}
             {rabbitPositions.map((pos, i) => (
               <RabbitIcon key={`r-${i}`} x={pos.x} y={pos.y} />
             ))}
@@ -413,57 +416,66 @@ export default function ChickenRabbitLab({
             {/* Divider */}
             <line
               x1={400}
-              y1={75}
+              y1={80}
               x2={400}
-              y2={SVG_H - 20}
-              stroke="#d6d3d1"
+              y2={SVG_H - 35}
+              stroke="var(--border-color, #d6d3d1)"
               strokeWidth="1"
               strokeDasharray="4 4"
             />
 
-            {/* Total feet */}
+            {/* Total bar */}
+            <rect
+              x={SVG_W / 2 - 150}
+              y={SVG_H - 32}
+              width={300}
+              height={28}
+              rx={14}
+              fill="var(--accent-primary, #4f46e5)"
+              opacity="0.08"
+            />
             <text
               x={SVG_W / 2}
-              y={SVG_H - 10}
+              y={SVG_H - 14}
               textAnchor="middle"
               fontSize="13"
               fontWeight="600"
-              fill="#44403c"
+              fill="var(--accent-primary, #4f46e5)"
             >
-              合计: {chickens * 2} + {rabbits * 4} = {legs} 脚 ✓
+              ✅ 合计: {chickens * 2} + {rabbits * 4} = {legs} 脚
             </text>
           </>
         ) : (
-          /* No solution message */
-          <text
-            x={SVG_W / 2}
-            y={SVG_H / 2}
-            textAnchor="middle"
-            fontSize="16"
-            fill="#dc2626"
-          >
-            此组合无整数解
-          </text>
+          <>
+            <text
+              x={SVG_W / 2}
+              y={SVG_H / 2 - 10}
+              textAnchor="middle"
+              fontSize="40"
+              fill="var(--text-muted, #a8a29e)"
+            >
+              ⚠️
+            </text>
+            <text
+              x={SVG_W / 2}
+              y={SVG_H / 2 + 25}
+              textAnchor="middle"
+              fontSize="16"
+              fontWeight="500"
+              fill="var(--text-muted, #dc2626)"
+            >
+              此组合无整数解
+            </text>
+          </>
         )}
-
-        {/* Instructions */}
-        <text
-          x={SVG_W / 2}
-          y={SVG_H - (isSolvable ? 30 : 50)}
-          textAnchor="middle"
-          fontSize="11"
-          fill="#a8a29e"
-        >
-          拖动滑块调整头数和脚数 · 观察假设法如何推导出答案
-        </text>
       </svg>
 
       {/* Sliders + Presets */}
-      <div className="px-6 py-4 bg-white border-t border-stone-100 space-y-4">
+      <div className="px-6 py-5 bg-[var(--bg-card)] border-t border-[var(--border-color)] space-y-4">
         {/* Heads slider */}
         <div className="flex items-center gap-4">
-          <label className="text-sm text-stone-600 w-16 shrink-0">
-            总头数
+          <label className="text-sm text-[var(--text-secondary)] w-16 shrink-0 font-medium">
+            🐔 头数
           </label>
           <input
             type="range"
@@ -472,17 +484,17 @@ export default function ChickenRabbitLab({
             step={1}
             value={heads}
             onChange={handleHeadsChange}
-            className="flex-1 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+            className="flex-1 h-2 bg-[var(--bg-secondary)] rounded-lg appearance-none cursor-pointer accent-amber-500"
           />
-          <span className="text-lg font-mono font-bold text-stone-800 w-12 text-right">
+          <span className="text-lg font-mono font-bold text-[var(--text-primary)] w-12 text-right">
             {heads}
           </span>
         </div>
 
         {/* Legs slider */}
         <div className="flex items-center gap-4">
-          <label className="text-sm text-stone-600 w-16 shrink-0">
-            总脚数
+          <label className="text-sm text-[var(--text-secondary)] w-16 shrink-0 font-medium">
+            🦶 脚数
           </label>
           <input
             type="range"
@@ -491,25 +503,25 @@ export default function ChickenRabbitLab({
             step={1}
             value={legs}
             onChange={handleLegsChange}
-            className="flex-1 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+            className="flex-1 h-2 bg-[var(--bg-secondary)] rounded-lg appearance-none cursor-pointer accent-amber-500"
           />
-          <span className="text-lg font-mono font-bold text-stone-800 w-12 text-right">
+          <span className="text-lg font-mono font-bold text-[var(--text-primary)] w-12 text-right">
             {legs}
           </span>
         </div>
 
         {/* Preset buttons */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs text-stone-500 w-16 shrink-0">经典题目</span>
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <span className="text-xs text-[var(--text-muted)] w-16 shrink-0 font-medium">📚 经典</span>
           {PRESETS.map((p) => (
             <button
               key={p.label}
               onClick={() => applyPreset(p.heads, p.legs)}
               title={p.desc}
-              className={`px-3 py-1.5 text-sm font-mono rounded-lg border transition-colors ${
+              className={`px-3 py-1.5 text-sm font-mono rounded-lg border transition-all duration-200 ${
                 heads === p.heads && legs === p.legs
-                  ? 'bg-amber-600 text-white border-amber-600'
-                  : 'bg-white text-stone-700 border-stone-300 hover:bg-stone-50'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-500 shadow-sm shadow-amber-500/25'
+                  : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-[var(--border-color)] hover:border-amber-400 hover:text-amber-600'
               }`}
             >
               {p.label}

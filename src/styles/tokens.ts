@@ -51,18 +51,50 @@ export const colors = {
     900: '#171717',
   },
   // 背景色
-  background: '#fafaf9',
+  background: '#faf9f7',
   surface: '#ffffff',
   // 文本色
-  textPrimary: '#1c1917',
-  textSecondary: '#57534e',
-  textMuted: '#a8a29e',
+  textPrimary: '#1a1a2e',
+  textSecondary: '#4a4a6a',
+  textMuted: '#8888a8',
 } as const;
+
+/** 时代渐变色对 */
+export const gradients: Record<string, [string, string]> = {
+  'ancient-egypt': ['#d4a574', '#c4956a'],
+  'ancient-babylon': ['#c4956a', '#a07850'],
+  'ancient-greece': ['#6b8cce', '#4a6cb8'],
+  'ancient-china': ['#d4574e', '#b83a32'],
+  'ancient-india': ['#e8a838', '#d09020'],
+  'islamic-golden-age': ['#4a9e7a', '#358562'],
+  'medieval-europe': ['#8b7355', '#735d42'],
+  'renaissance': ['#9b6b9e', '#7d4d80'],
+  'early-modern': ['#5a8f7a', '#427562'],
+  '18th-century': ['#7a8b9e', '#5c6d80'],
+  '19th-century': ['#6a7a8a', '#4c5c6c'],
+  'modern': ['#4a6a8a', '#2c4c6c'],
+};
+
+/** 时代图标 */
+export const eraIcons: Record<string, string> = {
+  'ancient-egypt': '🏛️',
+  'ancient-babylon': '⭐',
+  'ancient-greece': '🏛️',
+  'ancient-china': '🏯',
+  'ancient-india': '🕉️',
+  'islamic-golden-age': '☪️',
+  'medieval-europe': '⚔️',
+  'renaissance': '🎨',
+  'early-modern': '🔭',
+  '18th-century': '⚙️',
+  '19th-century': '📐',
+  'modern': '💻',
+};
 
 export const typography = {
   fontFamily: {
     sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-    serif: ['Georgia', 'Cambria', 'serif'],
+    serif: ['Noto Serif SC', 'Georgia', 'Cambria', 'serif'],
     mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
   },
   fontSize: {
@@ -120,4 +152,19 @@ export const shadows = {
   md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
   xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+} as const;
+
+/** 动画令牌 */
+export const animation = {
+  duration: {
+    fast: '150ms',
+    normal: '300ms',
+    slow: '500ms',
+    verySlow: '1000ms',
+  },
+  easing: {
+    default: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    smooth: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+  },
 } as const;

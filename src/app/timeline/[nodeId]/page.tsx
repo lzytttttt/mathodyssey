@@ -1,13 +1,17 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getNodeById, getAllNodeIds } from '@/lib/data/nodes';
+import { getNodeById, getAllNodeIds, getAllNodes } from '@/lib/data/nodes';
+import { eras } from '@/lib/data/eras';
+import { gradients } from '@/styles/tokens';
+import NodeHero from '@/components/content/NodeHero';
+import SectionNav from '@/components/content/SectionNav';
 import NarrativeCard from '@/components/content/NarrativeCard';
 import ConceptCard from '@/components/content/ConceptCard';
 import ObjectiveCard from '@/components/content/ObjectiveCard';
 import ExperimentEntry from '@/components/content/ExperimentEntry';
 import ChallengeQuiz from '@/components/challenges/ChallengeQuiz';
 import Card from '@/components/ui/Card';
-import { colors } from '@/styles/tokens';
+import Button from '@/components/ui/Button';
 import { DIFFICULTY_LABELS } from '@/lib/challenges/constants';
 
 interface PageProps {
@@ -34,113 +38,174 @@ export default async function NodeDetailPage({ params }: PageProps) {
   const node = await getNodeById(nodeId);
   if (!node) notFound();
 
+  const allNodes = await getAllNodes();
+  const currentIndex = allNodes.findIndex((n) => n.id === nodeId);
+  const prevNode = currentIndex > 0 ? allNodes[currentIndex - 1] : null;
+  const nextNode = currentIndex < allNodes.length - 1 ? allNodes[currentIndex + 1] : null;
+
+  const eraInfo = eras.find((e) => e.id === node.era);
+  const eraName = eraInfo?.name || node.era;
+
+  // Build sections list for SectionNav
+  const sections = [
+    { id: 'narrative', label: '历史故事', icon: '📜' },
+    ...(node.keyFigures && node.keyFigures.length > 0
+      ? [{ id: 'figures', label: '关键人物', icon: '👤' }]
+      : []),
+    { id: 'concepts', label: '数学概念', icon: '📐' },
+    { id: 'objectives', label: '学习目标', icon: '🎯' },
+    { id: 'experiments', label: '互动实验', icon: '🔬' },
+    ...(node.challenges && node.challenges.length > 0
+      ? [{ id: 'challenges', label: '挑战问题', icon: '⚡' }]
+      : []),
+    ...(node.modernConnections.length > 0
+      ? [{ id: 'connections', label: '现代连接', icon: '🔗' }]
+      : []),
+  ];
+
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen">
       {/* 顶部导航 */}
-      <div className="bg-white border-b border-stone-200 py-3 px-4">
-        <div className="max-w-4xl mx-auto">
-          <Link href="/" className="text-blue-600 hover:text-blue-700 text-sm">
+      <div className="border-b border-[var(--border-color)] py-3 px-4 bg-[var(--bg-card)]">
+        <div className="max-w-4xl mx-auto flex items-center gap-3">
+          <Link href="/" className="text-[var(--accent-primary)] hover:opacity-80 text-sm transition-opacity">
             ← 返回时间轴
           </Link>
+          <span className="text-[var(--text-muted)]">·</span>
+          <span className="text-sm text-[var(--text-muted)]">
+            {currentIndex + 1} / {allNodes.length}
+          </span>
         </div>
       </div>
 
-      {/* 节点头部 */}
-      <div className="bg-white py-8 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <span
-                className="text-xs px-2 py-0.5 rounded-full text-white"
-                style={{ backgroundColor: colors.era[node.era] }}
-              >
-                {node.timePeriod.display}
-              </span>
-              <span className="ml-2 text-xs px-2 py-0.5 rounded bg-stone-100 text-stone-600">
-                {DIFFICULTY_LABELS[node.difficulty]}
-              </span>
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-stone-800 mb-2">
-            {node.title}
-          </h1>
-          {node.subtitle && (
-            <p className="text-lg text-stone-500 mb-4">{node.subtitle}</p>
-          )}
-          <p className="text-stone-600 text-lg">
-            {node.historicalProblem}
-          </p>
-        </div>
-      </div>
+      {/* Section navigation */}
+      <SectionNav sections={sections} />
+
+      {/* Node Hero */}
+      <NodeHero
+        title={node.title}
+        subtitle={node.subtitle}
+        era={node.era}
+        eraName={eraName}
+        timePeriodDisplay={node.timePeriod.display}
+        difficulty={node.difficulty}
+        difficultyLabel={DIFFICULTY_LABELS[node.difficulty]}
+        historicalProblem={node.historicalProblem}
+      />
 
       {/* 内容区域 */}
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
         {/* 历史叙述 */}
-        <NarrativeCard narrative={node.narrative} />
+        <div id="narrative">
+          <NarrativeCard narrative={node.narrative} era={node.era} />
+        </div>
 
         {/* 关键人物 */}
         {node.keyFigures && node.keyFigures.length > 0 && (
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold text-stone-800 mb-4">关键人物</h3>
-            <div className="space-y-4">
-              {node.keyFigures.map((figure, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
-                    {figure.name[0]}
+          <div id="figures">
+            <Card variant="glass" era={node.era} className="p-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">👤 关键人物</h3>
+              <div className="space-y-4">
+                {node.keyFigures.map((figure, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                      style={{
+                        background: `linear-gradient(135deg, ${
+                          gradients[node.era]?.[0] || '#6366f1'
+                        }, ${
+                          gradients[node.era]?.[1] || '#4f46e5'
+                        })`,
+                      }}
+                    >
+                      {figure.name[0]}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[var(--text-primary)]">{figure.name}</h4>
+                      <p className="text-sm text-[var(--text-muted)]">{figure.lifespan}</p>
+                      <p className="text-[var(--text-secondary)] mt-1">{figure.bio}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-stone-800">{figure.name}</h4>
-                    <p className="text-sm text-stone-500">{figure.lifespan}</p>
-                    <p className="text-stone-600 mt-1">{figure.bio}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
 
         {/* 数学概念 */}
-        <ConceptCard concepts={node.mathConcepts} />
+        <div id="concepts">
+          <ConceptCard concepts={node.mathConcepts} era={node.era} />
+        </div>
 
         {/* 学习目标 */}
-        <ObjectiveCard objectives={node.learningObjectives} />
+        <div id="objectives">
+          <ObjectiveCard objectives={node.learningObjectives} />
+        </div>
 
         {/* 互动实验 */}
-        <ExperimentEntry experiments={node.experiments} nodeId={node.id} />
+        <div id="experiments">
+          <ExperimentEntry experiments={node.experiments} nodeId={node.id} />
+        </div>
 
         {/* 挑战问题 */}
         {node.challenges && node.challenges.length > 0 && (
-          <ChallengeQuiz challenges={node.challenges} />
+          <div id="challenges">
+            <ChallengeQuiz challenges={node.challenges} />
+          </div>
         )}
 
         {/* 现代连接 */}
         {node.modernConnections.length > 0 && (
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold text-stone-800 mb-4">现代连接</h3>
-            <ul className="space-y-2">
-              {node.modernConnections.map((connection, index) => (
-                <li key={index} className="flex items-center gap-2 text-stone-600">
-                  <span className="w-2 h-2 rounded-full bg-blue-400" />
-                  {connection}
-                </li>
-              ))}
-            </ul>
-          </Card>
+          <div id="connections">
+            <Card variant="glass" era={node.era} className="p-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">🔗 现代连接</h3>
+              <ul className="space-y-2">
+                {node.modernConnections.map((connection, index) => (
+                  <li key={index} className="flex items-center gap-2 text-[var(--text-secondary)]">
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent-primary)] opacity-60" />
+                    {connection}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </div>
         )}
 
         {/* 参考资料 */}
         {node.references && node.references.length > 0 && (
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold text-stone-800 mb-4">参考资料</h3>
+          <Card variant="default" className="p-6">
+            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">📚 参考资料</h3>
             <ul className="space-y-2">
               {node.references.map((ref, index) => (
-                <li key={index} className="text-sm text-stone-600">
+                <li key={index} className="text-sm text-[var(--text-secondary)]">
                   {ref.author}, <em>{ref.title}</em>, {ref.year}
                 </li>
               ))}
             </ul>
           </Card>
         )}
+
+        {/* 底部导航 */}
+        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-color)]">
+          {prevNode ? (
+            <Link href={`/timeline/${prevNode.id}`}>
+              <Button variant="ghost" size="sm">
+                ← {prevNode.title}
+              </Button>
+            </Link>
+          ) : (
+            <div />
+          )}
+          {nextNode ? (
+            <Link href={`/timeline/${nextNode.id}`}>
+              <Button variant="ghost" size="sm">
+                {nextNode.title} →
+              </Button>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     </div>
   );
