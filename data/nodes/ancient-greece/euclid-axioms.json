@@ -118,6 +118,15 @@
       "explanation": "公理是推理的起点，不需要证明。定理需要从公理出发，通过逻辑推理来证明。",
       "hints": ["想想什么是起点", "想想什么是推导出来的"],
       "difficulty": "L2"
+    },
+    {
+      "id": "euclid-challenge-2",
+      "question": "欧几里得《几何原本》中有多少个公设（postulate）？",
+      "type": "historical-recreation",
+      "answer": "5",
+      "explanation": "欧几里得提出了 5 个公设：(1) 两点确定一条直线，(2) 线段可无限延伸，(3) 以任意点为圆心任意距离为半径画圆，(4) 所有直角相等，(5) 平行公设。",
+      "hints": ["回忆实验中用到了哪些公设", "这是一个比较小的数字"],
+      "difficulty": "L2"
     }
   ],
   "modernConnections": [

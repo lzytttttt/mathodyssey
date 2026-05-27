@@ -129,6 +129,15 @@
       "explanation": "6x / 2 = 3x，所以 x^2 + 6x + 9 = (x + 3)^2",
       "hints": ["取一次项系数的一半", "3^2 = 9"],
       "difficulty": "L2"
+    },
+    {
+      "id": "algebra-challenge-2",
+      "question": "algebra（代数）一词来自哪本著作的书名？",
+      "type": "historical-recreation",
+      "answer": "al-jabr wa'l-muqabala",
+      "explanation": "algebra 来自花拉子密著作《al-jabr wa'l-muqabala》中的 al-jabr（恢复、补全）一词。",
+      "hints": ["书名中有 al-jabr", "这是一本关于方程求解的书"],
+      "difficulty": "L1"
     }
   ],
   "modernConnections": [

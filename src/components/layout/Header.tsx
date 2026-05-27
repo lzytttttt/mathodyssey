@@ -28,10 +28,28 @@ export default function Header() {
               时间轴
             </Link>
             <Link
+              href="/guide"
+              className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors text-sm hidden sm:inline"
+            >
+              指南
+            </Link>
+            <Link
+              href="/faq"
+              className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors text-sm hidden sm:inline"
+            >
+              FAQ
+            </Link>
+            <Link
               href="/about"
               className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors text-sm"
             >
               关于
+            </Link>
+            <Link
+              href="/contribute"
+              className="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors text-sm hidden md:inline"
+            >
+              贡献
             </Link>
 
             {/* Theme toggle */}

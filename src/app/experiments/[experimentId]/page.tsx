@@ -1,26 +1,43 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { getAllNodes } from '@/lib/data/nodes';
 import { colors, gradients, eraIcons } from '@/styles/tokens';
 import {
   hasExperimentComponent,
   loadExperimentComponent,
 } from '@/lib/experiments/registry';
+import ExperimentWrapper from '@/components/experiments/ExperimentWrapper';
 
 interface PageProps {
   params: Promise<{ experimentId: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { experimentId } = await params;
   const nodes = await getAllNodes();
   const experiment = nodes
     .flatMap((n) => n.experiments)
     .find((e) => e.id === experimentId);
   if (!experiment) return { title: '未找到实验' };
+
+  const description = experiment.description.length > 160
+    ? experiment.description.substring(0, 157) + '...'
+    : experiment.description;
+
   return {
-    title: `${experiment.title} — MathOdyssey`,
-    description: experiment.description,
+    title: experiment.title,
+    description,
+    openGraph: {
+      title: `${experiment.title} — MathOdyssey`,
+      description,
+      type: 'website',
+      url: `https://mathodyssey.com/experiments/${experimentId}`,
+      siteName: 'MathOdyssey',
+    },
+    alternates: {
+      canonical: `https://mathodyssey.com/experiments/${experimentId}`,
+    },
   };
 }
 
@@ -92,7 +109,7 @@ export default async function ExperimentPage({ params }: PageProps) {
           </div>
 
           {/* Interactive experiment */}
-          <ExperimentComponent experiment={experiment} />
+          <ExperimentWrapper Component={ExperimentComponent} experiment={experiment} />
         </div>
       );
     }

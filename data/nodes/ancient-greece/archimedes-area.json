@@ -120,6 +120,15 @@
       "explanation": "S = pi*r^2 = 3.14 x 49 = 153.86",
       "hints": ["使用圆面积公式", "先计算 r 的平方"],
       "difficulty": "L2"
+    },
+    {
+      "id": "archimedes-challenge-2",
+      "question": "阿基米德用多少边形得到了 pi 的两位小数精度？",
+      "type": "historical-recreation",
+      "answer": "96",
+      "explanation": "阿基米德用内接和外切正 96 边形夹逼，得到 3.1408 < pi < 3.1429，精确到小数点后两位。",
+      "hints": ["试试实验中的最大边数", "这是一个接近 100 的数字"],
+      "difficulty": "L2"
     }
   ],
   "modernConnections": [

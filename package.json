@@ -1,6 +1,6 @@
 {
   "name": "mathodyssey",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "d3": "^7.9.0",
     "framer-motion": "^12.38.0",
     "katex": "^0.16.46",
     "next": "16.2.6",
@@ -20,7 +19,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/d3": "^7.4.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

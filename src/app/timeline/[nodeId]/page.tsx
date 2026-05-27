@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { getNodeById, getAllNodeIds, getAllNodes } from '@/lib/data/nodes';
 import { eras } from '@/lib/data/eras';
 import { gradients } from '@/styles/tokens';
@@ -23,13 +24,51 @@ export async function generateStaticParams() {
   return ids.map((nodeId) => ({ nodeId }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { nodeId } = await params;
   const node = await getNodeById(nodeId);
   if (!node) return { title: '未找到节点' };
+
+  const eraInfo = eras.find((e) => e.id === node.era);
+  const eraName = eraInfo?.name || node.era;
+
+  const description = node.historicalProblem.length > 160
+    ? node.historicalProblem.substring(0, 157) + '...'
+    : node.historicalProblem;
+
   return {
-    title: `${node.title} — MathOdyssey`,
-    description: node.historicalProblem,
+    title: node.title,
+    description,
+    keywords: [
+      node.title,
+      ...node.mathConcepts.map((c) => c.name),
+      node.era,
+      '数学史',
+      '互动实验',
+    ],
+    openGraph: {
+      title: `${node.title} — MathOdyssey`,
+      description,
+      type: 'article',
+      url: `https://mathodyssey.com/timeline/${nodeId}`,
+      siteName: 'MathOdyssey',
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(node.title)}&era=${encodeURIComponent(eraName)}`,
+          width: 1200,
+          height: 630,
+          alt: node.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${node.title} — MathOdyssey`,
+      description,
+    },
+    alternates: {
+      canonical: `https://mathodyssey.com/timeline/${nodeId}`,
+    },
   };
 }
 
@@ -45,6 +84,24 @@ export default async function NodeDetailPage({ params }: PageProps) {
 
   const eraInfo = eras.find((e) => e.id === node.era);
   const eraName = eraInfo?.name || node.era;
+
+  // JSON-LD structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: node.title,
+    description: node.historicalProblem,
+    url: `https://mathodyssey.com/timeline/${nodeId}`,
+    educationalLevel: 'K12',
+    learningResourceType: 'Interactive Resource',
+    teaches: node.mathConcepts.map((c) => c.name),
+    inLanguage: 'zh-CN',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'MathOdyssey',
+      url: 'https://mathodyssey.com',
+    },
+  };
 
   // Build sections list for SectionNav
   const sections = [
@@ -65,6 +122,10 @@ export default async function NodeDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 顶部导航 */}
       <div className="border-b border-[var(--border-color)] py-3 px-4 bg-[var(--bg-card)]">
         <div className="max-w-4xl mx-auto flex items-center gap-3">

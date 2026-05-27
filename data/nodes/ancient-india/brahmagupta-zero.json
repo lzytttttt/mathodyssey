@@ -135,6 +135,15 @@
       "explanation": "3 + (-5) = 3 - 5 = -2",
       "hints": ["正数加负数等于相减"],
       "difficulty": "L1"
+    },
+    {
+      "id": "zero-challenge-2",
+      "question": "(-4) x (-6) = ?",
+      "type": "concept-application",
+      "answer": "24",
+      "explanation": "负数乘以负数等于正数。(-4) x (-6) = 24。",
+      "hints": ["负负得正", "先算 4 x 6"],
+      "difficulty": "L2"
     }
   ],
   "modernConnections": [
